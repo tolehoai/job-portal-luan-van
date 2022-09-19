@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,11 +24,13 @@
     @yield('styles')
 </head>
 <body>
-@include('partial.header')
+<div id="app">
+    @include('partial.header')
 
-@yield('content')
+    @yield('content')
 
-@include('partial.footer')
+    @include('partial.footer')
+</div>
 
 {{--Scripts js common--}}
 <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
