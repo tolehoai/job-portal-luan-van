@@ -3,7 +3,7 @@
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    <a href="index.html"><img src="{{ asset('images/logo/logo.png') }}" alt="Logo"
+                    <a href="index.html"><img src="{{ asset('admin_resource/images/logo/logo.png') }}" alt="Logo"
                                               srcset=""></a>
                 </div>
                 <div class="toggler">
@@ -374,7 +374,7 @@
                     id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                 <img class="rounded-circle header-profile-user"
-                     src="{{ asset('images/users/avatar-3.png') }}"
+                     src="{{ asset('admin_resource/images/users/avatar-3.png') }}"
                      style="width: 40px;" alt="Header Avatar">
                 <span class="ms-2 d-none d-xl-inline-block user-item-desc">
                                 <span class="user-name">Hoai To <i class="mdi mdi-chevron-down"></i></span>

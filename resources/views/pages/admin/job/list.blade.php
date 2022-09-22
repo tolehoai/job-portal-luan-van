@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.admin.master')
 
 @section('title', 'Admin')
 
@@ -178,7 +178,7 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <p>You can also invert the colors—with light text on dark backgrounds—with <code
-                                            class="highlighter-rouge">.table-dark</code>.</p>
+                                                class="highlighter-rouge">.table-dark</code>.</p>
                                 </div>
                                 <!-- table with dark -->
                                 <div class="table-responsive">
@@ -249,7 +249,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>You can also invert the colors—with dark text on light backgrounds—with <code
-                                            class="highlighter-rouge">.table-light</code>.</p>
+                                                class="highlighter-rouge">.table-light</code>.</p>
                                 </div>
                                 <!-- table with light -->
                                 <div class="table-responsive">
@@ -272,8 +272,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Taxes</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-white text-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-white text-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Morgan Vanblum</td>
@@ -282,8 +282,8 @@
                                             <td>Remote</td>
                                             <td>Shangai,China</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-white text-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-white text-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Tiffani Blogz</td>
@@ -292,8 +292,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-white text-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-white text-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Ashley Boul</td>
@@ -302,8 +302,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-white text-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-white text-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -312,8 +312,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-white text-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-white text-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -335,8 +335,8 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <p>Similar to tables and dark tables, use the modifier classes <code
-                                            class="highlighter-rouge">.thead-light</code> or <code
-                                            class="highlighter-rouge">.thead-dark</code> to
+                                                class="highlighter-rouge">.thead-light</code> or <code
+                                                class="highlighter-rouge">.thead-dark</code> to
                                         make <code class="highlighter-rouge">&lt;thead&gt;</code>s appear light or
                                         dark gray.
                                     </p>
@@ -362,8 +362,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Taxes</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Morgan Vanblum</td>
@@ -372,8 +372,8 @@
                                             <td>Remote</td>
                                             <td>Shangai,China</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Tiffani Blogz</td>
@@ -382,8 +382,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Ashley Boul</td>
@@ -392,8 +392,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -402,8 +402,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -454,8 +454,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Taxes</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Morgan Vanblum</td>
@@ -464,8 +464,8 @@
                                             <td>Remote</td>
                                             <td>Shangai,China</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Tiffani Blogz</td>
@@ -474,8 +474,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Ashley Boul</td>
@@ -484,8 +484,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -494,8 +494,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -640,8 +640,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Taxes</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Morgan Vanblum</td>
@@ -650,8 +650,8 @@
                                             <td>Remote</td>
                                             <td>Shangai,China</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Tiffani Blogz</td>
@@ -660,8 +660,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Ashley Boul</td>
@@ -670,8 +670,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -680,8 +680,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -730,8 +730,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Taxes</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Morgan Vanblum</td>
@@ -740,8 +740,8 @@
                                             <td>Remote</td>
                                             <td>Shangai,China</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Tiffani Blogz</td>
@@ -750,8 +750,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Ashley Boul</td>
@@ -760,8 +760,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -770,8 +770,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -821,8 +821,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Taxes</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Morgan Vanblum</td>
@@ -831,8 +831,8 @@
                                             <td>Remote</td>
                                             <td>Shangai,China</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Tiffani Blogz</td>
@@ -841,8 +841,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Ashley Boul</td>
@@ -851,8 +851,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -861,8 +861,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -911,8 +911,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Taxes</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-primary">
                                             <td class="text-bold-500">Morgan Vanblum</td>
@@ -921,8 +921,8 @@
                                             <td>Remote</td>
                                             <td>Shangai,China</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-secondary">
                                             <td class="text-bold-500">Tiffani Blogz</td>
@@ -931,8 +931,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-success">
                                             <td class="text-bold-500">Ashley Boul</td>
@@ -941,8 +941,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-danger">
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -951,8 +951,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-warning">
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -961,8 +961,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-info">
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -971,8 +971,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-light">
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -981,8 +981,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         <tr class="table-dark">
                                             <td class="text-bold-500">Mikkey Mice</td>
@@ -991,8 +991,8 @@
                                             <td>Remote</td>
                                             <td>Austin,Texas</td>
                                             <td><a href="#"><i
-                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                        data-feather="mail"></i></a></td>
+                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                            data-feather="mail"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1024,17 +1024,17 @@
                                         to
                                         have a responsive
                                         table up to by adding <code
-                                            class="highlighter-rouge"> .table-responsive{-sm|-md|-lg|-xl}</code>.
+                                                class="highlighter-rouge"> .table-responsive{-sm|-md|-lg|-xl}</code>.
                                         Read full
                                         documnetation <a
-                                            href="https://getbootstrap.com/docs/4.3/content/tables/#responsive-tables"
-                                            target="_blank">here.</a>
+                                                href="https://getbootstrap.com/docs/4.3/content/tables/#responsive-tables"
+                                                target="_blank">here.</a>
                                     </p>
 
                                     <div class="alert alert-primary">
                                         <h4 class="alert-heading">Vertical clipping/truncation</h4>
                                         <p>Responsive tables make use of <code
-                                                class="highlighter-rouge">overflow-y: hidden</code>,
+                                                    class="highlighter-rouge">overflow-y: hidden</code>,
                                             which clips off
                                             any content that goes beyond the bottom or top edges of the table. In
                                             particular,
@@ -1129,7 +1129,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
     {{--jquery.autocomplete.js--}}
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script>
     {{--quick defined--}}
     <script>
         $(function () {
