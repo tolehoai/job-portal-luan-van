@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,15 +23,12 @@ Route::get('/admin/list', function () {
     return view('pages/admin/job/list');
 });
 
-Route::get('/login', function () {
-    return view('pages/user/login');
-});
-
-Route::get('/register', function () {
-    return view('pages/user/register');
-});
 
 Route::get('/', function () {
     return view('pages/user/index');
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
