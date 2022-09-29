@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\JobController;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Repository\UserRepository;
+use App\Service\EmailService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -39,9 +43,15 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    private EmailService $emailService;
+    private UserRepository $userRepository;
+
+    public function __construct(EmailService $emailService, UserRepository $userRepository)
     {
         $this->middleware('guest');
+        $this->emailService = $emailService;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -71,7 +81,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'verify_code'=>sha1(time())
+            'verify_code' => sha1(time())
         ]);
     }
 
@@ -85,19 +95,27 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
+
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request)));
 
-        dd(1);
+        $this->emailService->sendRegisterMail($user);
 
+        return view('auth.verify');
     }
+
+    public function verifyRegister(Request $request)
+    {
+        $user = $this->userRepository->findUserByVerifyCode($request->verify_code);
+        if ($user != null) {
+            $user->is_verify = 1;
+            $user->save();
+            return redirect('/login');
+        }
+    }
+
+
 }

@@ -23,6 +23,8 @@ Route::get('/admin/list', function () {
     return view('pages/admin/job/list');
 });
 
+Route::get('/register-verify/{verify_code}', [RegisterController::class, 'verifyRegister']);
+
 
 Route::get('/', function () {
     return view('pages/user/index');
@@ -32,3 +34,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
