@@ -377,7 +377,11 @@
                      src="{{ asset('admin_resource/images/users/avatar-3.png') }}"
                      style="width: 40px;" alt="Header Avatar">
                 <span class="ms-2 d-none d-xl-inline-block user-item-desc">
-                                <span class="user-name">Hoai To <i class="mdi mdi-chevron-down"></i></span>
+                                <span class="user-name">
+                                        @if(Auth::guard('admin')->check())
+                                        Hello {{Auth::guard('admin')->user()->name}}
+                                        <i class="mdi mdi-chevron-down"></i></span>
+                                    @endif
                             </span>
             </button>
             <div class="dropdown-menu dropdown-menu-end pt-0">

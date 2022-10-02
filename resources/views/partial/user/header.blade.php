@@ -44,8 +44,12 @@
                             </div>
                             <!-- Header-btn -->
                             <div class="header-btn d-none f-right d-lg-block">
-                                <a href="/login" class="btn head-btn1">Đăng ký</a>
-                                <a href="/register" class="btn head-btn2">Đăng nhập</a>
+                                @if(Auth::guard('web')->check())
+                                    Hello {{Auth::user()->name}}
+                                @else
+                                    <a href="/login" class="btn head-btn1">Đăng ký</a>
+                                    <a href="/register" class="btn head-btn2">Đăng nhập</a>
+                                @endif
                             </div>
                         </div>
                     </div>

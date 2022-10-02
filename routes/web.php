@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/admin', function () {
-    return view('pages/admin/index');
-});
-
 Route::get('/admin/list', function () {
     return view('pages/admin/job/list');
 });
@@ -28,7 +24,9 @@ Route::get('/register-verify/{verify_code}', [RegisterController::class, 'verify
 
 Route::get('/', function () {
     return view('pages/user/index');
-});
+})->name('home.index');;
+
+Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout']); // @Todo Remove logout GET method
 
 
 Auth::routes();
