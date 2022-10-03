@@ -74,12 +74,6 @@ class LoginController extends Controller
     {
         Auth::guard('admin')->logout();
 
-//        $request->session()->invalidate();
-//
-//        $request->session()->regenerateToken();
-
-        $request->session()->flush();
-        $request->session()->regenerate();
 
         if ($response = $this->loggedOut($request)) {
             return $response;
