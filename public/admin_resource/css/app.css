@@ -924,15 +924,32 @@
 }
 
 .sidebar-wrapper {
-    width: 300px;
     height: 100vh;
-    position: fixed;
-    top: 0;
     z-index: 10;
     overflow-y: auto;
     background-color: #fff;
     bottom: 0;
     transition: left .5s ease-out
+}
+#sidebar-menu{
+    height: 100% !important;
+}
+#sidebar-menu::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+    background-color: #a4a4a4;
+}
+
+#sidebar-menu::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#sidebar-menu::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: #dfdfdf;
 }
 
 .sidebar-wrapper .sidebar-header {
@@ -1414,7 +1431,6 @@
 }
 
 #main {
-    margin-left: 300px;
 }
 
 @media screen and (max-width:1199px) {

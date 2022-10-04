@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('admin_resource/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/iconly/bold.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin_resource/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('admin_resource/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('admin_resource/images/favicon.svg') }}" type="image/x-icon">
@@ -24,16 +24,38 @@
     @yield('styles')
 </head>
 <body>
-<div id="app">
-    @include('partial.admin.header')
-
-    @yield('content')
-
-    @include('partial.admin.footer')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12" style="background: white">
+            @include('partial.admin.header')
+        </div>
+    </div>
+    <div class="row" style="height: 100vh;">
+        <div class="col-3 m-0 p-0">
+            @include('partial.admin.sidebar')
+        </div>
+        <div class="col-9 m-0 p-0">
+            @yield('content')
+        </div>
+    </div>
 </div>
+{{--<div class="container-fluid">--}}
+{{--    <div class="row">--}}
+{{--        <div class="col-3">--}}
+{{--            @include('partial.admin.header')--}}
+{{--        </div>--}}
+{{--        <div class="col-8">--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+{{--<div id="app">--}}
+
+
+{{--    @include('partial.admin.footer')--}}
+{{--</div>--}}
 
 {{--Scripts js common--}}
-<script src="{{ asset('admin_resource/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+{{--<script src="{{ asset('admin_resource/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>--}}
 <script src="{{ asset('admin_resource/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('admin_resource/vendors/apexcharts/apexcharts.js') }}"></script>
 <script src="{{ asset('admin_resource/js/pages/dashboard.js') }}"></script>

@@ -22,4 +22,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/', function () {
         return view('pages/admin/index');
     })->name('admin.dashboard');
+    Route::get('/company', function () {
+        return view('pages/admin/job/list');
+    })->name('admin.dashboard');
 });
