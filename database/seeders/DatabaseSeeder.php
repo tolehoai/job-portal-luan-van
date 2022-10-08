@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Faker\Generator as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,45 +24,46 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        $faker = \Faker\Factory::create();
+
         DB::table('admins')->insert([
             [
-                'name' => 'Admin',
-                'email' => 'admin@gmail.com',
+                'name'     => 'Admin',
+                'email'    => 'admin@gmail.com',
                 'password' => bcrypt('admin'),
             ]
         ]);
 
-        DB::table('countrys')->insert(
-            [
-                [
-                    'country_name' => 'Vietnam'
-                ],
-                [
-                    'country_name' => 'German'
-                ]
-            ]
-        );
 
-        DB::table('images')->insert([
-            [
-                'path' => 'nfq.png',
-            ]
-        ]);
+        $limit = 50;
 
-        DB::table('companys')->insert([
-            [
-                'name' => 'NFQ Asia',
-                'country_id' => '2',
-                'company_desc' => 'NFQ Asia Vietnam',
-                'address' => 'Q1, HCM',
-                'email' => 'nfq@nfq.asia',
-                'password' => bcrypt('nfqasia'),
-                'phone' => '123456789',
-                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'number_of_personel' => 500,
-                'logo_img' => 1,
-            ]
-        ]);
+        for ($i = 0; $i < $limit; $i++) {
+            DB::table('countrys')->insert([
+                'country_name' => $faker->country
+            ]);
+        }
+
+        for ($i = 0; $i < $limit; $i++) {
+            DB::table('images')->insert([
+                'path'    => $faker->imageUrl,
+                'company_id' => $i + 1
+            ]);
+        }
+
+        for ($i = 0; $i < $limit; $i++) {
+            DB::table('companys')->insert([
+                'name'               => $faker->company,
+                'country_id'         => $i + 1,
+                'company_desc'       => $faker->paragraph,
+                'address'            => $faker->address,
+                'email'              => $faker->unique()->email,
+                'password'           => bcrypt('123456'),
+                'phone'              => $faker->phoneNumber,
+                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'number_of_personel' => $faker->numberBetween(50, 1000),
+                'logo_img'           => $i + 1,
+            ]);
+        }
     }
 }

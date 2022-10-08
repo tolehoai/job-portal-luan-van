@@ -17,7 +17,7 @@ return new class extends Migration {
 
             $table->string('name');
             $table->string('country_id');
-            $table->string('company_desc');
+            $table->text('company_desc');
             $table->string('address');
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();

@@ -19,8 +19,7 @@
 
 @section('content')
     <!-- this is content -->
-
-    <div id="main" >
+    <div id="main">
         <div class="page-heading p-3">
             <div class="page-title">
                 <div class="row">
@@ -47,70 +46,32 @@
                                         dark gray.
                                     </p>
                                 </div>
-                                <!-- table head dark -->
                                 <div class="table-responsive">
-                                    <table class="table mb-0">
-                                        <thead class="thead-dark">
+                                    <table class="table table-hover table-lg">
+                                        <thead>
                                         <tr>
-                                            <th>NAME</th>
-                                            <th>RATE</th>
-                                            <th>SKILL</th>
-                                            <th>TYPE</th>
-                                            <th>LOCATION</th>
-                                            <th>ACTION</th>
+                                            <th>Name</th>
+                                            <th>Comment</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="text-bold-500">Michael Right</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">UI/UX</td>
-                                            <td>Remote</td>
-                                            <td>Austin,Taxes</td>
-                                            <td><a href="#"><i
-                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                            data-feather="mail"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Morgan Vanblum</td>
-                                            <td>$13/hr</td>
-                                            <td class="text-bold-500">Graphic concepts</td>
-                                            <td>Remote</td>
-                                            <td>Shangai,China</td>
-                                            <td><a href="#"><i
-                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                            data-feather="mail"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Tiffani Blogz</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">Animation</td>
-                                            <td>Remote</td>
-                                            <td>Austin,Texas</td>
-                                            <td><a href="#"><i
-                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                            data-feather="mail"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Ashley Boul</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">Animation</td>
-                                            <td>Remote</td>
-                                            <td>Austin,Texas</td>
-                                            <td><a href="#"><i
-                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                            data-feather="mail"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Mikkey Mice</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">Animation</td>
-                                            <td>Remote</td>
-                                            <td>Austin,Texas</td>
-                                            <td><a href="#"><i
-                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                            data-feather="mail"></i></a></td>
-                                        </tr>
+                                        @foreach ($companys as $company)
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="{{ $company->image->path }}">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">{{$company->name}}</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">
+                                                        {{$company->country->country_name}}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>

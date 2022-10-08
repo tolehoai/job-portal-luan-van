@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('admin.login');
@@ -22,7 +24,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/', function () {
         return view('pages/admin/index');
     })->name('admin.dashboard');
-    Route::get('/company', function () {
-        return view('pages/admin/job/list');
-    })->name('admin.dashboard');
+
+    Route::get('/company', [CompanyController::class, 'index'])->name('admin.companyList');
+
 });
