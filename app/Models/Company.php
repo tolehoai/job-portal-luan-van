@@ -14,11 +14,22 @@ class Company extends Authenticatable
 
 
     protected $fillable = [
-        'name', 'company_desc', 'address', 'email', 'password', 'phone', 'start_work_time', 'end_work_time', 'number_of_personel'
+        'name',
+        'company_desc',
+        'address',
+        'email',
+        'password',
+        'phone',
+        'start_work_time',
+        'end_work_time',
+        'number_of_personal',
+        'country_id',
+        'logo_img'
     ];
 
     protected $hidden = [
-        'country_id', 'logo_img', 'password', 'remember_token'
+        'password',
+        'remember_token'
     ];
 
     public function country()

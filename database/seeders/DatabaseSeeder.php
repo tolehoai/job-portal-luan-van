@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -38,15 +39,16 @@ class DatabaseSeeder extends Seeder
         $limit = 50;
 
         for ($i = 0; $i < $limit; $i++) {
+            $countryName = $faker->country;
             DB::table('countrys')->insert([
-                'country_name' => $faker->country
+                'country_name'      => $countryName,
+                'country_name_slug' => Str::slug($countryName)
             ]);
         }
 
         for ($i = 0; $i < $limit; $i++) {
             DB::table('images')->insert([
-                'path'    => $faker->imageUrl,
-                'company_id' => $i + 1
+                'path' => $faker->imageUrl,
             ]);
         }
 
@@ -61,7 +63,7 @@ class DatabaseSeeder extends Seeder
                 'phone'              => $faker->phoneNumber,
                 'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'number_of_personel' => $faker->numberBetween(50, 1000),
+                'number_of_personal' => $faker->numberBetween(50, 1000),
                 'logo_img'           => $i + 1,
             ]);
         }

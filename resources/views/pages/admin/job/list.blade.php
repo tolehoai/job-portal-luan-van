@@ -34,17 +34,9 @@
                 <div class="row" id="table-head">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Table head options</h4>
-                            </div>
                             <div class="card-content">
                                 <div class="card-body">
-                                    <p>Similar to tables and dark tables, use the modifier classes <code
-                                                class="highlighter-rouge">.thead-light</code> or <code
-                                                class="highlighter-rouge">.thead-dark</code> to
-                                        make <code class="highlighter-rouge">&lt;thead&gt;</code>s appear light or
-                                        dark gray.
-                                    </p>
+                                    <a href="{{route('admin.add-company')}}" class="btn btn-success">Thêm mới công ty</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-hover table-lg">

@@ -26,5 +26,7 @@ Route::middleware('admin.auth')->group(function () {
     })->name('admin.dashboard');
 
     Route::get('/company', [CompanyController::class, 'index'])->name('admin.companyList');
+    Route::get('/add-company', [CompanyController::class, 'addCompany'])->name('admin.add-company');
+    Route::post('/add-company', [CompanyController::class, 'addCompany'])->name('admin.add-company');
 
 });
