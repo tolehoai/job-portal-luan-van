@@ -48,7 +48,8 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 0; $i < $limit; $i++) {
             DB::table('images')->insert([
-                'path' => $faker->imageUrl,
+                'path'       => $faker->imageUrl,
+                'company_id' => $i + 1
             ]);
         }
 

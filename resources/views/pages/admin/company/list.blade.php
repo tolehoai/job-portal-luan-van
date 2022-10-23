@@ -36,7 +36,8 @@
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
-                                    <a href="{{route('admin.add-company')}}" class="btn btn-success">Thêm mới công ty</a>
+                                    <a href="{{route('admin.add-company')}}" class="btn btn-success">Thêm mới công
+                                        ty</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-hover table-lg">
@@ -72,6 +73,7 @@
                     </div>
                 </div>
             </section>
+            {!! $companys->links() !!}
             <!-- Table head options end -->
         </div>
     </div>

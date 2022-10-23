@@ -20,8 +20,8 @@ class CompanyController extends Controller
 
     public function index()
     {
-        return view('pages/admin/job/list', [
-            'companys' => Company::with('country', 'image')->paginate(15)->items()
+        return view('pages/admin/company/list', [
+            'companys' => Company::with('country', 'image')->paginate(15)
         ]);
     }
 
