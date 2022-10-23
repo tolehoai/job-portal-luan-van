@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </section>
-            {!! $companys->links() !!}
+            {!! $companys->withQueryString()->links() !!}
             <!-- Table head options end -->
         </div>
     </div>
