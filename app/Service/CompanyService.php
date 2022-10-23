@@ -17,8 +17,7 @@ class CompanyService
 
     public function store(Request $request)
     {
-        $logoImage = $this->uploadImageService->store($request->imgLogo);
-        return Company::create([
+        $company = Company::create([
             'name'               => $request->get('companyName'),
             'company_desc'       => $request->get('companyDesc'),
             'address'            => $request->get('companyAddress'),
@@ -29,9 +28,10 @@ class CompanyService
             'end_work_time'      => $request->get('endTimeWork'),
             'number_of_personal' => $request->get('numberOfPersonal'),
             'country_id'         => $request->get('countrySelect'),
-            'logo_img'           => $logoImage->id,
         ]);
+        $this->uploadImageService->store($request->imgLogo, $company);
 
+        return $company;
     }
 
 

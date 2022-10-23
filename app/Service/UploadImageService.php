@@ -3,17 +3,17 @@
 namespace App\Service;
 
 use App\Models\Image;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UploadImageService
 {
-    public function store(UploadedFile $uploadedFile)
+    public function store(UploadedFile $uploadedFile, Model $model)
     {
         $fileData = $this->uploads($uploadedFile, 'images/');
-
-        return Image::create([
+        return $model->image()->create([
             'path' => $fileData['filePath']
         ]);
     }

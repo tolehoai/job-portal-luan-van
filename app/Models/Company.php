@@ -39,6 +39,6 @@ class Company extends Authenticatable
 
     public function image()
     {
-        return $this->hasOne(Image::class);
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

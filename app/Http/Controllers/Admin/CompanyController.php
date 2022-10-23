@@ -32,7 +32,12 @@ class CompanyController extends Controller
                 'countrys' => Country::get()->toArray(),
             ]);
         } else {
-            dd($this->companyService->store($request));
+            $company = $this->companyService->store($request);
+            if ($company) {
+                return back()->with('success', 'Success! Company created');
+            } else {
+                return back()->with('failed', 'Failed! Company not created');
+            }
         }
     }
 }

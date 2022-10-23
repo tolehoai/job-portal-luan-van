@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('admin_resource/images/favicon.svg') }}" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
     @yield('style-libraries')
     {{--Styles custom--}}
     @yield('styles')
@@ -62,7 +63,22 @@
 <script src="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.js') }}"></script>
 
 
+{{-- toastr js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
 {{--Scripts link to file or js custom--}}
+
+<script>
+    $(document).ready(function () {
+        toastr.options.timeOut = 5000;
+        @if (Session::has('error'))
+        toastr.error('{{ Session::get('error') }}');
+        @elseif(Session::has('success'))
+        toastr.success('{{ Session::get('success') }}');
+        @endif
+    });
+
+</script>
 @yield('scripts')
 </body>
 </html>

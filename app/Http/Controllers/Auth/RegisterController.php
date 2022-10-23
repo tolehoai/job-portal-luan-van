@@ -3,16 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\JobController;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use App\Repository\UserRepository;
-use App\Service\EmailService;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,21 +36,15 @@ class RegisterController extends Controller
      *
      * @return void
      */
-
-    private EmailService $emailService;
-    private UserRepository $userRepository;
-
-    public function __construct(EmailService $emailService, UserRepository $userRepository)
+    public function __construct()
     {
         $this->middleware('guest');
-        $this->emailService = $emailService;
-        $this->userRepository = $userRepository;
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param array $data
+     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -72,50 +59,15 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param array $data
+     * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(Request $request)
+    protected function create(array $data)
     {
         return User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'verify_code' => sha1(time())
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
     }
-
-    /**
-     * Show the application registration form.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showRegistrationForm()
-    {
-        return view('auth.register');
-    }
-
-
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request)));
-
-        $this->emailService->sendRegisterMail($user);
-
-        return view('auth.verify');
-    }
-
-    public function verifyRegister(Request $request)
-    {
-        $user = $this->userRepository->findUserByVerifyCode($request->verify_code);
-        if ($user != null) {
-            $user->is_verify = 1;
-            $user->save();
-            return redirect('/login');
-        }
-    }
-
-
 }

@@ -46,27 +46,19 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for ($i = 0; $i < $limit; $i++) {
-            DB::table('images')->insert([
-                'path'       => $faker->imageUrl,
-                'company_id' => $i + 1
-            ]);
-        }
-
-        for ($i = 0; $i < $limit; $i++) {
-            DB::table('companys')->insert([
-                'name'               => $faker->company,
-                'country_id'         => $i + 1,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => $faker->unique()->email,
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'number_of_personal' => $faker->numberBetween(50, 1000),
-                'logo_img'           => $i + 1,
-            ]);
-        }
+//        for ($i = 0; $i < $limit; $i++) {
+//            DB::table('companys')->insert([
+//                'name'               => $faker->company,
+//                'country_id'         => $i + 1,
+//                'company_desc'       => $faker->paragraph,
+//                'address'            => $faker->address,
+//                'email'              => $faker->unique()->email,
+//                'password'           => bcrypt('123456'),
+//                'phone'              => $faker->phoneNumber,
+//                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+//                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+//                'number_of_personal' => $faker->numberBetween(50, 1000),
+//            ]);
+//        }
     }
 }

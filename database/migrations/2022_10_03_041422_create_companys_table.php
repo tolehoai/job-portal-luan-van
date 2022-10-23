@@ -27,7 +27,6 @@ return new class extends Migration {
             $table->time('start_work_time');
             $table->time('end_work_time');
             $table->integer('number_of_personal');
-            $table->integer('logo_img');
 
             $table->timestamps();
         });

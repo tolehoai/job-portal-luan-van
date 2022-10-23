@@ -53,7 +53,7 @@
                                                 <td class="col-3">
                                                     <div class="d-flex align-items-center">
                                                         <div class="avatar avatar-md">
-                                                            <img src="{{ $company->image->path }}">
+                                                            <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}">
                                                         </div>
                                                         <p class="font-bold ms-3 mb-0">{{$company->name}}</p>
                                                     </div>
