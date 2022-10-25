@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $limit = 50;
+        $limit = 200;
 
         for ($i = 0; $i < $limit; $i++) {
             $countryName = $faker->country;

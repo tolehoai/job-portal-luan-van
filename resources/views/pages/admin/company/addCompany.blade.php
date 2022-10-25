@@ -28,7 +28,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Table head options start -->
             <section class="section">
                 <div class="row" id="table-head">
@@ -56,17 +55,19 @@
                                                             <div class="form-group">
                                                                 <label for="first-name-vertical">Tên công ty</label>
                                                                 <input type="text" id="first-name-vertical"
-                                                                       class="form-control" name="companyName"
+                                                                       class="form-control {{ $errors->has('companyName') ? 'is-invalid' : '' }}"
+                                                                       name="companyName"
                                                                        placeholder="Nhập vào tên công ty"
                                                                        autocomplete="chrome-off"
                                                                 >
+                                                                <span class="text-danger">{{ $errors->first('companyName') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label>Quốc gia</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control form-select"
+                                                                    <select class="form-control form-select {{ $errors->has('countrySelect') ? 'is-invalid' : '' }}"
                                                                             id="countrySelect"
                                                                             name="countrySelect">
                                                                         @foreach ($countrys as $country)
@@ -74,24 +75,31 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </fieldset>
+                                                                <span class="text-danger">{{ $errors->first('countrySelect') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label>Số lượng nhân viên</label>
                                                                 <input type="number" id="numberOfPersonal"
-                                                                       class="form-control" name="numberOfPersonal"
+                                                                       class="form-control {{ $errors->has('numberOfPersonal') ? 'is-invalid' : '' }}"
+                                                                       name="numberOfPersonal"
                                                                        placeholder="Nhập số lượng nhân sự"
                                                                        autocomplete="chrome-off"
                                                                 >
+                                                                <span class="text-danger">{{ $errors->first('numberOfPersonal') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <label class="form-label">Mô tả công ty</label>
-                                                                <textarea class="form-control" id="companyDesc"
-                                                                          name="companyDesc"
-                                                                          rows="3"></textarea>
+                                                                <textarea
+                                                                        class="form-control {{ $errors->has('companyDesc') ? 'is-invalid' : '' }}"
+                                                                        id="companyDesc"
+                                                                        name="companyDesc"
+                                                                        rows="3">
+                                                                </textarea>
+                                                                <span class="text-danger">{{ $errors->first('companyDesc') }}</span>
                                                             </div>
                                                         </div>
 
@@ -99,70 +107,82 @@
                                                             <div class=" form-group">
                                                                 <label>Địa chỉ</label>
                                                                 <input type="text" id="companyAddress"
-                                                                       class="form-control" name="companyAddress"
+                                                                       class="form-control {{ $errors->has('companyAddress') ? 'is-invalid' : '' }}"
+                                                                       name="companyAddress"
                                                                        placeholder="Nhập địa chỉ công ty"
                                                                        autocomplete="chrome-off"
                                                                 >
+                                                                <span class="text-danger">{{ $errors->first('companyAddress') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label>Số điện thoại</label>
                                                                 <input type="text" id="companyPhone"
-                                                                       class="form-control" name="companyPhone"
+                                                                       class="form-control {{ $errors->has('companyPhone') ? 'is-invalid' : '' }}"
+                                                                       name="companyPhone"
                                                                        placeholder="Nhập số điện thoại công ty"
                                                                        autocomplete="chrome-off"
                                                                 >
+                                                                <span class="text-danger">{{ $errors->first('companyPhone') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <label>Email</label>
                                                                 <input type="email" id="companyEmail"
-                                                                       class="form-control" name="companyEmail"
+                                                                       class="form-control {{ $errors->has('companyEmail') ? 'is-invalid' : '' }}"
+                                                                       name="companyEmail"
                                                                        placeholder="Nhập email công ty"
                                                                        autocomplete="chrome-off"
                                                                 >
+                                                                <span class="text-danger">{{ $errors->first('companyEmail') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <label>Mật khẩu</label>
                                                                 <input type="password" id="companyPassword"
-                                                                       class="form-control" name="companyPassword"
+                                                                       class="form-control {{ $errors->has('companyPassword') ? 'is-invalid' : '' }}"
+                                                                       name="companyPassword"
                                                                        placeholder="Nhập mật khẩu cho công ty"
                                                                        autocomplete="chrome-off"
                                                                 >
+                                                                <span class="text-danger">{{ $errors->first('companyPassword') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label>Giờ bắt đầu làm việc</label>
                                                                 <input type="text" id="startTimeWork"
-                                                                       class="form-control bg-transparent"
+                                                                       class="form-control bg-transparent {{ $errors->has('startTimeWork') ? 'is-invalid' : '' }}"
                                                                        name="startTimeWork"
                                                                        placeholder="Chọn thời gian bắt đầu làm vệc"
                                                                 />
+                                                                <span class="text-danger">{{ $errors->first('startTimeWork') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label>Giờ kết thúc làm việc</label>
                                                                 <input type="text" id="endTimeWork"
-                                                                       class="form-control bg-transparent"
+                                                                       class="form-control bg-transparent {{ $errors->has('endTimeWork') ? 'is-invalid' : '' }}"
                                                                        name="endTimeWork"
                                                                        placeholder="Chọn thời gian kết thúc làm vệc"
                                                                 />
+                                                                <span class="text-danger">{{ $errors->first('endTimeWork') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="formFile" class="form-label">Chọn hình ảnh
                                                                     logo công ty</label>
-                                                                <input class="form-control" type="file" id="imgLogo"
+                                                                <input class="form-control {{ $errors->has('imgLogo') ? 'is-invalid' : '' }}"
+                                                                       type="file" id="imgLogo"
                                                                        name="imgLogo" accept="image/*"
                                                                        onchange="loadFile(event)">
                                                             </div>
+                                                            <span class="text-danger">{{ $errors->first('imgLogo') }}</span>
                                                             <img id="logoImg" style="width: 200px; height: auto"/>
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end">
