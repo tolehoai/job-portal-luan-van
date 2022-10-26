@@ -1,21 +1,13 @@
 @extends('layouts.company.master')
-
 @section('title', 'Admin')
-
 @section('style-libraries')
-
 @stop
-
 @section('styles')
     {{--custom css item suggest search--}}
     <style>
-
     </style>
 @stop
-
-
 @section('content')
-
     <div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
         <div id="theme-settings" class="settings-panel">
@@ -206,7 +198,145 @@
     </div>
     <div class="main-panel">
         <div class="content-wrapper">
-            content
+            <div class="page-header">
+                <h3 class="page-title">
+                    {{$company->name}}
+                </h3>
+            </div>
+            <div class="row grid-margin">
+                <div class="col-12">
+                    <div class="card card-statistics">
+                        <div class="card-body">
+                            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                                <div class="statistics-item">
+                                    <p>
+                                        <i class="icon-sm fa fa-user mr-2"></i>
+                                        New users
+                                    </p>
+                                    <h2>54000</h2>
+                                    <label class="badge badge-outline-success badge-pill">2.7% increase</label>
+                                </div>
+                                <div class="statistics-item">
+                                    <p>
+                                        <i class="icon-sm fas fa-hourglass-half mr-2"></i>
+                                        Avg Time
+                                    </p>
+                                    <h2>123.50</h2>
+                                    <label class="badge badge-outline-danger badge-pill">30% decrease</label>
+                                </div>
+                                <div class="statistics-item">
+                                    <p>
+                                        <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
+                                        Downloads
+                                    </p>
+                                    <h2>3500</h2>
+                                    <label class="badge badge-outline-success badge-pill">12% increase</label>
+                                </div>
+                                <div class="statistics-item">
+                                    <p>
+                                        <i class="icon-sm fas fa-check-circle mr-2"></i>
+                                        Update
+                                    </p>
+                                    <h2>7500</h2>
+                                    <label class="badge badge-outline-success badge-pill">57% increase</label>
+                                </div>
+                                <div class="statistics-item">
+                                    <p>
+                                        <i class="icon-sm fas fa-chart-line mr-2"></i>
+                                        Sales
+                                    </p>
+                                    <h2>9000</h2>
+                                    <label class="badge badge-outline-success badge-pill">10% increase</label>
+                                </div>
+                                <div class="statistics-item">
+                                    <p>
+                                        <i class="icon-sm fas fa-circle-notch mr-2"></i>
+                                        Pending
+                                    </p>
+                                    <h2>7500</h2>
+                                    <label class="badge badge-outline-danger badge-pill">16% decrease</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="border-bottom text-center pb-4">
+                                <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                                     alt="profile"
+                                     class="img-lg rounded-circle mb-3">
+                                <p>{{$company->company_desc}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-success">Hire Me</button>
+                                    <button class="btn btn-success">Follow</button>
+                                </div>
+                            </div>
+                            <div class="py-4">
+                                <p class="clearfix">
+                                    <span class="float-left">Địa chỉ</span>
+                                    <span class="float-right text-muted">{{$company->address}}</span>
+                                </p>
+                                <p class="clearfix">
+                                    <span class="float-left">Email</span>
+                                    <span class="float-right text-muted">{{$company->email}}</span>
+                                </p>
+                                <p class="clearfix">
+                                    <span class="float-left">Số điện thoại</span>
+                                    <span class="float-right text-muted">{{$company->phone}}</span>
+                                </p>
+                                <p class="clearfix">
+                                    <span class="float-left">Số lượng nhân viên</span>
+                                    <span class="float-right text-muted">{{$company->number_of_personal}}</span>
+                                </p>
+                                <p class="clearfix">
+                                    <span class="float-left">Giờ bắt đầu làm việc</span>
+                                    <span class="float-right text-muted">{{$company->start_work_time}}</span>
+                                </p>
+                                <p class="clearfix">
+                                    <span class="float-left">Giờ kết thúc làm việc</span>
+                                    <span class="float-right text-muted">{{$company->end_work_time}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="chartjs-size-monitor"
+                                 style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                <div class="chartjs-size-monitor-expand"
+                                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink"
+                                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                </div>
+                            </div>
+                            <h4 class="card-title">
+                                <i class="fas fa-gift"></i>
+                                Orders
+                            </h4>
+                            <canvas id="orders-chart" width="681" height="340"
+                                    style="display: block; height: 272px; width: 545px;"
+                                    class="chartjs-render-monitor"></canvas>
+                            <div id="orders-chart-legend" class="orders-chart-legend">
+                                <ul class="legend0">
+                                    <li><span class="legend-label" style="background-color:#392c70"></span>Delivered
+                                    </li>
+                                    <li><span class="legend-label" style="background-color:#d1cede"></span>Estimated
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -220,7 +350,5 @@
         <!-- partial -->
     </div>
 @stop
-
 @section('scripts')
-
 @stop

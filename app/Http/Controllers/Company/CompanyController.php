@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Service\CompanyService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\ValidationException;
@@ -16,7 +17,9 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        return view('company/dashboard/index');
+        return view('company/dashboard/index', [
+            'company' => Auth::user()
+        ]);
     }
 
 }
