@@ -3,7 +3,9 @@
 use App\Http\Controllers\Company\Auth\LoginController;
 use App\Http\Controllers\Company\Auth\ForgotPasswordController;
 use App\Http\Controllers\Company\Auth\ResetPasswordController;
+use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('company.login');
@@ -19,7 +21,5 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('company.password.update');
 
 Route::middleware('company.auth')->group(function () {
-    Route::get('/', function () {
-        return view('company/dashboard/index');
-    })->name('company.dashboard');
+    Route::get('/', [CompanyController::class, 'index'])->name('company.dashboard');
 });
