@@ -170,13 +170,15 @@
             </li>
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="{{asset('company_resource/images/faces/face5.jpg')}}" alt="profile"/>
+                    <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                         alt="image"
+                    />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                      aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
+                    <a href="{{route('company.info')}}" class="dropdown-item">
                         <i class="fas fa-cog text-primary"></i>
-                        Settings
+                        Thông tin
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item">

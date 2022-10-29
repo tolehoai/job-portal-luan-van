@@ -14,7 +14,8 @@ Route::post('login', [LoginController::class, 'login']);
 //Route::post('logout', [LoginController::class, 'logout'])->name('admin.logout');
 Route::get('logout', [LoginController::class, 'logout']); // @Todo Remove logout GET method
 
-Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('company.password.request');
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
+     ->name('company.password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('company.password.email');
 
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
@@ -22,4 +23,6 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 
 Route::middleware('company.auth')->group(function () {
     Route::get('/', [CompanyController::class, 'index'])->name('company.dashboard');
+    Route::get('/info', [CompanyController::class, 'companyInfo'])->name('company.info');
+    Route::get('/editCompany', [CompanyController::class, 'editCompany'])->name('company.edit');
 });

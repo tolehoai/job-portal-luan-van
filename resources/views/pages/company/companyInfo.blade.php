@@ -1,93 +1,92 @@
-@extends('layouts.admin.master')
-
+@extends('layouts.company.master')
 @section('title', 'Admin')
-
 @section('style-libraries')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
 @stop
-
 @section('styles')
     {{--custom css item suggest search--}}
     <style>
-        .autocomplete-group {
-            padding: 2px 5px;
-        }
     </style>
 @stop
-
-
 @section('content')
-    <!-- this is content -->
-    <div id="main">
-        <div class="page-heading p-3">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Danh sách công ty</h3>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Table head options start -->
-            <section class="section">
-                <div class="row" id="table-head">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <a href="{{route('admin.add-company')}}" class="btn btn-success">Thêm mới công
-                                        ty</a>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="company-info d-flex align-items-end">
+                                <div class="company-info-logo pr-3">
+                                    <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                                         alt="profile" class="img-lg rounded mb-3"
+                                         style="width: 92px"
+                                    >
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-lg">
-                                        <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Comment</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($companys as $company)
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">{{$company->name}}</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">
-                                                        {{$company->country->country_name}}
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                <div class="company-info-content">
+                                    <h3 class="page-title">
+                                        {{$company->name}}
+                                    </h3>
+                                    <p>{{$company->company_desc}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            {!! $companys->withQueryString()->links() !!}
-            <!-- Table head options end -->
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="company-detail">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5>Thông tin chi tiết:</h5>
+                                    <a href="{{ route('company.edit') }}" class="btn btn-success btn-fw btn-icon-text">
+                                        Chỉnh sứa thông tin
+                                        <i class="fas fa-pencil-alt btn-icon-append"></i>
+                                    </a>
+                                </div>
+                                <div class="company-info">
+                                    <address>
+                                        <p class="font-weight-bold d-inline-block">Địa chỉ: </p>
+                                        <p class="d-inline-block">{{$company->address}}</p>
+                                    </address>
+                                    <address>
+                                        <p class="font-weight-bold d-inline-block">Email: </p>
+                                        <p class="d-inline-block">{{$company->email}}</p>
+                                    </address>
+                                    <address>
+                                        <p class="font-weight-bold d-inline-block">Số điện thoại: </p>
+                                        <p class="d-inline-block">{{$company->phone}}</p>
+                                    </address>
+                                    <address>
+                                        <p class="font-weight-bold d-inline-block">Số lượng nhân viên: </p>
+                                        <p class="d-inline-block">{{$company->number_of_personal}}</p>
+                                    </address>
+                                    <address>
+                                        <p class="font-weight-bold d-inline-block">Giờ bắt đầu làm việc: </p>
+                                        <p class="d-inline-block">{{$company->start_work_time}}</p>
+                                    </address>
+                                    <address>
+                                        <p class="font-weight-bold d-inline-block">Giờ kết thúc làm việc: </p>
+                                        <p class="d-inline-block">{{$company->end_work_time}}</p>
+                                    </address>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                            class="far fa-heart text-danger"></i></span>
+            </div>
+        </footer>
+        <!-- partial -->
     </div>
 @stop
-
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
-    {{--jquery.autocomplete.js--}}
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script>
-    {{--quick defined--}}
-    <script>
-        $(function () {
-            // your custom javascript
-        });
-    </script>
 @stop

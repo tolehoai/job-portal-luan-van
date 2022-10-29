@@ -22,4 +22,19 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function companyInfo()
+    {
+        return view('pages/company/companyInfo', [
+            'company' => Auth::user()
+        ]);
+    }
+
+    public function editCompany()
+    {
+        return view('pages/company/editCompany', [
+            'company'  => Auth::user(),
+            'countrys' => Country::get()->toArray()
+        ]);
+    }
+
 }

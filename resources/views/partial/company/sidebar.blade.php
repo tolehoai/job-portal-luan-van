@@ -4,11 +4,13 @@
         <li class="nav-item nav-profile">
             <div class="nav-link">
                 <div class="profile-image">
-                    <img src="{{asset('company_resource/images/faces/face5.jpg')}}" alt="image"/>
+                    <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                         alt="image"
+                    />
                 </div>
                 <div class="profile-name">
                     <p class="name">
-                        Welcome Jane
+                        Welcome {{$company->name}}
                     </p>
                     <p class="designation">
                         Super Admin
