@@ -23,7 +23,7 @@
                             <div class="card-body">
                                 <form class="form form-vertical" name="addCompanyForm"
                                       id="addCompanyForm" method="POST"
-                                      action="{{ route('admin.add-company') }}"
+                                      action="{{ route('company.edit') }}"
                                       enctype="multipart/form-data"
                                 >
                                     @csrf

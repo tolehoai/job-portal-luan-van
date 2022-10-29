@@ -25,4 +25,5 @@ Route::middleware('company.auth')->group(function () {
     Route::get('/', [CompanyController::class, 'index'])->name('company.dashboard');
     Route::get('/info', [CompanyController::class, 'companyInfo'])->name('company.info');
     Route::get('/editCompany', [CompanyController::class, 'editCompany'])->name('company.edit');
+    Route::post('/editCompany', [CompanyController::class, 'editCompany'])->name('company.edit');
 });

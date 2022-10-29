@@ -15,6 +15,13 @@ use Illuminate\Validation\ValidationException;
 
 class CompanyController extends Controller
 {
+    private CompanyService $companyService;
+
+    public function __construct(CompanyService $companyService)
+    {
+        $this->companyService = $companyService;
+    }
+
     public function index()
     {
         return view('company/dashboard/index', [
@@ -29,12 +36,22 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function editCompany()
+    public function editCompany(Request $request)
     {
-        return view('pages/company/editCompany', [
-            'company'  => Auth::user(),
-            'countrys' => Country::get()->toArray()
-        ]);
+        //Request validation
+        
+        if ($request->method() == 'GET') {
+            return view('pages/company/editCompany', [
+                'company'  => Auth::user(),
+                'countrys' => Country::get()->toArray()
+            ]);
+        }
+        $company = $this->companyService->update($request);
+        if (!$company) {
+            return back()->with('failed', 'Failed! Company not created');
+        }
+
+        return back()->with('success', 'Success! Company created');
     }
 
 }

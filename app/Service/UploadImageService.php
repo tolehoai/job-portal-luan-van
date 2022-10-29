@@ -5,7 +5,9 @@ namespace App\Service;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class UploadImageService
@@ -49,5 +51,17 @@ class UploadImageService
         }
 
         return $size;
+    }
+
+    public function updateImage(UploadedFile $uploadedFile): Image
+    {
+        $fileData = $this->uploads($uploadedFile, 'images/');
+        File::delete(Auth::user()->image->path);
+        Log::info('Delete image path: '.Auth::user()->image->path);
+        $image       = Image::find(['imageable_id' => Auth::id()])->first();
+        $image->path = $fileData['filePath'];
+        $image->save();
+
+        return $image;
     }
 }
