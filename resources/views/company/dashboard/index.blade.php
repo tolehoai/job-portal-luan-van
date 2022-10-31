@@ -270,7 +270,7 @@
                                 <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
                                      alt="profile"
                                      class="img-lg rounded-circle mb-3">
-                                <p>{{$company->company_desc}}</p>
+                                <p>{!! $company->company_desc !!}</p>
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-success">Hire Me</button>
                                     <button class="btn btn-success">Follow</button>

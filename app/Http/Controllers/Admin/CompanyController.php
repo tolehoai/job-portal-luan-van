@@ -8,9 +8,8 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Service\CompanyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\File;
-use Illuminate\Validation\ValidationException;
 
 class CompanyController extends Controller
 {
@@ -37,8 +36,8 @@ class CompanyController extends Controller
 
     public function addCompany(Request $request)
     {
-        $this->validate(
-            $request,
+        $validator = Validator::make(
+            $request->all(),
             [
                 'companyName'      => 'required|max:255',
                 'countrySelect'    => 'required',
@@ -72,11 +71,18 @@ class CompanyController extends Controller
                 'imgLogo.types'             => 'Chọn định dạng file phù hợp dưới đây jpeg, png, jpg, gif, svg',
             ]
         );
+        if ($validator->fails()) {
+            return redirect()->route('admin.show-add-company')->with('failed', 'Failed! Company not created')
+                             ->withErrors($validator)
+                             ->withInput();
+        }
         $company = $this->companyService->store($request);
         if ($company) {
-            return back()->with('success', 'Success! Company created');
+            return redirect()->route('admin.companyList')->with('success', 'Tạo mới công ty thành công');
         } else {
-            return back()->with('failed', 'Failed! Company not created');
+            return redirect()->route('admin.show-add-company')->with('failed', 'Tạo mới công ty thất bại')
+                             ->withErrors($validator)
+                             ->withInput();
         }
 
     }

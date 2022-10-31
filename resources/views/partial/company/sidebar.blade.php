@@ -19,7 +19,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index-2.html">
+            <a class="nav-link" href="/company">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>

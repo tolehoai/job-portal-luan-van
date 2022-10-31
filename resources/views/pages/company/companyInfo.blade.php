@@ -26,7 +26,7 @@
                                     <h3 class="page-title">
                                         {{$company->name}}
                                     </h3>
-                                    <p>{{$company->company_desc}}</p>
+                                    <p>{!! $company->company_desc !!}</p>
                                 </div>
                             </div>
                         </div>

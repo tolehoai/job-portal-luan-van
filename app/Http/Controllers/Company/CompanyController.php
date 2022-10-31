@@ -39,7 +39,7 @@ class CompanyController extends Controller
     public function editCompany(Request $request)
     {
         //Request validation
-        
+
         if ($request->method() == 'GET') {
             return view('pages/company/editCompany', [
                 'company'  => Auth::user(),
@@ -48,10 +48,10 @@ class CompanyController extends Controller
         }
         $company = $this->companyService->update($request);
         if (!$company) {
-            return back()->with('failed', 'Failed! Company not created');
+            return redirect()->route('company.edit')->with('failed', 'Failed! Company not created')->withInput();
         }
 
-        return back()->with('success', 'Success! Company created');
+        return redirect()->route('company.info')->with('success', 'Success! Company created')->withInput();
     }
 
 }

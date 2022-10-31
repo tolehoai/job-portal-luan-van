@@ -58,6 +58,7 @@
                                                                        class="form-control {{ $errors->has('companyName') ? 'is-invalid' : '' }}"
                                                                        name="companyName"
                                                                        placeholder="Nhập vào tên công ty"
+                                                                       value="{{ old('companyName') }}"
                                                                        autocomplete="chrome-off"
                                                                 >
                                                                 <span class="text-danger">{{ $errors->first('companyName') }}</span>
@@ -69,9 +70,14 @@
                                                                 <fieldset class="form-group">
                                                                     <select class="form-control form-select {{ $errors->has('countrySelect') ? 'is-invalid' : '' }}"
                                                                             id="countrySelect"
-                                                                            name="countrySelect">
+                                                                            name="countrySelect"
+                                                                    >
                                                                         @foreach ($countrys as $country)
-                                                                            <option value="{{$country['id']}}">{{$country['country_name']}}</option>
+                                                                            <option
+                                                                                    value="{{$country['id']}}"
+                                                                            >
+                                                                                {{$country['country_name']}}
+                                                                            </option>
                                                                         @endforeach
                                                                     </select>
                                                                 </fieldset>
@@ -85,6 +91,7 @@
                                                                        class="form-control {{ $errors->has('numberOfPersonal') ? 'is-invalid' : '' }}"
                                                                        name="numberOfPersonal"
                                                                        placeholder="Nhập số lượng nhân sự"
+                                                                       value="{{ old('numberOfPersonal') }}"
                                                                        autocomplete="chrome-off"
                                                                 >
                                                                 <span class="text-danger">{{ $errors->first('numberOfPersonal') }}</span>
@@ -98,6 +105,7 @@
                                                                         id="companyDesc"
                                                                         name="companyDesc"
                                                                         rows="3">
+                                                                    {{ old('companyDesc') }}
                                                                 </textarea>
                                                                 <span class="text-danger">{{ $errors->first('companyDesc') }}</span>
                                                             </div>
@@ -110,6 +118,7 @@
                                                                        class="form-control {{ $errors->has('companyAddress') ? 'is-invalid' : '' }}"
                                                                        name="companyAddress"
                                                                        placeholder="Nhập địa chỉ công ty"
+                                                                       value="{{ old('companyAddress') }}"
                                                                        autocomplete="chrome-off"
                                                                 >
                                                                 <span class="text-danger">{{ $errors->first('companyAddress') }}</span>
@@ -122,6 +131,7 @@
                                                                        class="form-control {{ $errors->has('companyPhone') ? 'is-invalid' : '' }}"
                                                                        name="companyPhone"
                                                                        placeholder="Nhập số điện thoại công ty"
+                                                                       value="{{ old('companyPhone') }}"
                                                                        autocomplete="chrome-off"
                                                                 >
                                                                 <span class="text-danger">{{ $errors->first('companyPhone') }}</span>
@@ -134,6 +144,7 @@
                                                                        class="form-control {{ $errors->has('companyEmail') ? 'is-invalid' : '' }}"
                                                                        name="companyEmail"
                                                                        placeholder="Nhập email công ty"
+                                                                       value="{{ old('companyEmail') }}"
                                                                        autocomplete="chrome-off"
                                                                 >
                                                                 <span class="text-danger">{{ $errors->first('companyEmail') }}</span>
@@ -157,6 +168,7 @@
                                                                 <input type="text" id="startTimeWork"
                                                                        class="form-control bg-transparent {{ $errors->has('startTimeWork') ? 'is-invalid' : '' }}"
                                                                        name="startTimeWork"
+                                                                       value="{{ old('startTimeWork') }}"
                                                                        placeholder="Chọn thời gian bắt đầu làm vệc"
                                                                 />
                                                                 <span class="text-danger">{{ $errors->first('startTimeWork') }}</span>
@@ -168,6 +180,7 @@
                                                                 <input type="text" id="endTimeWork"
                                                                        class="form-control bg-transparent {{ $errors->has('endTimeWork') ? 'is-invalid' : '' }}"
                                                                        name="endTimeWork"
+                                                                       value="{{ old('endTimeWork') }}"
                                                                        placeholder="Chọn thời gian kết thúc làm vệc"
                                                                 />
                                                                 <span class="text-danger">{{ $errors->first('endTimeWork') }}</span>
