@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SkillController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,5 +29,8 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/company', [CompanyController::class, 'index'])->name('admin.companyList');
     Route::get('/add-company', [CompanyController::class, 'showAddCompany'])->name('admin.show-add-company');
     Route::post('/add-company', [CompanyController::class, 'addCompany'])->name('admin.add-company');
+    Route::get('/skills', [SkillController::class, 'index'])->name('admin.skill');
+    Route::get('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
+    Route::post('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
 
 });

@@ -6,18 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Company\CreateCompanyRequest;
 use App\Models\Company;
 use App\Models\Country;
+use App\Models\Skill;
 use App\Service\CompanyService;
+use App\Service\SkillService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\File;
 
 class CompanyController extends Controller
 {
-    private $companyService;
+    private CompanyService $companyService;
+    private SkillService $skillService;
 
-    public function __construct(CompanyService $companyService)
+    public function __construct(CompanyService $companyService, SkillService $skillService)
     {
         $this->companyService = $companyService;
+        $this->skillService   = $skillService;
     }
 
     public function index()
@@ -84,7 +88,5 @@ class CompanyController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         }
-
     }
-
 }

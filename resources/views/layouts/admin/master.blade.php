@@ -77,7 +77,6 @@
         toastr.success('{{ Session::get('success') }}');
         @endif
     });
-
 </script>
 @yield('scripts')
 </body>
