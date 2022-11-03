@@ -41,15 +41,28 @@
                                     <table class="table table-bordered mb-0">
                                         <thead>
                                         <tr>
-                                            <th>Số thứ tự</th>
+                                            <th style="width: 100px">Số thứ tự</th>
                                             <th>Tên kỹ năng</th>
+                                            <th style="width: 200px">Hành động</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach ($skills as $skill)
                                             <tr>
-                                                <td>{{$skills->currentPage() * $skills->perPage() - $skills->perPage() + 1 +$loop->index}}</td>
+                                                <td style="text-align: center">{{$skills->currentPage() * $skills->perPage() - $skills->perPage() + 1 +$loop->index}}</td>
                                                 <td>{{ $skill->name }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary">Chỉnh sửa
+                                                    </a>
+                                                    <a class="deleteSkillBtn d-inline-block">
+                                                        <form class="deleteSkillForm"
+                                                              action="{{route('admin.delete-skill')}}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="skillId" value="{{$skill->id}}">
+                                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                                        </form>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -74,7 +87,35 @@
     {{--quick defined--}}
     <script>
         $(function () {
-            // your custom javascript
+            $(document).ready(function () {
+
+                $(".deleteSkillBtn").click(function (e) {
+                    e.preventDefault();
+                    // let form = $(e.target);
+                    let formData = $(e.target).closest('.deleteSkillForm');
+                    Swal.fire({
+                        title: 'Xác nhận xóa?',
+                        text: "Bạn có chắc chắn muốn xóa kỹ năng này",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Xác nhận',
+                        cancelButtonText: 'Hủy',
+                        showCloseButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            formData.submit();
+                            // Swal.fire(
+                            //     'Deleted!',
+                            //     'Your file has been deleted.',
+                            //     'success'
+                            // )
+                        }
+                    })
+                })
+            });
+
         });
     </script>
 @stop

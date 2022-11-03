@@ -19,5 +19,10 @@ class SkillService
 
         return $skill;
     }
+
+    public function delete(string $skillId)
+    {
+        return Skill::where('id', $skillId)->delete();
+    }
 }
 

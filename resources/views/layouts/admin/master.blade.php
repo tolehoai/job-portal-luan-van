@@ -23,12 +23,15 @@
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('admin_resource/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('admin_resource/vendors/fontawesome/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('admin_resource/vendors/sweetalert2/sweetalert2.min.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
     @yield('style-libraries')
     {{--Styles custom--}}
     @yield('styles')
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="container-fluid">
     <div class="row">
         <div class="col-12" style="background: white">
@@ -54,6 +57,7 @@
 <script src="{{ asset('admin_resource/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('admin_resource/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('admin_resource/vendors/apexcharts/apexcharts.js') }}"></script>
+<script src="{{ asset('admin_resource/vendors/fontawesome/all.min.js') }}"></script>
 {{--<script src="{{ asset('admin_resource/js/pages/dashboard.js') }}"></script>--}}
 <script src="{{ asset('admin_resource/js/main.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
@@ -61,6 +65,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 <script src="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.js') }}"></script>
+<script src="{{ asset('admin_resource/js/extensions/sweetalert2.js') }}"></script>
+<script src="{{ asset('admin_resource/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
 
 {{-- toastr js --}}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Admin\TechnologyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,5 +33,9 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/skills', [SkillController::class, 'index'])->name('admin.skill');
     Route::get('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
     Route::post('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
+    Route::post('/skills/delete', [SkillController::class, 'delete'])->name('admin.delete-skill');
+    Route::get('/technologies', [TechnologyController::class, 'index'])->name('admin.technologies');
+    Route::get('/add-technologies', [TechnologyController::class, 'addTechnology'])->name('admin.add-technology');
+    Route::post('/add-technologies', [TechnologyController::class, 'addTechnology'])->name('admin.add-technology');
 
 });

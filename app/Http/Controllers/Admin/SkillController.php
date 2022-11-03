@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Company\CreateCompanyRequest;
-use App\Models\Company;
-use App\Models\Country;
 use App\Models\Skill;
-use App\Service\CompanyService;
 use App\Service\SkillService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\File;
+
 
 class SkillController extends Controller
 {
     private SkillService $skillService;
 
-    public function __construct(CompanyService $companyService, SkillService $skillService)
+    public function __construct(SkillService $skillService)
     {
         $this->skillService = $skillService;
     }
@@ -41,5 +36,15 @@ class SkillController extends Controller
         }
 
         return redirect()->route('admin.skill')->with('success', 'Tạo mới kỹ năng thành công')->withInput();
+    }
+
+    public function delete(Request $request)
+    {
+        if ($this->skillService->delete($request->skillId)) {
+            alert()->success('Thành công', 'Bạn đã xóa kỹ năng');
+        } else {
+            alert()->error('Thất bại', 'Có lỗi xảy ra khi xóa kỹ năng');
+        }
+        return redirect()->route('admin.skill');
     }
 }
