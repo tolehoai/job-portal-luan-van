@@ -1,28 +1,25 @@
-<div class="sidebar-wrapper"  id="sidebar-menu">
+<div class="sidebar-wrapper" id="sidebar-menu">
     <div class="sidebar-menu">
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
 
             <li class="sidebar-item active ">
-                <a href="index.html" class="sidebar-link">
+                <a href="{{route('admin.dashboard')}}" class="sidebar-link">
                     <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard</span>
+                    <span>Trang quản lý</span>
                 </a>
             </li>
             <li class="sidebar-item  has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="bi bi-egg-fill"></i>
-                    <span>Icons</span>
+                    <span>Kỹ năng</span>
                 </a>
                 <ul class="submenu ">
                     <li class="submenu-item ">
-                        <a href="ui-icons-bootstrap-icons.html">Bootstrap Icons </a>
+                        <a href="{{route('admin.skill')}}">Danh sách kỹ năng</a>
                     </li>
                     <li class="submenu-item ">
-                        <a href="ui-icons-fontawesome.html">Fontawesome</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-icons-dripicons.html">Dripicons</a>
+                        <a href="{{route('admin.add-skill')}}">Thêm mới kỹ năng</a>
                     </li>
                 </ul>
             </li>
@@ -30,14 +27,14 @@
             <li class="sidebar-item  has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="bi bi-bar-chart-fill"></i>
-                    <span>Charts</span>
+                    <span>Công nghệ</span>
                 </a>
                 <ul class="submenu ">
                     <li class="submenu-item ">
-                        <a href="ui-chart-chartjs.html">ChartJS</a>
+                        <a href="{{route('admin.technologies')}}">Danh sách công nghệ</a>
                     </li>
                     <li class="submenu-item ">
-                        <a href="ui-chart-apexcharts.html">Apexcharts</a>
+                        <a href="{{route('admin.add-technology')}}">Thêm mới công nghệ</a>
                     </li>
                 </ul>
             </li>

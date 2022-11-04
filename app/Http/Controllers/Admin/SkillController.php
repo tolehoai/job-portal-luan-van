@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Service\SkillService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class SkillController extends Controller
@@ -38,6 +39,24 @@ class SkillController extends Controller
         return redirect()->route('admin.skill')->with('success', 'Tạo mới kỹ năng thành công')->withInput();
     }
 
+    public function editSkill(Request $request
+    ): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application {
+        if ($request->method() == 'GET') {
+            return view('pages/admin/skill/editSkill', [
+                "skill" => Skill::where('id', $request->skillId)->first()
+            ]);
+        }
+        $skill = $this->skillService->update($request);
+        if (!$skill) {
+            return redirect()->route('admin.edit-skill')
+                             ->with('error', 'Cập nhật kỹ năng thất bại')
+                             ->withInput();
+        }
+
+        return redirect()->route('admin.skill')->with('success', 'Cập nhật kỹ năng thành công')->withInput();
+    }
+
+
     public function delete(Request $request)
     {
         if ($this->skillService->delete($request->skillId)) {
@@ -45,6 +64,7 @@ class SkillController extends Controller
         } else {
             alert()->error('Thất bại', 'Có lỗi xảy ra khi xóa kỹ năng');
         }
+
         return redirect()->route('admin.skill');
     }
 }

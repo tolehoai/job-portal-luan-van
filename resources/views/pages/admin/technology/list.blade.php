@@ -44,6 +44,7 @@
                                         <tr>
                                             <th style="width: 100px">Số thứ tự</th>
                                             <th>Tên công nghệ</th>
+                                            <th style="width: 200px">Hành động</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -51,6 +52,21 @@
                                             <tr>
                                                 <td style="text-align: center">{{$technologies->currentPage() * $technologies->perPage() - $technologies->perPage() + 1 +$loop->index}}</td>
                                                 <td>{{ $technology->name }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary"
+                                                       href="{{route('admin.edit-technology', $technology->id)}}">Chỉnh
+                                                        sửa</a>
+                                                    <a class="deleteTechnologyBtn d-inline-block">
+                                                        <form class="deleteTechnologyForm"
+                                                              action="{{route('admin.delete-technology')}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="technologyId"
+                                                                   value="{{$technology->id}}">
+                                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                                        </form>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -75,7 +91,30 @@
     {{--quick defined--}}
     <script>
         $(function () {
-            // your custom javascript
+            $(document).ready(function () {
+
+                $(".deleteTechnologyBtn").click(function (e) {
+                    e.preventDefault();
+                    // let form = $(e.target);
+                    let formData = $(e.target).closest('.deleteTechnologyForm');
+                    Swal.fire({
+                        title: 'Xác nhận xóa?',
+                        text: "Bạn có chắc chắn muốn xóa công nghệ này",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Xác nhận',
+                        cancelButtonText: 'Hủy',
+                        showCloseButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            formData.submit();
+                        }
+                    })
+                })
+            });
+
         });
     </script>
 @stop

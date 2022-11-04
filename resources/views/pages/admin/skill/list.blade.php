@@ -52,7 +52,9 @@
                                                 <td style="text-align: center">{{$skills->currentPage() * $skills->perPage() - $skills->perPage() + 1 +$loop->index}}</td>
                                                 <td>{{ $skill->name }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary">Chỉnh sửa
+                                                    <a class="btn btn-primary"
+                                                       href="{{route('admin.edit-skill', $skill->id)}}">Chỉnh
+                                                        sửa
                                                     </a>
                                                     <a class="deleteSkillBtn d-inline-block">
                                                         <form class="deleteSkillForm"
@@ -106,11 +108,6 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             formData.submit();
-                            // Swal.fire(
-                            //     'Deleted!',
-                            //     'Your file has been deleted.',
-                            //     'success'
-                            // )
                         }
                     })
                 })

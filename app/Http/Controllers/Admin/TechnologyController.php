@@ -45,4 +45,32 @@ class TechnologyController extends Controller
 
         return redirect()->route('admin.technologies')->with('success', 'Tạo mới công nghệ thành công')->withInput();
     }
+
+    public function editTechnology(Request $request
+    ): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application {
+        if ($request->method() == 'GET') {
+            return view('pages/admin/technology/editTechnology', [
+                "technology" => Technology::where('id', $request->technologyId)->first()
+            ]);
+        }
+        $technology = $this->technologyService->update($request);
+        if (!$technology) {
+            return redirect()->route('admin.edit-technology')
+                             ->with('error', 'Cập nhật công nghệ thất bại')
+                             ->withInput();
+        }
+
+        return redirect()->route('admin.technologies')->with('success', 'Cập nhật công nghệ thành công')->withInput();
+    }
+
+
+    public function delete(Request $request)
+    {
+        if ($this->technologyService->delete($request->technologyId)) {
+            alert()->success('Thành công', 'Bạn đã xóa công ngệ');
+        } else {
+            alert()->error('Thất bại', 'Có lỗi xảy ra khi xóa cng nghệ');
+        }
+        return redirect()->route('admin.technologies');
+    }
 }

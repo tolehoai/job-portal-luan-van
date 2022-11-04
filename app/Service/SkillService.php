@@ -20,6 +20,17 @@ class SkillService
         return $skill;
     }
 
+    public function update(Request $request)
+    {
+        //update base information of company
+        $skill       = Skill::find(['id' => $request->skillId])->first();
+        $skill->name = $request->skillName;
+        $skill->slug = Str::slug($request->skillName);
+        $skill->save();
+
+        return $skill;
+    }
+
     public function delete(string $skillId)
     {
         return Skill::where('id', $skillId)->delete();

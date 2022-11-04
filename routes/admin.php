@@ -33,9 +33,19 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/skills', [SkillController::class, 'index'])->name('admin.skill');
     Route::get('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
     Route::post('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
+    Route::get('/edit-skill/{skillId}', [SkillController::class, 'editSkill'])
+         ->name('admin.edit-skill');
+    Route::post('/edit-skill/{skillId}', [SkillController::class, 'editSkill'])
+         ->name('admin.edit-skill');
     Route::post('/skills/delete', [SkillController::class, 'delete'])->name('admin.delete-skill');
     Route::get('/technologies', [TechnologyController::class, 'index'])->name('admin.technologies');
     Route::get('/add-technologies', [TechnologyController::class, 'addTechnology'])->name('admin.add-technology');
     Route::post('/add-technologies', [TechnologyController::class, 'addTechnology'])->name('admin.add-technology');
+    Route::get('/edit-technologies/{technologyId}', [TechnologyController::class, 'editTechnology'])
+         ->name('admin.edit-technology');
+    Route::post('/edit-technologies/{technologyId}', [TechnologyController::class, 'editTechnology'])
+         ->name('admin.edit-technology');
+    Route::post('/technology/delete', [TechnologyController::class, 'delete'])->name('admin.delete-technology');
+
 
 });

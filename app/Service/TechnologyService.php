@@ -20,5 +20,21 @@ class TechnologyService
 
         return $technology;
     }
+
+    public function update(Request $request)
+    {
+        //update base information of company
+        $technology       = Technology::find(['id' => $request->technologyId])->first();
+        $technology->name = $request->technologyName;
+        $technology->slug = Str::slug($request->technologyName);
+        $technology->save();
+
+        return $technology;
+    }
+
+    public function delete(string $technologyId)
+    {
+        return Technology::where('id', $technologyId)->delete();
+    }
 }
 
