@@ -44,7 +44,7 @@ class CompanyService
     public function update(Request $request)
     {
         //update base information of company
-        $company = Company::find(['id' => $request->get('companyId')])->first();
+        $company = Company::find(['id' => $request->get('companyId') ?? Auth::id()])->first();
         $company->name = $request->get('companyName');
         $company->company_desc = $request->get('companyDesc');
         $company->address = $request->get('companyAddress');

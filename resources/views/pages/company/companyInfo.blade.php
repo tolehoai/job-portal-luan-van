@@ -17,9 +17,10 @@
                         <div class="card-body">
                             <div class="company-info d-flex align-items-end">
                                 <div class="company-info-logo pr-3">
-                                    <img src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
-                                         alt="profile" class="img-lg rounded mb-3"
-                                         style="width: 92px"
+                                    <img
+                                        src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                                        alt="profile" class="img-lg rounded mb-3"
+                                        style="width: 92px"
                                     >
                                 </div>
                                 <div class="company-info-content">
@@ -69,7 +70,31 @@
                                         <p class="d-inline-block">{{$company->end_work_time}}</p>
                                     </address>
                                 </div>
-
+                            </div>
+                            <h5>Danh sách văn phòng:</h5>
+                            <div class="col-lg-6 grid-margin stretch-card m-0 p-0">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Tên văn phòng</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach ($company->office as $office)
+                                                    <tr>
+                                                        <td>{{$loop->index+1}}</td>
+                                                        <td>{{$company->name}} - {{$office->name}} Office</td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +107,7 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                            class="far fa-heart text-danger"></i></span>
+                        class="far fa-heart text-danger"></i></span>
             </div>
         </footer>
         <!-- partial -->
