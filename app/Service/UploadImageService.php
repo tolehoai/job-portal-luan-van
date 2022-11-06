@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
+use App\Models\Company;
 use App\Models\Image;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -24,11 +26,11 @@ class UploadImageService
     {
         if ($file) {
 
-            $fileName = time().$file->getClientOriginalName();
-            Storage::disk('public')->put($path.$fileName, File::get($file));
+            $fileName = time() . $file->getClientOriginalName();
+            Storage::disk('public')->put($path . $fileName, File::get($file));
             $file_name = $file->getClientOriginalName();
             $file_type = $file->getClientOriginalExtension();
-            $filePath  = 'storage/'.$path.$fileName;
+            $filePath = 'storage/' . $path . $fileName;
 
             return $file = [
                 'fileName' => $file_name,
@@ -44,21 +46,22 @@ class UploadImageService
         $size = $file->getSize();
 
         if ($size > 0) {
-            $size     = (int)$size;
-            $base     = log($size) / log(1024);
+            $size = (int)$size;
+            $base = log($size) / log(1024);
             $suffixes = [' bytes', ' KB', ' MB', ' GB', ' TB'];
-            return round(pow(1024, $base - floor($base)), $precision).$suffixes[floor($base)];
+            return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
         }
 
         return $size;
     }
 
-    public function updateImage(UploadedFile $uploadedFile): Image
+    public function updateImage(UploadedFile $uploadedFile, $companyId): Image
     {
         $fileData = $this->uploads($uploadedFile, 'images/');
-        File::delete(Auth::user()->image->path);
-        Log::info('Delete image path: '.Auth::user()->image->path);
-        $image       = Image::find(['imageable_id' => Auth::id()])->first();
+        $imagePath = Company::find($companyId)->image->path;
+        File::delete($imagePath);
+        Log::info('Delete image path: ' . Company::find($companyId)->image->path);
+        $image = Image::find(['imageable_id' => Auth::id()])->first();
         $image->path = $fileData['filePath'];
         $image->save();
 

@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "mckenziearts/laravel-notify": "^2.3",
-        "realrashid/sweet-alert": "^5.1"
+        "realrashid/sweet-alert": "^5.1",
+        "yajra/laravel-datatables-oracle": "^10.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

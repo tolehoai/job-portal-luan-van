@@ -10,7 +10,7 @@ class Company extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'companys';
+    protected $table = 'companies';
 
 
     protected $fillable = [
@@ -35,6 +35,11 @@ class Company extends Authenticatable
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function office()
+    {
+        return $this->belongsToMany(City::class);
     }
 
     public function image()

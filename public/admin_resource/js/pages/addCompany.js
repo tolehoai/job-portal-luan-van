@@ -1,6 +1,9 @@
 $(document).ready(function () {
     //Select2
     $("#countrySelect").select2();
+    $("#officeSelect").select2({
+        placeholder: "Chọn thành phố có văn phòng"
+    });
     //End Select2
 
     //CKEDITOR

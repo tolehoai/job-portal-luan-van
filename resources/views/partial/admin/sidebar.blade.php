@@ -9,6 +9,22 @@
                     <span>Trang quản lý</span>
                 </a>
             </li>
+
+            <li class="sidebar-item  has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-egg-fill"></i>
+                    <span>Công ty</span>
+                </a>
+                <ul class="submenu ">
+                    <li class="submenu-item ">
+                        <a href="{{route('admin.companyList')}}">Danh sách công ty</a>
+                    </li>
+                    <li class="submenu-item ">
+                        <a href="{{route('admin.add-company')}}">Thêm mới công ty</a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="sidebar-item  has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="bi bi-egg-fill"></i>
@@ -35,6 +51,21 @@
                     </li>
                     <li class="submenu-item ">
                         <a href="{{route('admin.add-technology')}}">Thêm mới công nghệ</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item  has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Thành phố</span>
+                </a>
+                <ul class="submenu ">
+                    <li class="submenu-item ">
+                        <a href="{{route('admin.cities')}}">Danh sách thành phố</a>
+                    </li>
+                    <li class="submenu-item ">
+                        <a href="{{route('admin.add-city')}}">Thêm mới thành phố</a>
                     </li>
                 </ul>
             </li>

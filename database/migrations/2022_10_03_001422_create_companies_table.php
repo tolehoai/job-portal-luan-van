@@ -12,11 +12,9 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('companys', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
-            $table->string('country_id');
             $table->text('company_desc');
             $table->string('address');
             $table->string('email');
@@ -27,8 +25,10 @@ return new class extends Migration {
             $table->time('start_work_time');
             $table->time('end_work_time');
             $table->integer('number_of_personal');
-
             $table->timestamps();
+
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
         });
     }
 

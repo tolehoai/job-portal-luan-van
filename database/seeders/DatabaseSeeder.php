@@ -29,20 +29,28 @@ class DatabaseSeeder extends Seeder
 
         DB::table('admins')->insert([
             [
-                'name'     => 'Admin',
-                'email'    => 'admin@gmail.com',
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
                 'password' => bcrypt('admin'),
             ]
         ]);
 
 
-        $limit = 200;
+        $limit = 500;
 
         for ($i = 0; $i < $limit; $i++) {
             $countryName = $faker->country;
-            DB::table('countrys')->insert([
-                'country_name'      => $countryName,
+            DB::table('countries')->insert([
+                'country_name' => $countryName,
                 'country_name_slug' => Str::slug($countryName)
+            ]);
+        }
+        $cityListOfVietNam = ["An Giang","Bà Rịa - Vũng Tàu","Bạc Liêu","Bắc Kạn","Bắc Giang","Bắc Ninh","Bến Tre","Bình Dương","Bình Định","Bình Phước","Bình Thuận","Cà Mau","Cao Bằng","Cần Thơ","Đà Nẵng","Đắk Lắk","Đắk Nông","Đồng Nai","Đồng Tháp","Điện Biên","Gia Lai","Hà Giang","Hà Nam","Hà Nội","Hà Tĩnh","Hải Dương","Hải Phòng","Hòa Bình","Hậu Giang","Hưng Yên","Thành phố Hồ Chí Minh","Khánh Hòa","Kiên Giang","Kon Tum","Lai Châu","Lào Cai","Lạng Sơn","Lâm Đồng","Long An","Nam Định","Nghệ An","Ninh Bình","Ninh Thuận","Phú Thọ","Phú Yên","Quảng Bình","Quảng Nam","Quảng Ngãi","Quảng Ninh","Quảng Trị","Sóc Trăng","Sơn La","Tây Ninh","Thái Bình","Thái Nguyên","Thanh Hóa","Thừa Thiên - Huế","Tiền Giang","Trà Vinh","Tuyên Quang","Vĩnh Long","Vĩnh Phúc","Yên Bái"];
+        for ($i = 0; $i < count($cityListOfVietNam); $i++) {
+            $cityName = $cityListOfVietNam[$i];
+            DB::table('cities')->insert([
+                'name' => $cityName,
+                'slug' => Str::slug($cityName)
             ]);
         }
 

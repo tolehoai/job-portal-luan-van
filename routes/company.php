@@ -4,7 +4,6 @@ use App\Http\Controllers\Company\Auth\LoginController;
 use App\Http\Controllers\Company\Auth\ForgotPasswordController;
 use App\Http\Controllers\Company\Auth\ResetPasswordController;
 use App\Http\Controllers\Company\CompanyController;
-use App\Http\Controllers\Company\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,7 +14,7 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout']); // @Todo Remove logout GET method
 
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
-     ->name('company.password.request');
+    ->name('company.password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('company.password.email');
 
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
@@ -26,4 +25,7 @@ Route::middleware('company.auth')->group(function () {
     Route::get('/info', [CompanyController::class, 'companyInfo'])->name('company.info');
     Route::get('/editCompany', [CompanyController::class, 'editCompany'])->name('company.edit');
     Route::post('/editCompany', [CompanyController::class, 'editCompany'])->name('company.edit');
+    //job
+    Route::get('/job', [\App\Http\Controllers\Company\JobController::class, 'index'])->name('company.job');
+
 });
