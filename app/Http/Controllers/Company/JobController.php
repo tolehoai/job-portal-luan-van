@@ -4,9 +4,18 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Company\CreateCompanyRequest;
+use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
+use App\Models\Job;
+use App\Models\JobLevel;
+use App\Models\JobType;
+use App\Models\Office;
+use App\Models\Skill;
+use App\Models\Technology;
+use App\Models\User;
 use App\Service\CompanyService;
+use App\Service\JobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,17 +24,44 @@ use Illuminate\Validation\ValidationException;
 
 class JobController extends Controller
 {
+    private JobService $jobService;
 
-    public function __construct()
+    public function __construct(JobService $jobService)
     {
+        $this->jobService = $jobService;
     }
 
     public function index()
     {
-        return view('company/dashboard/job', [
-            'company' => Auth::user()
+        return view('pages/company/job', [
+            'company' => Auth::user(),
+            'cities' => City::get()->toArray(),
+            'jobTypes' => JobType::get()->toArray(),
+            'jobLevels' => JobLevel::get()->toArray(),
+            'skills' => Skill::get()->toArray(),
+            'technologies' => Technology::get()->toArray()
         ]);
     }
+
+    public function showJobList()
+    {
+        return view('pages/company/jobList', [
+            'company' => Auth::user(),
+            'jobs' => Job::find(['id' => Auth::id()])
+        ]);
+    }
+
+    public function addJob(Request $request)
+    {
+        //validation request
+        $job = $this->jobService->store($request);
+        if (!$job) {
+            return redirect()->route('company.addJob')->with('failed', 'Failed! Job not created')->withInput();
+        }
+
+        return redirect()->route('company.jobList')->with('success', 'Success! Job created')->withInput();
+    }
+
 
     public function companyInfo()
     {
@@ -40,7 +76,7 @@ class JobController extends Controller
 
         if ($request->method() == 'GET') {
             return view('pages/company/editCompany', [
-                'company'  => Auth::user(),
+                'company' => Auth::user(),
                 'countrys' => Country::get()->toArray()
             ]);
         }

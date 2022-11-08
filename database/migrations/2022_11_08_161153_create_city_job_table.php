@@ -12,11 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('city_company', function (Blueprint $table) {
+        Schema::create('city_job', function (Blueprint $table) {
             $table->id();
+            $table->string('city_id');
+            $table->string('job_id');
             $table->timestamps();
-            $table->unsignedBigInteger('city_id')->nullable();
-            $table->unsignedBigInteger('company_id')->nullable();
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('city_office');
+        Schema::dropIfExists('city_job');
     }
 };

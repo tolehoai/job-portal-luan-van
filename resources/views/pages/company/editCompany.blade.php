@@ -137,7 +137,6 @@
                                                             @endforeach
 
                                                             @foreach ($cities as $city)
-                                                                {{dump($city['id'])}}
                                                                 <option
                                                                     value="{{$city['id']}}"
                                                                 >

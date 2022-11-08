@@ -1,0 +1,202 @@
+@extends('layouts.company.master')
+@section('title', 'Admin')
+@section('style-libraries')
+@stop
+@section('styles')
+    {{--custom css item suggest search--}}
+    <style>
+    </style>
+@stop
+@section('content')
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title">
+                    Thêm mới công việc
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="forms-sample addJobForm"
+                                  name="addJobForm"
+                                  id="addJobForm" method="POST"
+                                  action="{{ route('company.addJob') }}"
+                                  enctype="multipart/form-data"
+                            >
+                                @csrf
+                                <div class="form-group">
+                                    <label for="jobName">Tên công việc</label>
+                                    <input type="text" class="form-control" id="jobName" name="jobName"
+                                           placeholder="Nhập vào tên công việc">
+                                </div>
+                                <div class="form-group">
+                                    <label for="jobSalary">Mức lương (đơn vị VNĐ)</label>
+                                    <input type="text" class="form-control" id="jobSalary" name="jobSalary"
+                                           placeholder="Nhập vào mức lương">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jobLevel">Vị trí công việc</label>
+                                            <select class="form-control" id="jobLevel" name="jobLevel">
+                                                @foreach ($jobLevels as $jobLevel)
+                                                    <option
+                                                        value="{{$jobLevel['id']}}"
+                                                    >
+                                                        {{$jobLevel['name']}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="jobType">Hình thức công việc</label>
+                                            <select class="form-control" id="jobType" name="jobType">
+                                                @foreach ($jobTypes as $jobType)
+                                                    <option
+                                                        value="{{$jobType['id']}}"
+                                                    >
+                                                        {{$jobType['name']}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="technologySelect">Lĩnh vực công việc</label>
+                                            <fieldset class="form-group">
+                                                <select
+                                                    class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
+                                                    id="technologySelect"
+                                                    name="technologySelect[]"
+                                                    multiple="multiple"
+                                                >
+                                                    @foreach ($technologies as $technology)
+                                                        <option
+                                                            value="{{$technology['id']}}"
+                                                        >
+                                                            {{$technology['name']}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="skillSelect">Kỹ năng công việc</label>
+                                            <fieldset class="form-group">
+                                                <select
+                                                    class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
+                                                    id="skillSelect"
+                                                    name="skillSelect[]"
+                                                    multiple="multiple"
+                                                >
+                                                    @foreach ($skills as $skill)
+                                                        <option
+                                                            value="{{$skill['id']}}"
+                                                        >
+                                                            {{$skill['name']}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jobSalary">Văn phòng</label>
+                                    <fieldset class="form-group">
+                                        <select
+                                            class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
+                                            id="officeSelect"
+                                            name="officeSelect[]"
+                                            multiple="multiple"
+                                        >
+                                            @foreach ($cities as $city)
+                                                <option
+                                                    value="{{$city['id']}}"
+                                                >
+                                                    {{$city['name']}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Mô tả công việc</label>
+                                    <textarea
+                                        class="form-control {{ $errors->has('jobDesc') ? 'is-invalid' : '' }}"
+                                        id="jobDesc"
+                                        name="jobDesc"
+                                        rows="3"
+                                    ></textarea>
+                                    <span class="text-danger">{{ $errors->first('jobDesc') }}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Yêu cầu công việc</label>
+                                    <textarea
+                                        class="form-control {{ $errors->has('jobRequirement ') ? 'is-invalid' : '' }}"
+                                        id="jobRequirement"
+                                        name="jobRequirement"
+                                        rows="3"
+                                    ></textarea>
+                                    <span class="text-danger">{{ $errors->first('jobRequirement') }}</span>
+                                </div>
+                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                <button class="btn btn-light">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                        class="far fa-heart text-danger"></i></span>
+            </div>
+        </footer>
+        <!-- partial -->
+    </div>
+@stop
+@section('scripts')
+    <script>
+        //your js code here
+        $("#officeSelect").select2({
+            placeholder: "Chọn thành phố có văn phòng"
+        });
+        $("#technologySelect").select2({
+            placeholder: "Chọn lĩnh vực công việc"
+        });
+        $("#skillSelect").select2({
+            placeholder: "Chọn kỹ năng công việc"
+        });
+
+        //CKEDITOR
+        ClassicEditor
+            .create(document.querySelector('#jobDesc'))
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#jobRequirement'))
+            .catch(error => {
+                console.error(error);
+            });
+        //End CKEDITOR
+
+        // new AutoNumeric('#jobSalary', 'integer');
+    </script>
+@stop

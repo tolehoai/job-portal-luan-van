@@ -64,4 +64,5 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/jobs', [JobController::class, 'index'])->name('admin.jobs');
 
 
+
 });

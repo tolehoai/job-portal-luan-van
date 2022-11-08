@@ -46,4 +46,9 @@ class Company extends Authenticatable
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
 }

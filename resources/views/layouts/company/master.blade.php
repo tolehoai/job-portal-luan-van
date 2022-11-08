@@ -24,6 +24,9 @@
     <!-- endinject -->
     <link rel="stylesheet" href="http://127.0.0.1:8000/admin_resource/vendors/mdtimepicker/mdtimepicker.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js"
+            integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="shortcut icon" href="http://www.urbanui.com/"/>
     @yield('style-libraries')
     {{--Styles custom--}}
@@ -70,6 +73,9 @@
 <!-- End custom js for this page-->
 {{-- toastr js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.js"
+        integrity="sha512-/lbeISSLChIunUcgNvSFJSC+LFCZg08JHFhvDfDWDlY3a/NYb/NPKOcfDte3aA6E3mxm9a3sdxvkktZJSCpxGw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 {{--Scripts link to file or js custom--}}
 

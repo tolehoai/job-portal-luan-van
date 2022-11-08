@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class City extends Model
+class JobType extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $table = 'cities';
+    protected $table = 'job_types';
 
 
     protected $fillable = [
@@ -17,13 +18,10 @@ class City extends Model
         'slug'
     ];
 
-    public function company()
-    {
-        return $this->belongsToMany(Company::class);
-    }
+    protected $hidden = [];
 
     public function job()
     {
-        return $this->belongsToMany(Job::class);
+        return $this->hasMany(Job::class);
     }
 }

@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+//        \App\Models\User::factory(10)->create();
+//
+//        \App\Models\User::factory()->create([
+//            'name' => 'Test User',
+//            'email' => 'test@example.com',
+//        ]);
 
         $faker = \Faker\Factory::create();
 
@@ -45,12 +45,52 @@ class DatabaseSeeder extends Seeder
                 'country_name_slug' => Str::slug($countryName)
             ]);
         }
-        $cityListOfVietNam = ["An Giang","Bà Rịa - Vũng Tàu","Bạc Liêu","Bắc Kạn","Bắc Giang","Bắc Ninh","Bến Tre","Bình Dương","Bình Định","Bình Phước","Bình Thuận","Cà Mau","Cao Bằng","Cần Thơ","Đà Nẵng","Đắk Lắk","Đắk Nông","Đồng Nai","Đồng Tháp","Điện Biên","Gia Lai","Hà Giang","Hà Nam","Hà Nội","Hà Tĩnh","Hải Dương","Hải Phòng","Hòa Bình","Hậu Giang","Hưng Yên","Thành phố Hồ Chí Minh","Khánh Hòa","Kiên Giang","Kon Tum","Lai Châu","Lào Cai","Lạng Sơn","Lâm Đồng","Long An","Nam Định","Nghệ An","Ninh Bình","Ninh Thuận","Phú Thọ","Phú Yên","Quảng Bình","Quảng Nam","Quảng Ngãi","Quảng Ninh","Quảng Trị","Sóc Trăng","Sơn La","Tây Ninh","Thái Bình","Thái Nguyên","Thanh Hóa","Thừa Thiên - Huế","Tiền Giang","Trà Vinh","Tuyên Quang","Vĩnh Long","Vĩnh Phúc","Yên Bái"];
+        $cityListOfVietNam = ["An Giang", "Bà Rịa - Vũng Tàu", "Bạc Liêu", "Bắc Kạn", "Bắc Giang", "Bắc Ninh", "Bến Tre", "Bình Dương", "Bình Định", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng", "Cần Thơ", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Đồng Nai", "Đồng Tháp", "Điện Biên", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hòa Bình", "Hậu Giang", "Hưng Yên", "Thành phố Hồ Chí Minh", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lào Cai", "Lạng Sơn", "Lâm Đồng", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên - Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"];
         for ($i = 0; $i < count($cityListOfVietNam); $i++) {
             $cityName = $cityListOfVietNam[$i];
             DB::table('cities')->insert([
                 'name' => $cityName,
                 'slug' => Str::slug($cityName)
+            ]);
+        }
+
+        $jobTypeList = ['Full-time', 'Part-time', 'Remote', 'Freelance'];
+
+        for ($i = 0; $i < count($jobTypeList); $i++) {
+            $jobTypeName = $jobTypeList[$i];
+            DB::table('job_types')->insert([
+                'name' => $jobTypeName,
+                'slug' => Str::slug($jobTypeName)
+            ]);
+        }
+
+        $jobLevelList = ['Intern', 'Fresher', 'Junior', 'Senior', 'Leader'];
+
+        for ($i = 0; $i < count($jobLevelList); $i++) {
+            $jobLevelName = $jobLevelList[$i];
+            DB::table('job_levels')->insert([
+                'name' => $jobLevelName,
+                'slug' => Str::slug($jobLevelName)
+            ]);
+        }
+
+        $skills = ['HTML', 'CSS', 'Javascript', 'PHP'];
+
+        for ($i = 0; $i < count($skills); $i++) {
+            $skill = $skills[$i];
+            DB::table('skills')->insert([
+                'name' => $skill,
+                'slug' => Str::slug($skill)
+            ]);
+        }
+
+        $technologies = ['Frontend', 'Backend', 'Fullstack', 'DevOps'];
+
+        for ($i = 0; $i < count($technologies); $i++) {
+            $technology = $technologies[$i];
+            DB::table('technology')->insert([
+                'name' => $technology,
+                'slug' => Str::slug($technology)
             ]);
         }
 
