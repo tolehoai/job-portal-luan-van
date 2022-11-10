@@ -27,7 +27,8 @@ Route::middleware('company.auth')->group(function () {
     Route::post('/editCompany', [CompanyController::class, 'editCompany'])->name('company.edit');
     //job
     Route::get('/job', [\App\Http\Controllers\Company\JobController::class, 'index'])->name('company.job');
-    Route::get('/job', [\App\Http\Controllers\Company\JobController::class, 'showJobList'])->name('company.jobList');
     Route::post('/job', [\App\Http\Controllers\Company\JobController::class, 'addJob'])->name('company.addJob');
+    Route::get('/jobList', [\App\Http\Controllers\Company\JobController::class, 'showJobList'])->name('company.jobList');
+
 
 });

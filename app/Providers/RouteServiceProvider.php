@@ -12,13 +12,12 @@ class RouteServiceProvider extends ServiceProvider
 {
     /**
      * The path to the "home" route for your application.
-     *
      * Typically, users are redirected here after authentication.
      *
      * @var string
      */
-    public const HOME = '/';
-    public const ADMIN_HOME = '/admin';
+    public const HOME         = '/';
+    public const ADMIN_HOME   = '/admin';
     public const COMPANY_HOME = '/company';
 
     /**
@@ -32,21 +31,26 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
+                 ->prefix('api')
+                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+                 ->group(base_path('routes/web.php'));
 
             Route::middleware('web')
-                ->prefix('admin')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/admin.php'));
+                 ->prefix('admin')
+                 ->namespace($this->namespace)
+                 ->group(base_path('routes/admin.php'));
 
             Route::middleware('web')
-                ->prefix('company')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/company.php'));
+                 ->prefix('company')
+                 ->namespace($this->namespace)
+                 ->group(base_path('routes/company.php'));
+
+            Route::middleware('web')
+                 ->prefix('user')
+                 ->namespace($this->namespace)
+                 ->group(base_path('routes/user.php'));
         });
     }
 

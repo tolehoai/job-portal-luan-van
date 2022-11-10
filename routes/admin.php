@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\TechnologyController;
-use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,31 +38,42 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
     Route::post('/add-skill', [SkillController::class, 'addSkill'])->name('admin.add-skill');
     Route::get('/edit-skill/{skillId}', [SkillController::class, 'editSkill'])
-        ->name('admin.edit-skill');
+         ->name('admin.edit-skill');
     Route::post('/edit-skill/{skillId}', [SkillController::class, 'editSkill'])
-        ->name('admin.edit-skill');
+         ->name('admin.edit-skill');
     //technology
     Route::post('/skills/delete', [SkillController::class, 'delete'])->name('admin.delete-skill');
     Route::get('/technologies', [TechnologyController::class, 'index'])->name('admin.technologies');
     Route::get('/add-technologies', [TechnologyController::class, 'addTechnology'])->name('admin.add-technology');
     Route::post('/add-technologies', [TechnologyController::class, 'addTechnology'])->name('admin.add-technology');
     Route::get('/edit-technologies/{technologyId}', [TechnologyController::class, 'editTechnology'])
-        ->name('admin.edit-technology');
+         ->name('admin.edit-technology');
     Route::post('/edit-technologies/{technologyId}', [TechnologyController::class, 'editTechnology'])
-        ->name('admin.edit-technology');
+         ->name('admin.edit-technology');
     Route::post('/technology/delete', [TechnologyController::class, 'delete'])->name('admin.delete-technology');
     //city
     Route::get('/cities', [CityController::class, 'index'])->name('admin.cities');
     Route::get('/add-city', [CityController::class, 'addCity'])->name('admin.add-city');
     Route::post('/add-city', [CityController::class, 'addCity'])->name('admin.add-city');
     Route::get('/edit-city/{cityId}', [CityController::class, 'editCity'])
-        ->name('admin.edit-city');
+         ->name('admin.edit-city');
     Route::post('/edit-city/{cityId}', [CityController::class, 'editCity'])
-        ->name('admin.edit-city');
+         ->name('admin.edit-city');
     Route::post('/city/delete', [CityController::class, 'delete'])->name('admin.delete-city');
     //job
     Route::get('/jobs', [JobController::class, 'index'])->name('admin.jobs');
-
+    //Title
+    Route::get('/titles', [\App\Http\Controllers\Admin\TitleController::class, 'index'])->name('admin.title');
+    Route::get('/add-title', [\App\Http\Controllers\Admin\TitleController::class, 'addTitle'])
+         ->name('admin.add-title');
+    Route::post('/add-title', [\App\Http\Controllers\Admin\TitleController::class, 'addTitle'])
+         ->name('admin.add-title');
+    Route::get('/edit-title/{titleId}', [\App\Http\Controllers\Admin\TitleController::class, 'editTitle'])
+         ->name('admin.edit-title');
+    Route::post('/edit-title/{titleId}', [\App\Http\Controllers\Admin\TitleController::class, 'editTitle'])
+         ->name('admin.edit-title');
+    Route::post('/title/delete', [\App\Http\Controllers\Admin\TitleController::class, 'delete'])
+         ->name('admin.delete-title');
 
 
 });

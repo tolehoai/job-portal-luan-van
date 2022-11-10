@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $jobLevelList = ['Intern', 'Fresher', 'Junior', 'Senior', 'Leader'];
+        $jobLevelList = ['Intern Developer', 'Fresher Developer', 'Junior Developer', 'Senior Developer', 'Leader'];
 
         for ($i = 0; $i < count($jobLevelList); $i++) {
             $jobLevelName = $jobLevelList[$i];

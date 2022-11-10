@@ -121,11 +121,11 @@
                                             name="officeSelect[]"
                                             multiple="multiple"
                                         >
-                                            @foreach ($cities as $city)
+                                            @foreach ($offices as $office)
                                                 <option
-                                                    value="{{$city['id']}}"
+                                                    value="{{$office['id']}}"
                                                 >
-                                                    {{$city['name']}}
+                                                    {{$office['name']}}
                                                 </option>
                                             @endforeach
                                         </select>

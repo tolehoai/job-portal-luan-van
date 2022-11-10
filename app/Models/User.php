@@ -19,6 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'title',
+        'desc',
+        'phone',
         'email',
         'password',
         'verify_code'
@@ -47,5 +50,10 @@ class User extends Authenticatable
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function title()
+    {
+        return $this->belongsTo(Title::class);
     }
 }

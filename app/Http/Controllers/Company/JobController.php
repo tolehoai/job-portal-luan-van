@@ -35,7 +35,7 @@ class JobController extends Controller
     {
         return view('pages/company/job', [
             'company' => Auth::user(),
-            'cities' => City::get()->toArray(),
+            'offices' => Auth::user()->office->toArray(),
             'jobTypes' => JobType::get()->toArray(),
             'jobLevels' => JobLevel::get()->toArray(),
             'skills' => Skill::get()->toArray(),
@@ -47,7 +47,7 @@ class JobController extends Controller
     {
         return view('pages/company/jobList', [
             'company' => Auth::user(),
-            'jobs' => Job::find(['id' => Auth::id()])
+            'jobs' => Job::where(['company_id' => Auth::id()])->get()
         ]);
     }
 

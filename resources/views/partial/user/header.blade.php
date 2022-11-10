@@ -45,7 +45,18 @@
                             <!-- Header-btn -->
                             <div class="header-btn d-none f-right d-lg-block">
                                 @if(Auth::guard('web')->check())
-                                    Hello {{Auth::user()->name}}
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                            Hello {{Auth::user()->name}}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="{{route('user')}}">Thông tin cá nhân</a>
+                                            <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                        </div>
+                                    </div>
                                 @else
                                     <a href="/login" class="btn head-btn1">Đăng ký</a>
                                     <a href="/register" class="btn head-btn2">Đăng nhập</a>
