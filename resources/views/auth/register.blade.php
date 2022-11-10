@@ -33,9 +33,13 @@
                                        class="col-md-4 col-form-label text-md-end">{{ __('Chức danh') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text"
-                                           class="form-control @error('title') is-invalid @enderror" name="title"
-                                           value="{{ old('title') }}" required autocomplete="title" autofocus>
+                                    <select id="title"
+                                            class="form-control @error('title') is-invalid @enderror" name="title"
+                                    >
+                                        @foreach($jobTitles as $jobTitle)
+                                            <option value="{{$jobTitle->id}}">{{$jobTitle->name}}</option>
+                                        @endforeach
+                                    </select>
 
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -120,3 +124,11 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#title').select2();
+        });
+    </script>
+@stop
