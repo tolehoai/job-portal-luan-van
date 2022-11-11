@@ -22,9 +22,7 @@ Route::get('/admin/list', function () {
 Route::get('/register-verify/{verify_code}', [RegisterController::class, 'verifyRegister']);
 
 
-Route::get('/', function () {
-    return view('pages/user/index');
-})->name('home.index');;
+Route::get('/', [\App\Http\Controllers\User\IndexController::class, 'index'])->name('home.index');;
 
 Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout']); // @Todo Remove logout GET method
 

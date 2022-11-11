@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('title')->nullable();
+            $table->integer('title_id')->nullable();
             $table->string('phone')->nullable();
             $table->string('desc')->nullable();
             $table->string('verify_code')->nullable();

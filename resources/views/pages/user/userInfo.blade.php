@@ -130,86 +130,125 @@
             <div class="row">
                 <div class="col-6">
                     <div class="emp-profile">
-                        <form method="post">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="profile-img">
-                                        <img src="https://i.ibb.co/Fxy91Tb/295496107-2066395933525478-7766139268625854526-n.jpg"
-                                             style="width: 250px;"/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="profile-img">
+                                    <img src="https://i.ibb.co/Fxy91Tb/295496107-2066395933525478-7766139268625854526-n.jpg"
+                                         style="width: 250px;"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12 user-header mb-3">
+                                <div class="profile-head mt-2">
+                                    <h5>
+                                        {{$user->name}}
+                                    </h5>
+                                    <h6>
+                                        {{$user->title->name}}
+                                    </h6>
+                                    <div class="d-flex justify-content-between pt-5">
+                                        <h5 class="m-0 p-0">Thông tin</h5>
+                                        <a href="#" class="genric-btn primary">Chỉnh sửa thông tin</a>
                                     </div>
                                 </div>
-                                <div class="col-md-12 user-header mb-3">
+                            </div>
+
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p style="color: black">Email</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{$user->email}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p style="color: black">Số điện thoại</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p> {{$user->phone}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p style="color: black">Chức danh</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p> {{$user->title->name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="userDesc col-md-12 ">
+                                <div class="user-header mb-3">
                                     <div class="profile-head mt-2">
-                                        <h5>
-                                            {{$user->name}}
-                                        </h5>
-                                        <h6>
-                                            {{$user->title}}
-                                        </h6>
                                         <div class="d-flex justify-content-between pt-5">
-                                            <h5 class="m-0 p-0">Thông tin</h5>
-                                            <a href="#" class="genric-btn primary">Chỉnh sửa thông tin</a>
+                                            <h5 class="m-0 p-0">Giới thiệu bản thân</h5>
+                                            @if($user->desc != null)
+                                                <button id="btnEditDesc" class="genric-btn primary">Chỉnh sửa</button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p style="color: black">Email</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{$user->email}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p style="color: black">Số điện thoại</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p> {{$user->phone}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p style="color: black">Chức danh</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p> {{$user->title}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userDesc col-md-12 ">
-
-                                    <div class="user-header mb-3">
-                                        <div class="profile-head mt-2">
-                                            <div class="d-flex justify-content-between pt-5">
-                                                <h5 class="m-0 p-0">Giới thiệu bản thân</h5>
-                                                <a href="#" class="genric-btn primary">Chỉnh sửa thông tin</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                @if($user->desc != null)
+                                    {{$user->desc}}
+                                @else
                                     <p class="font-italic" id="addDescText" style="cursor: pointer">+ Thêm giới thiệu
                                         bản thân</p>
-                                    <form method="POST" action="">
-                                        @csrf
-                                        <div class="form-group descForm">
-                                            <label for="exampleFormControlTextarea1">Nhập giới thiệu bản thân</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                      rows="3"></textarea>
-                                            <div class="float-right pt-1">
-                                                <button type="submit" class="genric-btn primary">Thêm</button>
-                                                <button type="button" class="genric-btn danger" id="cancelDescText">Hủy
-                                                    bỏ
-                                                </button>
-                                            </div>
+                                @endif
+                                <form method="POST" action="{{route('user.addDesc')}}" name="addDescForm"
+                                      class="descForm">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="userDesc">Nhập giới thiệu bản thân</label>
+                                        <textarea class="form-control"
+                                                  id="userDesc"
+                                                  name="userDesc"
+                                                  rows="3">{{$user->desc!=null?$user->desc:''}}</textarea>
+                                        <div class="float-right pt-1">
+                                            <button type="submit" class="genric-btn primary">Gửi</button>
+                                            <button type="button" class="genric-btn danger" id="cancelDescText">Hủy bỏ
+                                            </button>
                                         </div>
-                                    </form>
-                                </div>
-
-
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+
+                            <div class="userDesc col-md-12 ">
+                                <div class="user-header mb-3">
+                                    <div class="profile-head mt-2">
+                                        <div class="d-flex justify-content-between pt-5">
+                                            <h5 class="m-0 p-0">Kỹ năng</h5>
+                                            @if($user->desc != null)
+                                                <button id="btnEditDesc" class="genric-btn primary">Chỉnh sửa</button>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                @if($user->desc != null)
+                                    {{$user->desc}}
+                                @else
+                                    <p class="font-italic" id="addDescText" style="cursor: pointer">+ Thêm kỹ năng</p>
+                                @endif
+                                <form method="POST" action="{{route('user.addDesc')}}" name="addDescForm"
+                                      class="descForm">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="userDesc">Nhập giới thiệu bản thân</label>
+                                        <textarea class="form-control"
+                                                  id="userDesc"
+                                                  name="userDesc"
+                                                  rows="3">{{$user->desc!=null?$user->desc:''}}</textarea>
+                                        <div class="float-right pt-1">
+                                            <button type="submit" class="genric-btn primary">Gửi</button>
+                                            <button type="button" class="genric-btn danger" id="cancelDescText">Hủy bỏ
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
@@ -225,7 +264,7 @@
     <script>
         $(document).ready(function () {
             $(".descForm").hide();
-            $("#addDescText").click(function () {
+            $("#addDescText, #btnEditDesc").click(function () {
                 $(".descForm").show(500);
             });
             $("#cancelDescText").click(function () {
