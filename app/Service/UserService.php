@@ -15,4 +15,13 @@ class UserService
         return User::where('id', Auth::id())
                    ->update($updateData);
     }
+
+    public function updateUserSkill(Request $request)
+    {
+        $updateData = $request->except('_token');
+        $user       = User::find(['id' => Auth::id()])->first();
+        $user->skill()->sync($updateData['skills'], false);
+
+        return $user;
+    }
 }

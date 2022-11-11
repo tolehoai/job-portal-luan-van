@@ -58,8 +58,8 @@
                                         </div>
                                     </div>
                                 @else
-                                    <a href="/login" class="btn head-btn1">Đăng ký</a>
-                                    <a href="/register" class="btn head-btn2">Đăng nhập</a>
+                                    <a href="/register" class="btn head-btn1">Đăng ký</a>
+                                    <a href="/login" class="btn head-btn2">Đăng nhập</a>
                                 @endif
                             </div>
                         </div>

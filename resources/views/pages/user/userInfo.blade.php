@@ -125,6 +125,11 @@
         .select2-search__field {
             width: auto !important;
         }
+
+        .badge-skill {
+            background-color: #ebf3ff;
+            color: #002152;
+        }
     </style>
 @stop
 
@@ -229,7 +234,11 @@
                                     </div>
                                 </div>
                                 @if(count($user->skill->all())!=0)
-                                    {{dump($user->skill)}}
+                                    @foreach($user->skill as $skill)
+                                        <div class="badge badge-skill p-2 m-1">
+                                            {{$skill->name}}
+                                        </div>
+                                    @endforeach
                                 @else
                                     <p class="font-italic" id="addSkillText" style="cursor: pointer">+ Thêm kỹ năng</p>
                                 @endif
@@ -238,7 +247,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="userDesc">Chọn kỹ năng</label>
-                                        <select id="skill" name="states[]" multiple="multiple"
+                                        <select id="skill" name="skills[]" multiple="multiple"
                                                 style="width: 100% !important;">
                                             @foreach($skills as $skill)
                                                 <option value="{{$skill->id}}">{{$skill->name}}</option>

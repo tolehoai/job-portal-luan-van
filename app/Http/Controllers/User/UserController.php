@@ -42,8 +42,7 @@ class UserController extends Controller
 
     public function updateSkill(Request $request)
     {
-        dd($request->all());
-        $user = $this->userService->update($request);
+        $user = $this->userService->updateUserSkill($request);
         if (!$user) {
             return redirect()->route('user')
                              ->with('error', 'Cập nhật thông tin thất bại')
