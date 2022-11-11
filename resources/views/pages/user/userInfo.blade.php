@@ -121,6 +121,10 @@
         .user-header {
             border-bottom: 2px solid #0062cc;
         }
+
+        .select2-search__field {
+            width: auto !important;
+        }
     </style>
 @stop
 
@@ -199,10 +203,10 @@
                                       class="descForm">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="userDesc">Nhập giới thiệu bản thân</label>
+                                        <label for="desc">Nhập giới thiệu bản thân</label>
                                         <textarea class="form-control"
-                                                  id="userDesc"
-                                                  name="userDesc"
+                                                  id="desc"
+                                                  name="desc"
                                                   rows="3">{{$user->desc!=null?$user->desc:''}}</textarea>
                                         <div class="float-right pt-1">
                                             <button type="submit" class="genric-btn primary">Gửi</button>
@@ -212,35 +216,37 @@
                                     </div>
                                 </form>
                             </div>
-
+                            {{--                            Ky nang--}}
                             <div class="userDesc col-md-12 ">
                                 <div class="user-header mb-3">
                                     <div class="profile-head mt-2">
                                         <div class="d-flex justify-content-between pt-5">
                                             <h5 class="m-0 p-0">Kỹ năng</h5>
                                             @if($user->desc != null)
-                                                <button id="btnEditDesc" class="genric-btn primary">Chỉnh sửa</button>
+                                                <button id="btnEditSkill" class="genric-btn primary">Chỉnh sửa</button>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-                                @if($user->desc != null)
-                                    {{$user->desc}}
+                                @if(count($user->skill->all())!=0)
+                                    {{dump($user->skill)}}
                                 @else
-                                    <p class="font-italic" id="addDescText" style="cursor: pointer">+ Thêm kỹ năng</p>
+                                    <p class="font-italic" id="addSkillText" style="cursor: pointer">+ Thêm kỹ năng</p>
                                 @endif
-                                <form method="POST" action="{{route('user.addDesc')}}" name="addDescForm"
-                                      class="descForm">
+                                <form method="POST" action="{{route('user.addSkill')}}" name="addSkillForm"
+                                      class="skillForm">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="userDesc">Nhập giới thiệu bản thân</label>
-                                        <textarea class="form-control"
-                                                  id="userDesc"
-                                                  name="userDesc"
-                                                  rows="3">{{$user->desc!=null?$user->desc:''}}</textarea>
+                                        <label for="userDesc">Chọn kỹ năng</label>
+                                        <select id="skill" name="states[]" multiple="multiple"
+                                                style="width: 100% !important;">
+                                            @foreach($skills as $skill)
+                                                <option value="{{$skill->id}}">{{$skill->name}}</option>
+                                            @endforeach
+                                        </select>
                                         <div class="float-right pt-1">
                                             <button type="submit" class="genric-btn primary">Gửi</button>
-                                            <button type="button" class="genric-btn danger" id="cancelDescText">Hủy bỏ
+                                            <button type="button" class="genric-btn danger" id="cancelSkillText">Hủy bỏ
                                             </button>
                                         </div>
                                     </div>
@@ -269,6 +275,19 @@
             });
             $("#cancelDescText").click(function () {
                 $(".descForm").hide(500);
+            });
+
+            $(".skillForm").hide();
+            $("#addSkillText, #btnEditSkill").click(function () {
+                $(".skillForm").show(500);
+            });
+            $("#cancelSkillText").click(function () {
+                $(".skillForm").hide(500);
+            });
+
+            $('#skill').select2({
+                placeholder: "Chọn kỹ năng",
+                allowClear: true
             });
         });
     </script>

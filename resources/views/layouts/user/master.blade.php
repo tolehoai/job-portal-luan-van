@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="{{ asset('user_resource/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+          integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     @yield('style-libraries')
     {{--Styles custom--}}
     @yield('styles')
@@ -75,7 +79,22 @@
 <!-- Jquery Plugins, main Jquery -->
 <script src="{{ asset('user_resource/js/plugins.js') }}"></script>
 <script src="{{ asset('user_resource/js/main.js') }}"></script>
+{{-- toastr js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{--Scripts link to file or js custom--}}
+<script>
+    $(document).ready(function () {
+        toastr.options.timeOut = 5000;
+        @if (Session::has('error'))
+        toastr.error('{{ Session::get('error') }}');
+        @elseif(Session::has('success'))
+        toastr.success('{{ Session::get('success') }}');
+        @endif
+    });
+</script>
 @yield('scripts')
 </body>
 </html>

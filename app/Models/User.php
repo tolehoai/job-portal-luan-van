@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Title::class);
     }
+
+    public function skill()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
 }

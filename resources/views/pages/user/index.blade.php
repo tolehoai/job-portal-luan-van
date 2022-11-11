@@ -9,6 +9,71 @@
 @section('styles')
     {{--custom css item suggest search--}}
     <style>
+        .landing-page {
+            position: relative;
+        }
+
+        .banner1 {
+            width: 350px !important;
+            animation: MoveUpDown 10s linear infinite;
+            position: absolute;
+
+        }
+
+        .pattern1 {
+            width: 80px !important;
+            animation: MoveUpDown1 15s linear infinite;
+            position: absolute;
+
+        }
+
+        .banner2 {
+            width: 350px !important;
+            animation: MoveUpDown2 8s linear infinite;
+            position: absolute;
+
+        }
+
+        .pattern2 {
+            width: 80px !important;
+            animation: MoveUpDown2 15s linear infinite;
+            position: absolute;
+
+        }
+
+        @keyframes MoveUpDown {
+            0%, 100% {
+                top: 100px;
+                right: 250px;
+            }
+            50% {
+                top: 150px;
+                right: 250px;
+            }
+        }
+
+        @keyframes MoveUpDown2 {
+            0%, 100% {
+                top: 350px;
+                right: 100px;
+            }
+            50% {
+                top: 350px;
+                right: 200px;
+            }
+        }
+
+        .list {
+            max-height: 200px;
+            overflow-y: scroll !important;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .example {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
 
     </style>
 @stop
@@ -21,8 +86,15 @@
             <div class="slider-area ">
                 <!-- Mobile Menu -->
                 <div class="slider-active">
-                    <div class="single-slider slider-height d-flex align-items-center"
-                         data-background="{{ asset('user_resource/img/hero/h1_hero.png') }}">
+                    <div class="single-slider slider-height d-flex align-items-center landing-page"
+                         data-background="{{ asset('user_resource/img/hero/h1_hero.png') }}"
+                         style="height: 1000px !important;"
+                    >
+                        <img src="{{ asset('user_resource/img/banner1.png')}}" class="banner1">
+                        <img src="{{ asset('user_resource/img/pattern.png')}}" class="pattern1">
+                        <img src="{{ asset('user_resource/img/banner2.png')}}" class="banner2">
+                        <img src="{{ asset('user_resource/img/pattern2.png')}}" class="pattern2">
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-9 col-md-10">
@@ -41,12 +113,11 @@
                                         </div>
                                         <div class="select-form">
                                             <div class="select-itms">
-                                                <select name="select" id="select1">
+                                                <select name="select" id="cityList">
                                                     <option value="">Tất cả thành phố</option>
-                                                    <option value="">Hồ Chí Minh</option>
-                                                    <option value="">Cần Thơ</option>
-                                                    <option value="">Đà Nẵng</option>
-                                                    <option value="">Hà Nội</option>
+                                                    @foreach($cities as $city)
+                                                        <option value="{{$city->slug}}">{{$city->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -207,8 +278,8 @@
                                 <div class="job-items">
                                     <div class="company-img">
                                         <a href="job_details.html"><img
-                                                src="{{ asset('user_resource/img/icon/nfq.jpg') }}" alt=""
-                                                style="width:102px"></a>
+                                                    src="{{ asset('user_resource/img/icon/nfq.jpg') }}" alt=""
+                                                    style="width:102px"></a>
                                     </div>
                                     <div class="job-tittle">
                                         <a href="job_details.html">
@@ -235,8 +306,8 @@
                                 <div class="job-items">
                                     <div class="company-img">
                                         <a href="job_details.html"><img
-                                                src="{{ asset('user_resource/img/icon/fpt.jpg') }}" alt=""
-                                                style="width:102px"></a>
+                                                    src="{{ asset('user_resource/img/icon/fpt.jpg') }}" alt=""
+                                                    style="width:102px"></a>
                                     </div>
                                     <div class="job-tittle">
                                         <a href="job_details.html">
@@ -259,8 +330,8 @@
                                 <div class="job-items">
                                     <div class="company-img">
                                         <a href="job_details.html"><img
-                                                src="{{ asset('user_resource/img/icon/mbbank.jpg') }}" alt=""
-                                                style="width:102px"></a>
+                                                    src="{{ asset('user_resource/img/icon/mbbank.jpg') }}" alt=""
+                                                    style="width:102px"></a>
                                     </div>
                                     <div class="job-tittle">
                                         <a href="job_details.html">
@@ -283,8 +354,8 @@
                                 <div class="job-items">
                                     <div class="company-img">
                                         <a href="job_details.html"><img
-                                                src="{{ asset('user_resource/img/icon/nab.jpg') }}" alt=""
-                                                style="width:102px"></a>
+                                                    src="{{ asset('user_resource/img/icon/nab.jpg') }}" alt=""
+                                                    style="width:102px"></a>
                                     </div>
                                     <div class="job-tittle">
                                         <a href="job_details.html">
@@ -377,8 +448,8 @@
                                         <div class="testimonial-founder  ">
                                             <div class="founder-img mb-30">
                                                 <img
-                                                    src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
-                                                    alt="">
+                                                        src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
+                                                        alt="">
                                                 <span>Margaret Lawson</span>
                                                 <p>Creative Director</p>
                                             </div>
@@ -400,8 +471,8 @@
                                         <div class="testimonial-founder  ">
                                             <div class="founder-img mb-30">
                                                 <img
-                                                    src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
-                                                    alt="">
+                                                        src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
+                                                        alt="">
                                                 <span>Margaret Lawson</span>
                                                 <p>Creative Director</p>
                                             </div>
@@ -423,8 +494,8 @@
                                         <div class="testimonial-founder  ">
                                             <div class="founder-img mb-30">
                                                 <img
-                                                    src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
-                                                    alt="">
+                                                        src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
+                                                        alt="">
                                                 <span>Margaret Lawson</span>
                                                 <p>Creative Director</p>
                                             </div>
@@ -545,7 +616,12 @@
 @stop
 
 @section('scripts')
-
+    <script>
+        $(document).ready(function () {
+            // $('#cityList').select2();
+            $('#cityList').niceSelect();
+        });
+    </script>
 @stop
 
 
