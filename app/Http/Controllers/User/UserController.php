@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Skill;
+use App\Models\Title;
 use App\Service\CityService;
 use App\Service\UserService;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class UserController extends Controller
         return view('pages/user/userInfo', [
             'user'   => Auth::user(),
             'skills' => Skill::get(),
+            'titles' => Title::get()
         ]);
     }
 

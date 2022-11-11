@@ -26,11 +26,11 @@ class UploadImageService
     {
         if ($file) {
 
-            $fileName = time() . $file->getClientOriginalName();
-            Storage::disk('public')->put($path . $fileName, File::get($file));
+            $fileName = time().$file->getClientOriginalName();
+            Storage::disk('public')->put($path.$fileName, File::get($file));
             $file_name = $file->getClientOriginalName();
             $file_type = $file->getClientOriginalExtension();
-            $filePath = 'storage/' . $path . $fileName;
+            $filePath  = 'storage/'.$path.$fileName;
 
             return $file = [
                 'fileName' => $file_name,
@@ -46,22 +46,32 @@ class UploadImageService
         $size = $file->getSize();
 
         if ($size > 0) {
-            $size = (int)$size;
-            $base = log($size) / log(1024);
+            $size     = (int)$size;
+            $base     = log($size) / log(1024);
             $suffixes = [' bytes', ' KB', ' MB', ' GB', ' TB'];
-            return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
+            return round(pow(1024, $base - floor($base)), $precision).$suffixes[floor($base)];
         }
 
         return $size;
     }
 
-    public function updateImage(UploadedFile $uploadedFile, $companyId): Image
+    public function updateImage(UploadedFile $uploadedFile, $companyId, $userId): Image
     {
         $fileData = $this->uploads($uploadedFile, 'images/');
-        $imagePath = Company::find($companyId)->image->path;
+        if ($companyId != null) {
+            $imagePath = Company::find($companyId)->image->path;
+        }
+        if ($userId != null) {
+            $imagePath = User::find($companyId)->image->path;
+        }
         File::delete($imagePath);
-        Log::info('Delete image path: ' . Company::find($companyId)->image->path);
-        $image = Image::find(['imageable_id' => Auth::id()])->first();
+        if ($companyId != null) {
+            Log::info('Delete image path: '.Company::find($companyId)->image->path);
+        }
+        if ($userId != null) {
+            Log::info('Delete image path: '.User::find($userId)->image->path);
+        }
+        $image       = Image::find(['imageable_id' => Auth::id()])->first();
         $image->path = $fileData['filePath'];
         $image->save();
 

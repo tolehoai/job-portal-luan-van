@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [\App\Http\Controllers\User\UserController::class, 'index'])->name('user');
-    Route::post('/updateDesc', [\App\Http\Controllers\User\UserController::class, 'update'])->name('user.addDesc');
+    Route::post('/updateDesc', [\App\Http\Controllers\User\UserController::class, 'update'])->name('user.update');
     Route::post('/updateSkill', [\App\Http\Controllers\User\UserController::class, 'updateSkill'])
          ->name('user.addSkill');
 });

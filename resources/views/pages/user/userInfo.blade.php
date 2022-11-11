@@ -142,8 +142,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="profile-img">
-                                    <img src="https://i.ibb.co/Fxy91Tb/295496107-2066395933525478-7766139268625854526-n.jpg"
-                                         style="width: 250px;"/>
+                                    <img src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
+                                         alt="profile"
+                                         class="img-lg rounded-circle mb-3"
+                                         style="width: 250px;"
+                                    >
                                 </div>
                             </div>
                             <div class="col-md-12 user-header mb-3">
@@ -156,7 +159,10 @@
                                     </h6>
                                     <div class="d-flex justify-content-between pt-5">
                                         <h5 class="m-0 p-0">Thông tin</h5>
-                                        <a href="#" class="genric-btn primary">Chỉnh sửa thông tin</a>
+                                        <button type="button" class="genric-btn primary" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                            Chỉnh sửa thông tin
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +210,7 @@
                                     <p class="font-italic" id="addDescText" style="cursor: pointer">+ Thêm giới thiệu
                                         bản thân</p>
                                 @endif
-                                <form method="POST" action="{{route('user.addDesc')}}" name="addDescForm"
+                                <form method="POST" action="{{route('user.update')}}" name="addDescForm"
                                       class="descForm">
                                     @csrf
                                     <div class="form-group">
@@ -227,7 +233,7 @@
                                     <div class="profile-head mt-2">
                                         <div class="d-flex justify-content-between pt-5">
                                             <h5 class="m-0 p-0">Kỹ năng</h5>
-                                            @if($user->desc != null)
+                                            @if(count($user->skill->all())!=0)
                                                 <button id="btnEditSkill" class="genric-btn primary">Chỉnh sửa</button>
                                             @endif
                                         </div>
@@ -270,8 +276,69 @@
                     Your CV here
                 </div>
             </div>
-
         </main>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form action="{{route('user.update')}}" method="POST"
+                      enctype="multipart/form-data"
+                >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="changeInformationModal">
+                            <div class="col-lg-12 col-md-12">
+
+                                @csrf
+                                <div class="mt-10">
+                                    <label for="name">Họ và tên</label>
+                                    <input type="text" name="name" placeholder="Nhập vào họ và tên"
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Nhập vào họ và tên'"
+                                           required="" class="single-input"
+                                           value="{{$user->name}}"
+                                    >
+                                </div>
+                                <div class="mt-10">
+                                    <label for="title_id">Chọn chức danh</label>
+                                    <select id="title" name="title_id"
+                                            style="width: 100%;"
+                                    >
+                                        <option value="{{$user->title->id}}">{{$user->title->name}}</option>
+                                        @foreach($titles as $title)
+                                            <option value="{{$title->id}}">{{$title->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mt-10">
+                                    <label for="title_id">Số điện thoại</label>
+                                    <input type="text" name="phone" placeholder="Nhập vào số điện thoại"
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Nhập vào số điện thoại'"
+                                           required="" class="single-input"
+                                           value="{{$user->phone}}"
+                                    >
+                                </div>
+                                <div class="mt-10">
+                                    <label for="formFile" class="form-label">Ảnh đại diện</label>
+                                    <input class="form-control" type="file" id="formFile" name="avatar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="genric-btn primary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="genric-btn danger">Lưu</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
     </div>
 @stop
 
@@ -297,6 +364,10 @@
             $('#skill').select2({
                 placeholder: "Chọn kỹ năng",
                 allowClear: true
+            });
+
+            $('#title').select2({
+                dropdownParent: $('#changeInformationModal')
             });
         });
     </script>

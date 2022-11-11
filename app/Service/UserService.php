@@ -9,9 +9,25 @@ use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
+    private UploadImageService $uploadImageService;
+
+    public function __construct(UploadImageService $uploadImageService)
+    {
+        $this->uploadImageService = $uploadImageService;
+    }
+
     public function update(Request $request)
     {
         $updateData = $request->except('_token');
+        $avatar     = null;
+        if (isset($updateData['avatar'])) {
+            $avatar = $updateData['avatar'];
+            unset($updateData['avatar']);
+        }
+        $user = User::find(['id' => Auth::id()])->first();
+        if ($avatar) {
+            $this->uploadImageService->store($avatar, $user);
+        }
         return User::where('id', Auth::id())
                    ->update($updateData);
     }
