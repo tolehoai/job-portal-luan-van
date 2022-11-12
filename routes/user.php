@@ -24,8 +24,14 @@ Route::middleware('auth')->group(function () {
          ->name('user.addSkill');
     Route::post('/addExperience/{userId}', [\App\Http\Controllers\User\ExperienceController::class, 'addExperience'])
          ->name('user.addExperience');
-    Route::post('/editExperience/{userId}', [\App\Http\Controllers\User\ExperienceController::class, 'editExperience'])
+    Route::post('/editExperience/{experienceId}',
+        [\App\Http\Controllers\User\ExperienceController::class, 'editExperience'])
          ->name('user.editExperience');
+    Route::post('/addEducation/{userId}', [\App\Http\Controllers\User\EducationController::class, 'addEducation'])
+         ->name('user.addEducation');
+    Route::post('/editEducation/{educationId}',
+        [\App\Http\Controllers\User\EducationController::class, 'editEducation'])
+         ->name('user.editEducation');
 });
 
 

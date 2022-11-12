@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->dateTime('end_date')->nullable()->default(null);
             $table->bigInteger('title_id');
             $table->string('company_name');
-            $table->string('desc');
+            $table->text('desc');
             $table->timestamps();
         });
     }

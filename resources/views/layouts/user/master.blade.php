@@ -33,6 +33,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
           rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
+    <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet"/>
 
     @yield('style-libraries')
     {{--Styles custom--}}
@@ -86,6 +87,7 @@
 <script src="{{ asset('user_resource/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('user_resource/js/mail-script.js') }}"></script>
 <script src="{{ asset('user_resource/js/jquery.ajaxchimp.min.js') }}"></script>
+<script src="{{ asset('user_resource/js/printThis.js') }}"></script>
 
 <!-- Jquery Plugins, main Jquery -->
 <script src="{{ asset('user_resource/js/plugins.js') }}"></script>
@@ -95,6 +97,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 {{--Scripts link to file or js custom--}}
 <script>
     $(document).ready(function () {

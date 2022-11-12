@@ -27,7 +27,8 @@ class UserController extends Controller
             'user'        => Auth::user(),
             'skills'      => Skill::get(),
             'titles'      => Title::get(),
-            'experiences' => Auth::user()->experience->sortByDesc('id')
+            'experiences' => Auth::user()->experience->sortByDesc('id'),
+            'educations'  => Auth::user()->education->sortByDesc('id')
         ]);
     }
 

@@ -16,6 +16,8 @@ class Experience extends Model
      *
      * @var array<int, string>
      */
+    protected $table = 'experiences';
+
     protected $fillable = [
         'user_id',
         'is_current_job',

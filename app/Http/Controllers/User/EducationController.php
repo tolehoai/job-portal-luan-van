@@ -7,20 +7,20 @@ use App\Service\EducationService;
 use App\Service\ExperienceService;
 use Illuminate\Http\Request;
 
-class ExperienceController
+class EducationController
 {
-    private ExperienceService $experienceService;
+    private EducationService $educationService;
 
-    public function __construct(ExperienceService $experienceService)
+    public function __construct(EducationService $educationService)
     {
-        $this->experienceService = $experienceService;
+        $this->educationService = $educationService;
     }
 
-    public function addExperience(Request $request, string $userId)
+    public function addEducation(Request $request, string $userId)
     {
         //validation
-        $experience = $this->experienceService->store($request, $userId);
-        if (!$experience) {
+        $education = $this->educationService->store($request, $userId);
+        if (!$education) {
             return redirect()->route('user')
                              ->with('error', 'Cập nhật thông tin thất bại')
                              ->withInput();
@@ -29,11 +29,11 @@ class ExperienceController
         return redirect()->route('user')->with('success', 'Cập nhật thông tin thành công')->withInput();
     }
 
-    public function editExperience(Request $request, string $experienceId)
+    public function editEducation(Request $request, string $educationId)
     {
         //validation
-        $experience = $this->experienceService->update($request, $experienceId);
-        if (!$experience) {
+        $education = $this->educationService->update($request, $educationId);
+        if (!$education) {
             return redirect()->route('user')
                              ->with('error', 'Cập nhật thông tin thất bại')
                              ->withInput();
@@ -41,5 +41,4 @@ class ExperienceController
 
         return redirect()->route('user')->with('success', 'Cập nhật thông tin thành công')->withInput();
     }
-
 }
