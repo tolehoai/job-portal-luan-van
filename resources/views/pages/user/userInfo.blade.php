@@ -226,6 +226,7 @@
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                             {{--                            Ky nang--}}
                             <div class="userDesc col-md-12 ">
@@ -268,6 +269,57 @@
                                 </form>
                             </div>
 
+                            {{--                            Kinh nghiem--}}
+                            <div class="userDesc col-md-12 ">
+                                <div class="user-header mb-3">
+                                    <div class="profile-head mt-2">
+                                        <div class="d-flex justify-content-between pt-5">
+                                            <h5 class="m-0 p-0">Kinh nghiệm làm việc</h5>
+                                            @if(count($user->experience->all())!=0)
+                                                <button id="btnEditExperience" class="genric-btn primary">Chỉnh sửa
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                @if(count($user->experience->all())!=0)
+                                    @foreach($user->experience as $experience)
+                                        {{dump($experience)}}
+                                    @endforeach
+                                @else
+                                    <p class="font-italic" id="addExperienceText" style="cursor: pointer">+ Thêm kinh
+                                        nghiệm
+                                        làm việc</p>
+                                @endif
+                                <form method="POST" action="{{route('user.addSkill')}}" name="addExperienceForm"
+                                      class="experienceForm">
+                                    @csrf
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="company_name">Tên công ty</label>
+                                            <input type="email" class="form-control" id="company_name"
+                                                   name="company_name"
+                                                   placeholder="Nhập tên công ty">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                                   placeholder="Password">
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div>
+                                        <div class="float-right pt-1">
+                                            <button type="submit" class="genric-btn primary">Gửi</button>
+                                            <button type="button" class="genric-btn danger" id="cancelExperienceText">
+                                                Hủy bỏ
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
 
                         </div>
                     </div>
@@ -294,7 +346,6 @@
                         </div>
                         <div class="modal-body" id="changeInformationModal">
                             <div class="col-lg-12 col-md-12">
-
                                 @csrf
                                 <div class="mt-10">
                                     <label for="name">Họ và tên</label>
@@ -335,6 +386,7 @@
                             <button type="button" class="genric-btn primary" data-dismiss="modal">Đóng</button>
                             <button type="submit" class="genric-btn danger">Lưu</button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -359,6 +411,14 @@
             });
             $("#cancelSkillText").click(function () {
                 $(".skillForm").hide(500);
+            });
+
+            $(".experienceForm").hide();
+            $("#addExperienceText, #btnEditExperience").click(function () {
+                $(".experienceForm").show(500);
+            });
+            $("#cancelExperienceText").click(function () {
+                $(".experienceForm").hide(500);
             });
 
             $('#skill').select2({

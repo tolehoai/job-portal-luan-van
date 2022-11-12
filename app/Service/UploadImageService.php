@@ -55,26 +55,23 @@ class UploadImageService
         return $size;
     }
 
-    public function updateImage(UploadedFile $uploadedFile, $companyId, $userId): Image
+    public function updateImage(UploadedFile $uploadedFile, $model, $companyId, $userId): int
     {
-        $fileData = $this->uploads($uploadedFile, 'images/');
-        if ($companyId != null) {
-            $imagePath = Company::find($companyId)->image->path;
-        }
-        if ($userId != null) {
-            $imagePath = User::find($companyId)->image->path;
-        }
+        $fileData  = $this->uploads($uploadedFile, 'images/');
+        $imagePath = $model->image->path;
         File::delete($imagePath);
-        if ($companyId != null) {
-            Log::info('Delete image path: '.Company::find($companyId)->image->path);
-        }
-        if ($userId != null) {
-            Log::info('Delete image path: '.User::find($userId)->image->path);
-        }
-        $image       = Image::find(['imageable_id' => Auth::id()])->first();
-        $image->path = $fileData['filePath'];
-        $image->save();
+        Log::info('Delete image path: '.$model->image->path);
 
-        return $image;
+        if ($model->image == null) {
+            //create new image
+            return $model->image()->create([
+                'path' => $fileData['filePath']
+            ]);
+        } else {
+            //update path
+            return $model->image()->update([
+                'path' => $fileData['filePath']
+            ]);
+        }
     }
 }

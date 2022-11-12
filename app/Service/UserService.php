@@ -25,8 +25,8 @@ class UserService
             unset($updateData['avatar']);
         }
         $user = User::find(['id' => Auth::id()])->first();
-        if ($avatar) {
-            $this->uploadImageService->store($avatar, $user);
+        if ($avatar != null) {
+            $this->uploadImageService->updateImage($avatar, $user, null, $user);
         }
         return User::where('id', Auth::id())
                    ->update($updateData);
