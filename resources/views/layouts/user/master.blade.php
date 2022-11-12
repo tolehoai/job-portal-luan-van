@@ -24,10 +24,16 @@
     <link rel="stylesheet" href="{{ asset('user_resource/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/style.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ asset('user_resource/css/jquery-ui.css') }}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
           integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
+
     @yield('style-libraries')
     {{--Styles custom--}}
     @yield('styles')
@@ -52,7 +58,12 @@
 <script src="{{ asset('user_resource/js/popper.min.js') }}"></script>
 <script src="{{ asset('user_resource/js/bootstrap.min.js') }}"></script>
 <!-- Jquery Mobile Menu -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script src="{{ asset('user_resource/js/jquery.slicknav.min.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 <!-- Jquery Slick , Owl-Carousel Plugins -->
 <script src="{{ asset('user_resource/js/owl.carousel.min.js') }}"></script>

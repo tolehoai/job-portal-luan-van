@@ -24,9 +24,10 @@ class UserController extends Controller
     public function index()
     {
         return view('pages/user/userInfo', [
-            'user'   => Auth::user(),
-            'skills' => Skill::get(),
-            'titles' => Title::get()
+            'user'        => Auth::user(),
+            'skills'      => Skill::get(),
+            'titles'      => Title::get(),
+            'experiences' => Auth::user()->experience->sortByDesc('id')
         ]);
     }
 

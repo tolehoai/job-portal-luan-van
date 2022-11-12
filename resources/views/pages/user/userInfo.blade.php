@@ -130,6 +130,7 @@
             background-color: #ebf3ff;
             color: #002152;
         }
+
     </style>
 @stop
 
@@ -144,7 +145,7 @@
                                 <div class="profile-img">
                                     <img src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
                                          alt="profile"
-                                         class="img-lg rounded-circle mb-3"
+                                         class="img-lg mb-3"
                                          style="width: 250px;"
                                     >
                                 </div>
@@ -158,7 +159,7 @@
                                         {{$user->title->name}}
                                     </h6>
                                     <div class="d-flex justify-content-between pt-5">
-                                        <h5 class="m-0 p-0">Thông tin</h5>
+                                        <h4 class="m-0 p-0">Thông tin</h4>
                                         <button type="button" class="genric-btn primary" data-toggle="modal"
                                                 data-target="#exampleModal">
                                             Chỉnh sửa thông tin
@@ -197,9 +198,10 @@
                                 <div class="user-header mb-3">
                                     <div class="profile-head mt-2">
                                         <div class="d-flex justify-content-between pt-5">
-                                            <h5 class="m-0 p-0">Giới thiệu bản thân</h5>
-                                            @if($user->desc != null)
-                                                <button id="btnEditDesc" class="genric-btn primary">Chỉnh sửa</button>
+                                            <h4 class="m-0 p-0">Giới thiệu bản thân</h5>
+                                                @if($user->desc != null)
+                                                    <button id="btnEditDesc" class="genric-btn primary">Chỉnh sửa
+                                                    </button>
                                             @endif
                                         </div>
                                     </div>
@@ -233,7 +235,7 @@
                                 <div class="user-header mb-3">
                                     <div class="profile-head mt-2">
                                         <div class="d-flex justify-content-between pt-5">
-                                            <h5 class="m-0 p-0">Kỹ năng</h5>
+                                            <h4 class="m-0 p-0">Kỹ năng</h4>
                                             @if(count($user->skill->all())!=0)
                                                 <button id="btnEditSkill" class="genric-btn primary">Chỉnh sửa</button>
                                             @endif
@@ -274,41 +276,84 @@
                                 <div class="user-header mb-3">
                                     <div class="profile-head mt-2">
                                         <div class="d-flex justify-content-between pt-5">
-                                            <h5 class="m-0 p-0">Kinh nghiệm làm việc</h5>
-                                            @if(count($user->experience->all())!=0)
-                                                <button id="btnEditExperience" class="genric-btn primary">Chỉnh sửa
-                                                </button>
-                                            @endif
+                                            <h4 class="m-0 p-0">Kinh nghiệm làm việc</h4>
+                                            <button id="btnEditExperience" class="genric-btn primary">Thêm mới
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                @if(count($user->experience->all())!=0)
-                                    @foreach($user->experience as $experience)
-                                        {{dump($experience)}}
-                                    @endforeach
-                                @else
-                                    <p class="font-italic" id="addExperienceText" style="cursor: pointer">+ Thêm kinh
-                                        nghiệm
-                                        làm việc</p>
-                                @endif
-                                <form method="POST" action="{{route('user.addSkill')}}" name="addExperienceForm"
+                                <form method="POST" action="{{route('user.addExperience',$user->id)}}"
+                                      name="addExperienceForm"
                                       class="experienceForm">
                                     @csrf
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="company_name">Tên công ty</label>
-                                            <input type="email" class="form-control" id="company_name"
+                                            <input type="text" class="form-control" id="company_name"
                                                    name="company_name"
                                                    placeholder="Nhập tên công ty">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                                   placeholder="Password">
+                                            <div class="mt-10">
+                                                <label for="experience_title">Chọn chức danh</label>
+                                                <select id="experience_title" name="title_id"
+                                                        style="width: 100%;"
+                                                >
+                                                    @foreach($titles as $title)
+                                                        <option value="{{$title->id}}">{{$title->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        <div class="form-check form-group">
+                                            <input type="checkbox" class="form-check-input primary-checkbox"
+                                                   id="is_current_job"
+                                                   name="is_current_job"
+                                                   value="1"
+                                                   onclick="validate()">
+                                            <label class="form-check-label" for="is_current_job">Đang làm việc ở
+                                                đây</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class='col-6'>
+                                                    <div class="form-group">
+                                                        <div class='input-group date'>
+                                                            <div id="datepicker-popup"
+                                                                 class="input-group date datepicker">
+                                                                <input type="text" class="form-control"
+                                                                       id="start_date"
+                                                                       name="start_date"
+                                                                       placeholder="Ngày bắt đầu"
+                                                                >
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class='col-6'>
+                                                    <div class="form-group">
+                                                        <div class='input-group date'>
+                                                            <div id="datepicker-popup"
+                                                                 class="input-group date datepicker">
+                                                                <input type="text" class="form-control"
+                                                                       id="end_date"
+                                                                       name="end_date"
+                                                                       placeholder="Ngày kết thúc"
+                                                                >
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="desc">Mô tả công việc</label>
+                                            <textarea class="form-control" id="desc"
+                                                      name="desc"
+                                                      rows="3"></textarea>
                                         </div>
                                         <div class="float-right pt-1">
                                             <button type="submit" class="genric-btn primary">Gửi</button>
@@ -318,6 +363,136 @@
                                         </div>
                                     </div>
                                 </form>
+                                @if(count($experiences->all())!=0)
+                                    @foreach($experiences as $experience)
+                                        <div class="working-experience-item mb-3 pb-3 border-bottom">
+                                            <div class="info" data-users--edit-experience-target="info">
+                                                <b style="font-size: 1.5rem">{{$experience->company_name}}</b>
+                                                <div class="date-range">
+                                                    {{date('d/m/Y', strtotime($experience->start_date))}}
+                                                    -
+                                                    @if($experience->end_date == null)
+                                                        Hiện tại
+                                                    @else
+                                                        {{date('d-m-Y', strtotime($experience->end_date))}}
+                                                    @endif
+                                                </div>
+                                                <div class="job-title text-break">
+                                                    <b>{{$experience->title->name}}</b>
+                                                </div>
+                                                <div class="job-title text-break pt-2 font-italic">
+                                                    {{$experience->desc}}
+                                                </div>
+                                                <a class="my-profile__link updateExperienceBtn"
+                                                   style="cursor: pointer">
+                                                    + Chỉnh sửa kinh nghiệm
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {{--                                        form --}}
+                                        <form method="POST" action="{{route('user.editExperience',$experience->id)}}"
+                                              name="editExperienceForm "
+                                              class="editExperienceForm mb-3 pb-5 border-bottom">
+                                            @csrf
+                                            <h5>Chỉnh sửa thông tin kinh nghiệm tại công
+                                                ty {{$experience->company_name}}</h5>
+
+                                            <div class="form-group">
+                                                <label for="company_name">Tên công ty</label>
+                                                <input type="text" class="form-control" id="company_name"
+                                                       name="company_name"
+                                                       value="{{$experience->company_name}}"
+                                                       placeholder="Nhập tên công ty">
+                                            </div>
+                                            <div class="form-group form-group-select">
+                                                <div class="mt-10">
+                                                    <label for="experience_title">Chọn chức danh</label>
+                                                    <select id="experience_title" class="experience_title_class"
+                                                            name="title_id"
+                                                            style="width: 100%;"
+                                                    >
+                                                        <option value="{{$experience->title_id}}">{{$experience->title->name}}</option>
+                                                        @foreach($titles as $title)
+                                                            <option value="{{$title->id}}">{{$title->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-group">
+                                                <input type="checkbox" class="form-check-input primary-checkbox"
+                                                       class="is_current_job_edit"
+                                                       name="is_current_job"
+                                                       value="1"
+                                                       @if($experience->is_current_job == 1)
+                                                           checked
+                                                        @endif
+                                                >
+                                                <label class="form-check-label" for="is_current_job">Đang làm việc ở
+                                                    đây</label>
+                                            </div>
+                                            <div class="form-group form-group-datetime">
+                                                <div class="row">
+                                                    <div class='col-6'>
+                                                        <div class="form-group">
+                                                            <div class='input-group date'>
+                                                                <div id="datepicker-popup"
+                                                                     class="input-group date datepicker">
+                                                                    <input type="text" class="form-control"
+                                                                           class="start_date_edit"
+                                                                           name="start_date"
+                                                                           id="startDatetimeEdit"
+                                                                           placeholder="Ngày bắt đầu"
+                                                                           value="{{$experience->start_date}}"
+                                                                    >
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='col-6'>
+                                                        <div class="form-group">
+                                                            <div class='input-group date'>
+                                                                <div class="datepicker-popup"
+                                                                     class="input-group date datepicker">
+                                                                    <input type="text" class="form-control"
+                                                                           class="end_date_edit"
+                                                                           name="end_date"
+                                                                           id="endDatetimeEdit"
+                                                                           placeholder="Ngày kết thúc"
+                                                                           value="{{$experience->end_date}}"
+                                                                    >
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="desc">Mô tả công việc</label>
+                                                <textarea class="form-control" id="desc"
+                                                          name="desc"
+                                                          rows="3">{{$experience->desc}}</textarea>
+                                            </div>
+                                            <div class="float-right pt-1">
+                                                <button type="submit" class="genric-btn primary">Gửi</button>
+                                                <button type="button" class="genric-btn danger"
+                                                        class="cancelEditExperienceText"
+                                                        onclick="hideAllForm()"
+                                                >
+                                                    Hủy bỏ
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    @endforeach
+                                @else
+                                    <p class="font-italic" id="addExperienceText" style="cursor: pointer">+ Thêm kinh
+                                        nghiệm
+                                        làm việc</p>
+                                @endif
+
                             </div>
 
 
@@ -329,8 +504,6 @@
                 </div>
             </div>
         </main>
-
-
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -391,13 +564,17 @@
             </div>
         </div>
     </div>
-    </div>
 @stop
 
 @section('scripts')
     <script>
+
+
         $(document).ready(function () {
+
+
             $(".descForm").hide();
+
             $("#addDescText, #btnEditDesc").click(function () {
                 $(".descForm").show(500);
             });
@@ -429,7 +606,127 @@
             $('#title').select2({
                 dropdownParent: $('#changeInformationModal')
             });
+
+            $('#experience_title').select2();
+            $('.experience_title_class').select2();
+
+
+            if ($("#start_date").length) {
+                $('#start_date').datepicker(
+                    {
+                        format: 'dd-mm-yyyy',
+                        timeFormat: 'HH:mm:ss',
+                        onShow: function () {
+                            this.setOptions({
+                                maxDate: $('#tdate').val() ? $('#tdate').val() : false,
+                                maxTime: $('#tdate').val() ? $('#tdate').val() : false
+                            });
+                        }
+                    }
+                );
+            }
+
+            if ($("#end_date").length) {
+                $('#end_date').datepicker(
+                    {
+                        format: 'dd-mm-yyyy',
+                        timeFormat: 'HH:mm:ss',
+                        onShow: function () {
+                            this.setOptions({
+                                maxDate: $('#tdate').val() ? $('#tdate').val() : false,
+                                maxTime: $('#tdate').val() ? $('#tdate').val() : false
+                            });
+                        }
+                    }
+                );
+            }
+
+
+            $('.start_date_edit').datepicker(
+                {
+                    format: 'dd-mm-yyyy',
+                    timeFormat: 'HH:mm:ss',
+                    onShow: function () {
+                        this.setOptions({
+                            maxDate: $('#tdate').val() ? $('#tdate').val() : false,
+                            maxTime: $('#tdate').val() ? $('#tdate').val() : false
+                        });
+                    }
+                }
+            );
+
+
+            $('.end_date_edit').datepicker(
+                {
+                    format: 'dd-mm-yyyy',
+                    timeFormat: 'HH:mm:ss',
+                    onShow: function () {
+                        this.setOptions({
+                            maxDate: $('#tdate').val() ? $('#tdate').val() : false,
+                            maxTime: $('#tdate').val() ? $('#tdate').val() : false
+                        });
+                    }
+                }
+            );
+
+
         });
+
+        function validate() {
+            if (document.getElementById('is_current_job').checked) {
+                $("#end_date").prop("disabled", true);
+                $("#end_date").val('');
+            } else {
+
+                $("#end_date").prop("disabled", false);
+            }
+        }
+
+
+        $(".updateExperienceBtn").click(function (e) {
+
+            $(".editExperienceForm").hide(500)
+            $(".working-experience-item").show(500)
+            let form = $(this).parent().parent().next()
+            let selectTitle = form.find('.form-group-select').find('#experience_title');
+            let startDatetimeEdit = form.find('.form-group-datetime').find('#startDatetimeEdit');
+            let endDatetimeEdit = form.find('.form-group-datetime').find('#endDatetimeEdit');
+            startDatetimeEdit.datepicker(
+                {
+                    format: 'dd-mm-yyyy',
+                    timeFormat: 'HH:mm:ss',
+                    onShow: function () {
+                        this.setOptions({
+                            maxDate: $('#tdate').val() ? $('#tdate').val() : false,
+                            maxTime: $('#tdate').val() ? $('#tdate').val() : false
+                        });
+                    }
+                }
+            );
+            endDatetimeEdit.datepicker(
+                {
+                    format: 'dd-mm-yyyy',
+                    timeFormat: 'HH:mm:ss',
+                    onShow: function () {
+                        this.setOptions({
+                            maxDate: $('#tdate').val() ? $('#tdate').val() : false,
+                            maxTime: $('#tdate').val() ? $('#tdate').val() : false
+                        });
+                    }
+                }
+            );
+            selectTitle.select2();
+            form.show(500);
+            $(this).parent().parent().hide(500);
+        })
+
+
+        $(".editExperienceForm").hide();
+
+        function hideAllForm() {
+            $(".editExperienceForm").hide(500);
+            $(".working-experience-item").show(500)
+        }
     </script>
 
 @stop

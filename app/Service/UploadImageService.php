@@ -55,12 +55,9 @@ class UploadImageService
         return $size;
     }
 
-    public function updateImage(UploadedFile $uploadedFile, $model, $companyId, $userId): int
+    public function updateImage(UploadedFile $uploadedFile, $model, $companyId, $userId): Image|int
     {
-        $fileData  = $this->uploads($uploadedFile, 'images/');
-        $imagePath = $model->image->path;
-        File::delete($imagePath);
-        Log::info('Delete image path: '.$model->image->path);
+        $fileData = $this->uploads($uploadedFile, 'images/');
 
         if ($model->image == null) {
             //create new image
@@ -69,6 +66,9 @@ class UploadImageService
             ]);
         } else {
             //update path
+            $imagePath = $model->image->path;
+            File::delete($imagePath);
+            Log::info('Delete image path: '.$model->image->path);
             return $model->image()->update([
                 'path' => $fileData['filePath']
             ]);

@@ -17,6 +17,7 @@ class Experience extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'is_current_job',
         'start_date',
         'end_date',
@@ -32,8 +33,9 @@ class Experience extends Model
      */
     protected $hidden = [];
 
-    public function user()
+    public function title()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(Title::class);
     }
+
 }
