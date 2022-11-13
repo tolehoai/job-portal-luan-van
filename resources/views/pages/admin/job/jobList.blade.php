@@ -79,7 +79,7 @@
                                                 <div class="d-flex flex-column ">
                                                     <span class="text-truncate me-3"><i
                                                                 class="fa fa-map-marker-alt text-primary me-2"></i>
-                                                 @foreach ($job->city as $city)
+                                                         @foreach ($job->city as $city)
                                                             <p class="d-inline-block">{{$city->name}}, </p>
                                                         @endforeach
                                                 </span>

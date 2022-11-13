@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('user_resource/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('user_resource/css/style_1.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/jquery-ui.css') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
@@ -34,7 +35,6 @@
           rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet"/>
-
     @yield('style-libraries')
     {{--Styles custom--}}
     @yield('styles')

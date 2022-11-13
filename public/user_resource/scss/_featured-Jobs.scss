@@ -79,6 +79,9 @@
         }
     }
     .items-link{
+        color:#fff;
+        background: #8b92dd;
+        border: 1px solid transparent;
         @media #{$sm}{
             padding-top: 35px;
             text-align: center;
@@ -101,7 +104,7 @@
            
             &:hover{
                 color:#fff;
-                background: #8b92dd;
+                background: #6168aa;
                 border: 1px solid transparent;
             }
         }

@@ -22,6 +22,7 @@ class Job extends Model
         'job_requirements',
         'job_type_id',
         'job_level_id',
+        'technology_id',
     ];
 
     protected $hidden = [];
@@ -48,7 +49,7 @@ class Job extends Model
 
     public function technology()
     {
-        return $this->belongsToMany(Technology::class);
+        return $this->belongsTo(Technology::class);
     }
 
     public function city()
