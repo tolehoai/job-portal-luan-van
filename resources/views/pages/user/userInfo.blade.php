@@ -267,7 +267,7 @@
                                     </div>
                                 </div>
                                 <form method="POST" action="{{route('user.addExperience',$user->id)}}"
-                                      name="addExperienceForm" class="experienceForm">
+                                      name="addExperienceForm" class="experienceForm" id="experienceForm">
                                     @csrf
                                     <div class="form-group">
                                         <div class="form-group">
@@ -348,7 +348,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="job-title text-break">
-                                                    <b>{{$experience->title->name}}</b>
+                                                    <h5>{{$experience->title->name}}</h5>
                                                 </div>
                                                 <div class="job-title text-break pt-2 font-italic">
                                                     {{$experience->desc}}
@@ -375,8 +375,8 @@
                                             </div>
                                             <div class="form-group form-group-select">
                                                 <div class="mt-10">
-                                                    <label for="experience_title">Chọn chức danh</label>
-                                                    <select id="experience_title" class="experience_title_class"
+                                                    <label for="experience_title_class">Chọn chức danh</label>
+                                                    <select id="experience_title_class" class="experience_title_class"
                                                             name="title_id"
                                                             style="width: 100%;">
                                                         <option value="{{$experience->title_id}}">{{$experience->title->name}}
@@ -465,7 +465,7 @@
                                     </div>
                                 </div>
                                 <form method="POST" action="{{route('user.addEducation',$user->id)}}"
-                                      name="addEducationForm" class="educationForm">
+                                      name="addEducationForm" class="educationForm" id="educationForm">
                                     @csrf
                                     <div class="form-group">
                                         <label for="university_name">Tên trường</label>
@@ -546,7 +546,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="job-title text-break">
-                                                    <b>{{$education->major}}</b>
+                                                    <h5>{{$education->major}}</h5>
                                                 </div>
                                                 <div class="job-title text-break pt-2 font-italic">
                                                     {{$education->desc}}
@@ -599,7 +599,7 @@
                                                                            class="start_date_edit"
                                                                            name="start_date" id="startDatetimeEdit"
                                                                            placeholder="Ngày bắt đầu"
-                                                                           value="{{$experience->start_date}}">
+                                                                           value="{{$education->start_date}}">
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -615,7 +615,7 @@
                                                                            class="end_date_edit"
                                                                            name="end_date" id="endDatetimeEdit"
                                                                            placeholder="Ngày kết thúc"
-                                                                           value="{{$experience->end_date}}">
+                                                                           value="{{$education->end_date}}">
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -761,28 +761,30 @@
             </div>
         </main>
     </div>
-    <div class=" modal fade " id=" exampleModal " tabindex=" -1 " role=" dialog " aria-labelledby=" exampleModalLabel "
-         aria-hidden=" true ">
-        <div class=" modal-dialog " role=" document ">
-            <form action=" {{route( 'user.update')}} " method=" POST "
-                  enctype=" multipart/form-data "
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="{{route( 'user.update')}}" method="POST"
+                  enctype="multipart/form-data"
             >
-                <div class=" modal-content ">
-                    <div class=" modal-header ">
-                        <h5 class=" modal-title " id=" exampleModalLabel ">Chỉnh sửa thông tin</h5>
-                        <button type=" button " class=" close " data-dismiss=" modal " aria-label=" Close ">
-                            <span aria-hidden=" true ">&times;</span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class=" modal-body " id=" changeInformationModal ">
-                        <div class=" col-lg-12 col-md-12 ">
+                    <div class="modal-body" id="changeInformationModal">
+                        <div class="col-lg-12 col-md-12">
                             @csrf
-                            <div class=" mt-10 ">
-                                <label for=" name ">Họ và tên</label>
-                                <input type=" text " name=" name " placeholder=" Nhập vào họ và tên "
+                            <div class="mt-10">
+                                <label for="name">Họ và tên</label>
+                                <input type="text" name="name" placeholder=" Nhập vào họ và tên "
                                        onfocus=" this.placeholder='' "
                                        onblur=" this.placeholder='Nhập vào họ và tên' "
-                                       required=" " class=" single-input "
+                                       required="" class=" single-input "
                                        value=" {{$user->name}}">
                             </div>
                             <div class="mt-10">
@@ -815,7 +817,62 @@
             </form>
         </div>
     </div>
-    </div>
+
+    {{--    <div class=" modal fade " id=" exampleModal " tabindex=" -1 " role=" dialog " aria-labelledby=" exampleModalLabel "--}}
+    {{--         aria-hidden=" true ">--}}
+    {{--        <div class=" modal-dialog " role=" document ">--}}
+    {{--            <form action=" {{route( 'user.update')}} " method=" POST "--}}
+    {{--                  enctype=" multipart/form-data "--}}
+    {{--            >--}}
+    {{--                <div class=" modal-content ">--}}
+    {{--                    <div class=" modal-header ">--}}
+    {{--                        <h5 class=" modal-title " id=" exampleModalLabel ">Chỉnh sửa thông tin</h5>--}}
+    {{--                        <button type=" button " class=" close " data-dismiss=" modal " aria-label=" Close ">--}}
+    {{--                            <span aria-hidden=" true ">&times;</span>--}}
+    {{--                        </button>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-body" id="changeInformationModal">--}}
+    {{--                        <div class="col-lg-12 col-md-12">--}}
+    {{--                            @csrf--}}
+    {{--                            <div class="mt-10">--}}
+    {{--                                <label for="name">Họ và tên</label>--}}
+    {{--                                <input type="text" name="name" placeholder=" Nhập vào họ và tên "--}}
+    {{--                                       onfocus=" this.placeholder='' "--}}
+    {{--                                       onblur=" this.placeholder='Nhập vào họ và tên' "--}}
+    {{--                                       required=" " class=" single-input "--}}
+    {{--                                       value=" {{$user->name}}">--}}
+    {{--                            </div>--}}
+    {{--                            <div class="mt-10">--}}
+    {{--                                <label for="title_id">Chọn chức danh</label>--}}
+    {{--                                <select id="title" name="title_id" style="width: 100%;">--}}
+    {{--                                    <option value="{{$user->title->id}}">{{$user->title->name}}</option>--}}
+    {{--                                    @foreach($titles as $title)--}}
+    {{--                                        <option value="{{$title->id}}">{{$title->name}}</option>--}}
+    {{--                                    @endforeach--}}
+    {{--                                </select>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="mt-10">--}}
+    {{--                                <label for="title_id">Số điện thoại</label>--}}
+    {{--                                <input type="text" name="phone" placeholder="Nhập vào số điện thoại"--}}
+    {{--                                       onfocus="this.placeholder = ''"--}}
+    {{--                                       onblur="this.placeholder = 'Nhập vào số điện thoại'" required=""--}}
+    {{--                                       class="single-input" value="{{$user->phone}}">--}}
+    {{--                            </div>--}}
+    {{--                            <div class="mt-10">--}}
+    {{--                                <label for="formFile" class="form-label">Ảnh đại diện</label>--}}
+    {{--                                <input class="form-control" type="file" id="formFile" name="avatar">--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-footer">--}}
+    {{--                        <button type="button" class="genric-btn primary" data-dismiss="modal">Đóng</button>--}}
+    {{--                        <button type="submit" class="genric-btn danger">Lưu</button>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </form>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
+    {{--    </div>--}}
 
 @stop @section('scripts')
     <script>
@@ -971,9 +1028,10 @@
         $(".updateExperienceBtn").click(function (e) {
 
             $(".editExperienceForm").hide(500)
+            $(".experienceForm").hide(500)
             $(".working-experience-item").show(500)
             let form = $(this).parent().parent().next()
-            let selectTitle = form.find('.form-group-select').find('#experience_title');
+            let selectTitle = form.find('.form-group-select').find('#experience_title_class');
             let startDatetimeEdit = form.find('.form-group-datetime').find('#startDatetimeEdit');
             let endDatetimeEdit = form.find('.form-group-datetime').find('#endDatetimeEdit');
             startDatetimeEdit.datepicker({
@@ -1004,6 +1062,7 @@
         $(".updateEducationBtn").click(function (e) {
 
             $(".editEducationForm").hide(500)
+            $(".educationForm").hide(500)
             $(".working-experience-item").show(500)
             let form = $(this).parent().parent().next()
             let startDatetimeEdit = form.find('.form-group-datetime').find('#startDatetimeEdit');
@@ -1037,6 +1096,7 @@
 
         function hideAllForm() {
             $(".editEducationForm").hide(500);
+            $(".editExperienceForm").hide(500);
             $(".working-experience-item").show(500)
         }
     </script>
