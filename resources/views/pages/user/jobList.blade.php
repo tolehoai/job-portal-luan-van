@@ -485,9 +485,7 @@
                                                     </span>
                                                     <ul>
                                                         <li>
-                                                            @foreach ($job->technology as $technology)
-                                                                {{$technology->name}},
-                                                            @endforeach
+                                                            {{$job->technology->name}},
                                                         </li>
                                                     </ul>
                                                     <span class="text-gray"><i

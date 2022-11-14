@@ -20,16 +20,16 @@ class CompanyService
     public function store(Request $request)
     {
         $company = Company::create([
-            'name' => $request->get('companyName'),
-            'company_desc' => $request->get('companyDesc'),
-            'address' => $request->get('companyAddress'),
-            'email' => $request->get('companyEmail'),
-            'password' => Hash::make($request->get('companyPassword')),
-            'phone' => $request->get('companyPhone'),
-            'start_work_time' => $request->get('startTimeWork'),
-            'end_work_time' => $request->get('endTimeWork'),
+            'name'               => $request->get('companyName'),
+            'company_desc'       => $request->get('companyDesc'),
+            'address'            => $request->get('companyAddress'),
+            'email'              => $request->get('companyEmail'),
+            'password'           => Hash::make($request->get('companyPassword')),
+            'phone'              => $request->get('companyPhone'),
+            'start_work_time'    => $request->get('startTimeWork'),
+            'end_work_time'      => $request->get('endTimeWork'),
             'number_of_personal' => $request->get('numberOfPersonal'),
-            'country_id' => $request->get('countrySelect'),
+            'country_id'         => $request->get('countrySelect'),
         ]);
 
         $company->office()->sync($request->officeSelect, false);
@@ -44,24 +44,32 @@ class CompanyService
     public function update(Request $request)
     {
         //update base information of company
-        $company = Company::find(['id' => $request->get('companyId') ?? Auth::id()])->first();
-        $company->name = $request->get('companyName');
-        $company->company_desc = $request->get('companyDesc');
-        $company->address = $request->get('companyAddress');
-        $company->phone = $request->get('companyPhone');
-        $company->start_work_time = $request->get('startTimeWork');
-        $company->end_work_time = $request->get('endTimeWork');
+        $company                     = Company::find(['id' => $request->get('companyId') ?? Auth::id()])->first();
+        $company->name               = $request->get('companyName');
+        $company->company_desc       = $request->get('companyDesc');
+        $company->address            = $request->get('companyAddress');
+        $company->phone              = $request->get('companyPhone');
+        $company->start_work_time    = $request->get('startTimeWork');
+        $company->end_work_time      = $request->get('endTimeWork');
         $company->number_of_personal = $request->get('numberOfPersonal');
-        $company->country_id = $request->get('countrySelect');
+        $company->country_id         = $request->get('countrySelect');
         $company->office()->sync($request->get('officeSelect'));
         $company->save();
         //update company image
         if ($request->imgLogo) {
-            if (!$this->uploadImageService->updateImage($request->imgLogo, $request->get('companyId'))) {
+            if (!$this->uploadImageService->updateImage($request->imgLogo, $company, null,
+                $request->get('companyId'))) {
                 throw new Exception("Upload image failed");
             }
         }
-        return $company;
+        if ($request->imgCover) {
+            if (!$this->uploadImageService->updateCover($request->imgCover, $company, null,
+                $request->get('companyId'))) {
+                throw new Exception("Upload cover failed");
+            }
+        }
 
+        return $company;
     }
+
 }

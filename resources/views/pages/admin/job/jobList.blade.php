@@ -99,16 +99,13 @@
                                                     </div>
                                                 </div>
 
-
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            @foreach ($job->technology as $technology)
-                                                <div
-                                                        class="badge bg-light-primary p-2 m-1">
-                                                    {{$technology->name}}
-                                                </div>
-                                            @endforeach
+                                            <div
+                                                    class="badge bg-light-primary p-2 m-1">
+                                                {{$job->technology->name}}
+                                            </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="d-flex mb-3 flex-column align-items-center">

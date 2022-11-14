@@ -62,17 +62,19 @@ class CompanyController extends Controller
 
         if ($request->method() == 'GET') {
             return view('pages/company/editCompany', [
-                'company' => Auth::user(),
+                'company'  => Auth::user(),
                 'countrys' => Country::get()->toArray(),
-                'cities' => $cities
+                'cities'   => $cities
             ]);
         }
         $company = $this->companyService->update($request);
         if (!$company) {
-            return redirect()->route('company.edit')->with('failed', 'Failed! Company not created')->withInput();
+            return redirect()->route('company.edit')->with('failed', 'Thất bại! Có lỗi khi cập nhật thông tin')
+                             ->withInput();
         }
 
-        return redirect()->route('company.info')->with('success', 'Success! Company created')->withInput();
+        return redirect()->route('company.info')->with('success', 'Thành công! Thông tin đã được thay đổi')
+                         ->withInput();
     }
 
 }

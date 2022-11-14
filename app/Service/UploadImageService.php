@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Models\Company;
+use App\Models\Cover;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -74,4 +75,25 @@ class UploadImageService
             ]);
         }
     }
+
+    public function updateCover(UploadedFile $uploadedFile, $model, $companyId, $userId): Cover|int
+    {
+        $fileData = $this->uploads($uploadedFile, 'cover/');
+
+        if ($model->cover == null) {
+            //create new image
+            return $model->cover()->create([
+                'path' => $fileData['filePath']
+            ]);
+        } else {
+            //update path
+            $coverPath = $model->cover->path;
+            File::delete($coverPath);
+            Log::info('Delete cover path: '.$model->cover->path);
+            return $model->cover()->update([
+                'path' => $fileData['filePath']
+            ]);
+        }
+    }
+
 }

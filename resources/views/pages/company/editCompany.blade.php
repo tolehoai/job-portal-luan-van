@@ -46,18 +46,18 @@
                                                 <div class="form-group">
                                                     <label>Quốc gia</label>
                                                     <select
-                                                        class="form-control form-select {{ $errors->has('countrySelect') ? 'is-invalid' : '' }}"
-                                                        id="countrySelect"
-                                                        name="countrySelect">
+                                                            class="form-control form-select {{ $errors->has('countrySelect') ? 'is-invalid' : '' }}"
+                                                            id="countrySelect"
+                                                            name="countrySelect">
                                                         <option
-                                                            value="{{$company->country->id}}">{{$company->country->country_name}}</option>
+                                                                value="{{$company->country->id}}">{{$company->country->country_name}}</option>
                                                         @foreach ($countrys as $country)
                                                             <option
-                                                                value="{{$country['id']}}">{{$country['country_name']}}</option>
+                                                                    value="{{$country['id']}}">{{$country['country_name']}}</option>
                                                         @endforeach
                                                     </select>
                                                     <span
-                                                        class="text-danger">{{ $errors->first('countrySelect') }}</span>
+                                                            class="text-danger">{{ $errors->first('countrySelect') }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -71,17 +71,17 @@
                                                            autocomplete="chrome-off"
                                                     >
                                                     <span
-                                                        class="text-danger">{{ $errors->first('numberOfPersonal') }}</span>
+                                                            class="text-danger">{{ $errors->first('numberOfPersonal') }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="form-label">Mô tả công ty</label>
                                                     <textarea
-                                                        class="form-control {{ $errors->has('companyDesc') ? 'is-invalid' : '' }}"
-                                                        id="companyDesc"
-                                                        name="companyDesc"
-                                                        rows="3"
+                                                            class="form-control {{ $errors->has('companyDesc') ? 'is-invalid' : '' }}"
+                                                            id="companyDesc"
+                                                            name="companyDesc"
+                                                            rows="3"
                                                     >
                                                         {{$company->company_desc}}
                                                     </textarea>
@@ -100,7 +100,7 @@
                                                            autocomplete="chrome-off"
                                                     >
                                                     <span
-                                                        class="text-danger">{{ $errors->first('companyAddress') }}</span>
+                                                            class="text-danger">{{ $errors->first('companyAddress') }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -114,7 +114,7 @@
                                                            autocomplete="chrome-off"
                                                     >
                                                     <span
-                                                        class="text-danger">{{ $errors->first('companyPhone') }}</span>
+                                                            class="text-danger">{{ $errors->first('companyPhone') }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -122,15 +122,15 @@
                                                     <label>Văn phòng</label>
                                                     <fieldset class="form-group">
                                                         <select
-                                                            class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
-                                                            id="officeSelect"
-                                                            name="officeSelect[]"
-                                                            multiple="multiple"
+                                                                class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
+                                                                id="officeSelect"
+                                                                name="officeSelect[]"
+                                                                multiple="multiple"
                                                         >
                                                             @foreach ($company->office as $office)
                                                                 <option
-                                                                    value="{{$office['id']}}"
-                                                                    selected
+                                                                        value="{{$office['id']}}"
+                                                                        selected
                                                                 >
                                                                     {{$office['name']}}
                                                                 </option>
@@ -138,7 +138,7 @@
 
                                                             @foreach ($cities as $city)
                                                                 <option
-                                                                    value="{{$city['id']}}"
+                                                                        value="{{$city['id']}}"
                                                                 >
                                                                     {{$city['name']}}
                                                                 </option>
@@ -146,7 +146,7 @@
                                                         </select>
                                                     </fieldset>
                                                     <span
-                                                        class="text-danger">{{ $errors->first('officeSelect') }}</span>
+                                                            class="text-danger">{{ $errors->first('officeSelect') }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -159,7 +159,7 @@
                                                            placeholder="Chọn thời gian bắt đầu làm vệc"
                                                     />
                                                     <span
-                                                        class="text-danger">{{ $errors->first('startTimeWork') }}</span>
+                                                            class="text-danger">{{ $errors->first('startTimeWork') }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -179,12 +179,25 @@
                                                     <label for="formFile" class="form-label">Chọn hình ảnh
                                                         logo công ty</label>
                                                     <input
-                                                        class="form-control {{ $errors->has('imgLogo') ? 'is-invalid' : '' }}"
-                                                        type="file" id="imgLogo"
-                                                        name="imgLogo" accept="image/*"
-                                                        onchange="loadFile(event)">
+                                                            class="form-control {{ $errors->has('imgLogo') ? 'is-invalid' : '' }}"
+                                                            type="file" id="imgLogo"
+                                                            name="imgLogo" accept="image/*"
+                                                            onchange="loadFile(event)">
                                                 </div>
                                                 <span class="text-danger">{{ $errors->first('imgLogo') }}</span>
+
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="formFile" class="form-label">Chọn ảnh bìa công
+                                                        ty</label>
+                                                    <input
+                                                            class="form-control {{ $errors->has('imgCover') ? 'is-invalid' : '' }}"
+                                                            type="file" id="imgCover"
+                                                            name="imgCover" accept="image/*"
+                                                            onchange="loadFileCover(event)">
+                                                </div>
+                                                <span class="text-danger">{{ $errors->first('imgCover') }}</span>
 
                                             </div>
                                             <div class="col-lg-6 grid-margin stretch-card">
@@ -201,9 +214,9 @@
                                                         <tr>
                                                             <td>
                                                                 <img
-                                                                    src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
-                                                                    style="width: 200px; height: auto"
-                                                                    alt="image"
+                                                                        src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                                                                        style="width: 200px; height: auto"
+                                                                        alt="image"
                                                                 />
                                                             </td>
                                                             <td>
@@ -213,8 +226,40 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-6 grid-margin stretch-card">
 
-
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Cover hiện tại</th>
+                                                            <th>Cover mới</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <table style="width:100%">
+                                                            <tr>
+                                                                <th>Cover hiện tại:</th>
+                                                                <td>
+                                                                    <img
+                                                                            src="{{$company->cover !== null ? asset($company->cover->path) : asset('storage/cover/default.png')}}"
+                                                                            alt="image"
+                                                                            style="height: 120px; width: auto"
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Cover mới:</th>
+                                                                <td>
+                                                                    <img id="coverImg"
+                                                                         style="height: 120px; width: auto"/>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">
@@ -240,6 +285,13 @@
         //your js code here
         let loadFile = function (event) {
             let output = document.getElementById('logoImg');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+        let loadFileCover = function (event) {
+            let output = document.getElementById('coverImg');
             output.src = URL.createObjectURL(event.target.files[0]);
             output.onload = function () {
                 URL.revokeObjectURL(output.src) // free memory

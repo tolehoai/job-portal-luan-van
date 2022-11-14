@@ -5,6 +5,29 @@
 @section('styles')
     {{--custom css item suggest search--}}
     <style>
+        .banner-hero.banner-image-single {
+            padding: 20px 0px 20px 0px;
+        }
+
+        .banner-hero {
+            padding: 0px 65px 0px 15px;
+            position: relative;
+            max-width: 1770px;
+            margin: 0 auto;
+        }
+
+        .banner-hero.banner-image-single img {
+            width: 100%;
+            border-radius: 16px;
+        }
+
+        a, button, img, input, span, h4 {
+            transition: all 0.3s ease 0s;
+        }
+
+        img {
+            max-width: 100%;
+        }
     </style>
 @stop
 @section('content')
@@ -15,12 +38,17 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
+                            <div class="banner-hero banner-image-single"><img
+                                        src="{{$company->cover !== null ? asset($company->cover->path) : asset('storage/cover/default.png')}}"
+                                        alt="jobBox"
+                                        style="height: 400px; width: 100%; object-fit: cover; border-radius: 16px;">
+                            </div>
                             <div class="company-info d-flex align-items-end">
                                 <div class="company-info-logo pr-3">
                                     <img
-                                        src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
-                                        alt="profile" class="img-lg rounded mb-3"
-                                        style="width: 92px"
+                                            src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                                            alt="profile" class="img-lg rounded mb-3"
+                                            style="width: 92px"
                                     >
                                 </div>
                                 <div class="company-info-content">
@@ -107,7 +135,7 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                        class="far fa-heart text-danger"></i></span>
+                            class="far fa-heart text-danger"></i></span>
             </div>
         </footer>
         <!-- partial -->

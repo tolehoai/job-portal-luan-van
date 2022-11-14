@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Cover extends Model
+{
+    use HasFactory;
+
+    protected $table = 'covers';
+
+
+    protected $fillable = [
+        'path',
+    ];
+
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
+
+}

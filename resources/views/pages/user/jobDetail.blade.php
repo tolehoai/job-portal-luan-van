@@ -161,6 +161,7 @@
             border: 1px solid #E0E6F7;
             overflow: hidden;
             margin-bottom: 24px;
+            margin-top: 24px;
             position: relative;
             background: #F8FAFF;
         }
@@ -233,27 +234,27 @@
     <main class="main">
         <section class="section-box mt-50">
 
-            <div class="container-fluid">
+            <div class="container-fluid mb-4">
                 <div class="row" style="margin: 0 80px 0 80px">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                         <div class="box-border-single">
                             <div class="row mt-10">
                                 <div class="col-lg-8 col-md-12">
                                     <h3>{{$job->title}}</h3>
-                                    <div class="mt-0 mb-15"><span
-                                                class="card-briefcase">{{$job->jobType->name}}</span><span
-                                                class="card-time">3 mins ago</span></div>
+                                    <div class="mt-0 mb-15"><span>{{$job->jobType->name}}</span></div>
                                 </div>
-                                <div class="col-lg-4 col-md-12 text-lg-end">
-                                    <div class="btn btn-apply-icon btn-apply btn-apply-big hover-up"
-                                         data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply now
+                                <div class="col-lg-4 col-md-12 d-flex flex-end flex-column">
+                                    <div class="btn btn-primary hover-up"
+                                         data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Ứng tuyển ngay
                                     </div>
                                 </div>
                             </div>
                             <div class="border-bottom pt-10 pb-10"></div>
                             <div class="banner-hero banner-image-single mt-10 mb-20"><img
-                                        src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/page/job-single-2/img.png"
-                                        alt="jobBox"></div>
+                                        src="{{$job->company->cover !== null ? asset($job->company->cover->path) : asset('storage/cover/default.png')}}"
+                                        alt="jobBox"
+                                        style="height: 400px; width: 100%; object-fit: cover; border-radius: 16px;">
+                            </div>
                             <div class="job-overview">
                                 <h5 class="border-bottom pb-15 mb-30">Tổng quan</h5>
                                 <div class="row">
@@ -306,7 +307,9 @@
                                                     class="text-description jobtype-icon mb-10">Vị trí làm việc: </span><strong
                                                     class="small-heading">
                                                 @foreach ($job->city as $city)
-                                                    <p class="d-inline-block">{{$city->name}}, </p>
+                                                    <p class="d-inline-block">{{$city->name}}@if (!$loop->last)
+                                                            ,
+                                                        @endif </p>
                                                 @endforeach
                                             </strong></div>
                                     </div>
@@ -318,72 +321,79 @@
                                 <h4>Yêu cầu công việc</h4>
                                 <p>{!! $job->job_requirements !!}</p>
                             </div>
-                            <div class="author-single"><span>AliThemes</span></div>
-                            <div class="single-apply-jobs">
-                                <div class="row align-items-center">
-                                    <div class="col-md-5"><a class="btn btn-default mr-15" href="#">Apply now</a><a
-                                                class="btn btn-border" href="#">Save job</a></div>
-                                </div>
-                            </div>
                         </div>
-                        <h4 class="mt-4">Công việc {{$job->technology->name}} tương tự</h4>
-                        <div class="box-border-single">
-                            <div class="row">
-                                @foreach($relateJob as $job)
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                        <div class="card-grid-2 hover-up">
-                                            <div class="card-grid-2-image-left"><span class="flash"></span>
-                                                <div class="image-box">
-                                                    <img src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
-                                                         style="width: 52px; border-radius: 10px"
-                                                         alt="jobBox">
-                                                </div>
-                                                <div class="right-info"><a class="name-job"
-                                                                           href="company-details.html">{{$job->company->name}}</a>
-                                                    <span class="location-small">{{$job->company->country->country_name}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="card-block-info">
-                                                <h6 class="ml-4">{{$job->title}}</h6>
-                                                <div class="mt-1 ml-2"><span
-                                                            class="card-briefcase">{{$job->jobType->name}}</span>
-                                                </div>
-                                                <div class="font-sm color-text-paragraph mt-15 px-4 py-2"
-                                                     style="max-height: 150px"
-                                                >
-                                                    {!! Str::limit($job->job_desc, 250)  !!}
-                                                </div>
-                                                <div class="mt-30 mx-4" style="height: 100px">
-                                                    @foreach($job->skill as $skill)
-                                                        <a class="btn btn-grey-small mr-1"
-                                                           href="jobs-grid.html">{{$skill->name}}</a>
-                                                    @endforeach
-                                                </div>
-                                                <div class="card-2-bottom mt-30">
-                                                    <div class="row d-flex align-items-center mb-3">
-                                                        <div class="col-lg-7 col-7 ">
-                                                            <h6 class="card-text-price m-0 pl-4">
-                                                                <x-money amount="{{$job->salary}}" currency="VND"/>
-                                                            </h6>
+                        @if(count($relatesJob)>0)
+                            <h4 class="mt-4">Công việc {{$job->technology->name}} tương tự</h4>
+                            <div class="box-border-single">
+                                <div class="row">
+                                    @foreach($relatesJob as $relateJob)
+                                        <a href="{{route('job.detail', $relateJob->id)}}"
+                                           class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4"
+                                        >
+                                            <div class="card-grid-2" style="height: 100%">
+                                                <div class="hover-up d-flex flex-column justify-content-between">
+                                                    <div class="card-grid-2-image-left"><span class="flash"></span>
+                                                        <div class="image-box">
+                                                            <img src="{{$relateJob->company->image !== null ? asset($relateJob->company->image->path) : asset('storage/images/default.png')}}"
+                                                                 style="width: 52px; border-radius: 10px"
+                                                                 alt="jobBox">
                                                         </div>
-                                                        <div class="col-lg-5 col-5 text-center">
-                                                            <div class="btn btn-apply-now" data-bs-toggle="modal"
-                                                                 data-bs-target="#ModalApplyJobForm">Apply now
+                                                        <div class="right-info">
+                                                            <span class="name-job">{{$relateJob->company->name}}</span>
+                                                            <span class="location-small">{{$relateJob->company->country->country_name}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column">
+                                                        <div class="card-block-info d-flex flex-column justify-content-between">
+                                                            <div>
+                                                                <h6 class="ml-4">{{$relateJob->title}}</h6>
+                                                                <div class="mt-1 ml-2"><span
+                                                                            class="card-briefcase">{{$relateJob->jobType->name}}</span>
+                                                                </div>
+                                                                <div class="font-sm color-text-paragraph mt-15 px-4 py-2"
+                                                                     style="max-height: 150px; width: 100%"
+                                                                >
+                                                                    {!! Str::limit($relateJob->job_desc, 250)  !!}
+                                                                </div>
+                                                                <div class="mt-30 mx-4" style="height: 100px">
+                                                                    @foreach($relateJob->skill as $skill)
+                                                                        <span class="btn btn-grey-small mr-1">{{$skill->name}}</span>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="card-2-bottom mt-30">
+                                                            <div class="row d-flex align-items-center mb-3">
+                                                                <div class="col-lg-7 col-7 ">
+                                                                    <h6 class="card-text-price m-0 pl-4">
+                                                                        <x-money amount="{{$relateJob->salary}}"
+                                                                                 currency="VND"/>
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="col-lg-5 col-5 text-center">
+                                                                    <div class="btn btn-apply-now"
+                                                                         data-bs-toggle="modal"
+                                                                         data-bs-target="#ModalApplyJobForm">Apply now
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
+
                     <div class="col-lg-4 col-md-12 col-sm-12 col-12 pl-40 pl-lg-15 mt-lg-30">
                         <div class="sidebar-border">
                             <div class="sidebar-heading mb-4">
                                 <div class="avatar-sidebar d-flex align-items-center">
+
                                     <figure class="d-inline-block m-0 p-0 mr-2">
                                         <img alt="jobBox"
                                              src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
@@ -399,232 +409,71 @@
                             </div>
                             <div class="sidebar-list-job">
                                 <div class="box-map">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2970.3150609575905!2d-87.6235655!3d41.886080899999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2ca8b34afe61%3A0x6caeb5f721ca846!2s205%20N%20Michigan%20Ave%20Suit%20810%2C%20Chicago%2C%20IL%2060601%2C%20Hoa%20K%E1%BB%B3!5e0!3m2!1svi!2s!4v1658551322537!5m2!1svi!2s"
-                                            allowfullscreen="" loading="lazy"
-                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    <img alt="jobBox"
+                                         src="{{$job->company->cover !== null ? asset($job->company->cover->path) : asset('storage/cover/default.png')}}"
+                                         style="width: 100%; height: 150px; object-fit: cover; border-radius: 16px">
+
                                 </div>
-                                <ul class="ul-disc">
-                                    <li><b>Địa chỉ: </b>{{$company->address}}</li>
-                                    <li><b>Số điện thoại: </b>{{$company->phone}}</li>
-                                    <li><b>Email: </b>{{$company->email}}</li>
+                                <ul class="ul-disc mt-3">
+                                    <li><b>Địa chỉ: </b>{{$job->company->address}}</li>
+                                    <li><b>Số điện thoại: </b>{{$job->company->phone}}</li>
+                                    <li><b>Email: </b>{{$job->company->email}}</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="sidebar-border">
-                            <h6 class="f-18">Similar jobs</h6>
+                            <h6 class="f-18">Top 5 công việc mới nhất của công ty</h6>
                             <div class="sidebar-list-job">
                                 <ul>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">UI
-                                                        / UX Designer fulltime</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>3</span><span> mins ago</span></span>
-                                                </div>
-                                                <div>
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$250<span>/Hour</span></h6>
+                                    @foreach($jobOfCompany as $job)
+                                        <a href="{{route('job.detail', $job->id)}}">
+                                            <li>
+                                                <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
+                                                     style="visibility: hidden; animation-name: none;">
+                                                    <div class="image">
+                                                        <img
+                                                                src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/cover/default.png')}}"
+                                                                alt="jobBox"
+                                                                style="width: 52px; border-radius: 10px; height: auto">
+                                                    </div>
+                                                    <div class="info-text">
+                                                        <h5 class="font-md font-bold color-brand-1">{{$job->title}}</h5>
+                                                        <div class="mt-0">
+                                                            <span class="card-briefcase pl-0">{{$job->jobType->name}}</span></span>
+                                                            <h6 class="card-price">
+                                                                <x-money amount="{{$job->salary}}" currency="VND"/>
+                                                            </h6>
                                                         </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">New York, US</span>
+                                                        <div>
+                                                            <div class="row">
+                                                                <div class="col-12 text-end">
+                                                                    <span class="card-briefcase pl-0">
+                                                                        @foreach($job->city as $city)
+                                                                            {{$city->name}}@if (!$loop->last)
+                                                                                ,
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">Java
-                                                        Software Engineer</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>5</span><span> mins ago</span></span>
-                                                </div>
-                                                <div class="mt-5">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$500<span>/Hour</span></h6>
-                                                        </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">Tokyo, Japan</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">Frontend
-                                                        Developer</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>8</span><span> mins ago</span></span>
-                                                </div>
-                                                <div class="mt-5">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$650<span>/Hour</span></h6>
-                                                        </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">Hanoi, Vietnam</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">Cloud
-                                                        Engineer</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>12</span><span> mins ago</span></span>
-                                                </div>
-                                                <div class="mt-5">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$380<span>/Hour</span></h6>
-                                                        </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">Losangl, Au</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">DevOps
-                                                        Engineer</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>34</span><span> mins ago</span></span>
-                                                </div>
-                                                <div class="mt-5">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$140<span>/Hour</span></h6>
-                                                        </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">Paris, France</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">Figma
-                                                        design UI/UX</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>45</span><span> mins ago</span></span>
-                                                </div>
-                                                <div class="mt-5">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$290<span>/Hour</span></h6>
-                                                        </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">New York, US</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">Product
-                                                        Manage</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>50</span><span> mins ago</span></span>
-                                                </div>
-                                                <div class="mt-5">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$650<span>/Hour</span></h6>
-                                                        </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">New York, US</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"
-                                             style="visibility: hidden; animation-name: none;">
-                                            <div class="image"><a href="job-details.html"><img
-                                                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-4.png"
-                                                            alt="jobBox"></a></div>
-                                            <div class="info-text">
-                                                <h5 class="font-md font-bold color-brand-1"><a href="job-details.html">UI
-                                                        / UX Designer</a></h5>
-                                                <div class="mt-0"><span class="card-briefcase">Fulltime</span><span
-                                                            class="card-time"><span>58</span><span> mins ago</span></span>
-                                                </div>
-                                                <div class="mt-5">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h6 class="card-price">$270<span>/Hour</span></h6>
-                                                        </div>
-                                                        <div class="col-6 text-end"><span class="card-briefcase">New York, US</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                            </li>
+                                        </a>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                         <div class="sidebar-border">
-                            <h6 class="f-18">Tags</h6>
-                            <div class="sidebar-list-job"><a class="btn btn-grey-small bg-14 mb-10 mr-5"
-                                                             href="jobs-grid.html">App</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">Digital</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5"
-                                        href="jobs-grid.html">Marketing</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">Conten
-                                    Writer</a><a class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">Sketch</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">PSD</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">Laravel</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">React JS</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">HTML</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">Finance</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">Manager</a><a
-                                        class="btn btn-grey-small bg-14 mb-10 mr-5" href="jobs-grid.html">Business</a>
+                            <h6 class="f-18">Danh mục</h6>
+                            <div class="sidebar-list-job">
+                                <a class="btn btn-grey-small mr-2 mb-2"
+                                   href="jobs-grid.html">{{$job->technology->name}}</a>
+                                @foreach($job->skill as $skill)
+                                    <a class="btn btn-grey-small mr-2 mb-2"
+                                       href="jobs-grid.html">{{$skill->name}}</a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -632,112 +481,6 @@
             </div>
         </section>
     </main>
-
-
-
-
-
-
-
-    {{--          End new Design--}}
-    <div class="container-xxl py-5 bg-dark page-header mb-5">
-        <div class="container my-5 pt-5 pb-4">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Chi tiết công việc</h1>
-        </div>
-    </div>
-    <div class="job-post-company pt-120 pb-120">
-        <div class="container">
-            <div class="row justify-content-between">
-                <!-- Left Content -->
-                <div class="col-xl-7 col-lg-8">
-                    <!-- job single -->
-                    <div class="single-job-items mb-50">
-                        <div class="job-items">
-                            <div class="company-img company-img-details">
-                                <a href="#"><img
-                                            src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
-                                            alt=""
-                                            style="width: 100px;"></a>
-                            </div>
-                            <div class="job-tittle">
-                                <a href="#">
-                                    <h4>{{$job->title}}</h4>
-                                </a>
-                                <ul class="d-flex justify-content-between">
-                                    <li>
-                                        {{$job->technology->name}},
-                                    </li>
-                                    <li>
-                                        <b>
-                                            <x-money amount="{{$job->salary}}" currency="VND"/>
-                                        </b>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- job single End -->
-
-                    <div class="job-post-details">
-                        <div class="post-details1 mb-50">
-                            <!-- Small Section Tittle -->
-                            <div class="small-section-tittle">
-                                <h4>Mô tả công việc</h4>
-                            </div>
-                            <p>{!! $job->job_desc !!}</p>
-                        </div>
-                        <div class="post-details2  mb-50">
-                            <!-- Small Section Tittle -->
-                            <div class="small-section-tittle">
-                                <h4>Yêu cầu công việc</h4>
-                            </div>
-                            <p>{!! $job->job_requirements !!}</p>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Right Content -->
-                <div class="col-xl-4 col-lg-4">
-                    <div class="post-details3  mb-50">
-                        <!-- Small Section Tittle -->
-                        <div class="small-section-tittle">
-                            <h4>Tổng quan công việc</h4>
-                        </div>
-                        <ul>
-                            <li>
-                                <div>Địa điểm :</div>
-                                <div>
-                                    @foreach ($job->city as $city)
-                                        <span class="m-0 p-0 float-right">{{$city->name}}</span><br>
-                                    @endforeach
-                                </div>
-                            </li>
-                            <li>Hình thức làm việc : <span>Full time</span></li>
-                            <li>Salary : <span>$7,800 yearly</span></li>
-                            <li>Application date : <span>12 Sep 2020</span></li>
-                        </ul>
-                        <div class="apply-btn2">
-                            <a href="#" class="btn">Apply Now</a>
-                        </div>
-                    </div>
-                    <div class="post-details4  mb-50">
-                        <!-- Small Section Tittle -->
-                        <div class="small-section-tittle">
-                            <h4>Company Information</h4>
-                        </div>
-                        <span>Colorlib</span>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page when looking at its layout.</p>
-                        <ul>
-                            <li>Name: <span>Colorlib </span></li>
-                            <li>Web : <span> colorlib.com</span></li>
-                            <li>Email: <span>carrier.colorlib@gmail.com</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @stop @section('scripts')
     <script>

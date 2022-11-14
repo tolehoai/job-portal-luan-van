@@ -12,13 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('covers', function (Blueprint $table) {
             $table->id();
             $table->morphs('imageable');
             $table->string('path');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -28,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('covers');
     }
 };

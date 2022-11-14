@@ -12,7 +12,7 @@
         <div class="content-wrapper">
             <div class="page-header">
                 <h3 class="page-title">
-                    Thêm mới công việc
+                    Chỉnh sửa công việc
                 </h3>
             </div>
             <div class="row">
@@ -22,83 +22,83 @@
                             <form class="forms-sample addJobForm"
                                   name="addJobForm"
                                   id="addJobForm" method="POST"
-                                  action="{{ route('company.addJob') }}"
+                                  action="{{ route('company.editJob',$job->id) }}"
                                   enctype="multipart/form-data"
                             >
                                 @csrf
-                                <div class="form-group">
-                                    <label for="jobName">Tên công việc</label>
-                                    <input type="text"
-                                           class="form-control {{ $errors->has('jobName ') ? 'is-invalid' : '' }}"
-                                           id="jobName" name="jobName"
-                                           placeholder="Nhập vào tên công việc"
-                                            value=""
-                                    >
-                                    <span class="text-danger">{{ $errors->first('jobName') }}</span>
+                                <div class="form-group form-check form-check-info">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="is_active"
+                                               @if($job->is_active) checked @endif value="1"
+                                               value="{{old('is_active', $job->is_active)}}"
+                                        >
+                                        Công việc còn hiển thị
+                                        <i class="input-helper"></i></label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jobSalary">Mức lương (đơn vị VNĐ)</label>
-                                    <input type="text"
-                                           class="form-control {{ $errors->has('jobSalary ') ? 'is-invalid' : '' }}"
-                                           id="jobSalary" name="jobSalary"
+                                    <label for="title">Tên công việc</label>
+                                    <input type="text" class="form-control" id="title" name="title"
+                                           value="{{old('title', $job->title)}}"
+                                           placeholder="Nhập vào tên công việc">
+                                </div>
+                                <div class="form-group">
+                                    <label for="salary">Mức lương (đơn vị VNĐ)</label>
+                                    <input type="text" class="form-control" id="salary" name="salary"
+                                           value="{{old('salary', $job->salary)}}"
                                            placeholder="Nhập vào mức lương">
-                                    <span class="text-danger">{{ $errors->first('jobSalary') }}</span>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="jobLevel">Vị trí công việc</label>
-                                            <select class="form-control {{ $errors->has('jobLevel ') ? 'is-invalid' : '' }}"
-                                                    id="jobLevel" name="jobLevel">
+                                            <label for="job_level_id">Vị trí công việc</label>
+                                            <select class="form-control" id="job_level_id" name="job_level_id">
                                                 @foreach ($jobLevels as $jobLevel)
                                                     <option
-                                                            value="{{$jobLevel['id']}}"
+                                                            value="{{old('job_level_id',$jobLevel['id'])}}"
+                                                            @if($job->job_level_id == $jobLevel['id']) selected @endif
                                                     >
                                                         {{$jobLevel['name']}}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <span class="text-danger">{{ $errors->first('jobLevel') }}</span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="jobType">Hình thức công việc</label>
-                                            <select class="form-control {{ $errors->has('jobType ') ? 'is-invalid' : '' }}"
-                                                    id="jobType" name="jobType">
+                                            <label for="job_type_id">Hình thức công việc</label>
+                                            <select class="form-control" id="job_type_id" name="job_type_id">
                                                 @foreach ($jobTypes as $jobType)
                                                     <option
-                                                            value="{{$jobType['id']}}"
+                                                            value="{{old('job_type_id',$jobType['id'])}}"
+                                                            @if($job->job_type_id == $jobType['id']) selected @endif
                                                     >
                                                         {{$jobType['name']}}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <span class="text-danger">{{ $errors->first('jobType') }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="technologySelect">Lĩnh vực công việc</label>
-                                            <fieldset
-                                                    class="form-group {{ $errors->has('technologySelect ') ? 'is-invalid' : '' }}">
+                                            <label for="technology_id">Lĩnh vực công việc</label>
+                                            <fieldset class="form-group">
                                                 <select
                                                         class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
-                                                        id="technologySelect"
-                                                        name="technologySelect"
+                                                        id="technology_id"
+                                                        name="technology_id"
                                                 >
                                                     @foreach ($technologies as $technology)
                                                         <option
-                                                                value="{{$technology['id']}}"
+                                                                value="{{old('technology_id',$technology['id'])}}"
+                                                                @if($job->technology_id == $technology['id']) selected @endif
                                                         >
                                                             {{$technology['name']}}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                <span class="text-danger">{{ $errors->first('technologySelect') }}</span>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -115,13 +115,15 @@
                                                 >
                                                     @foreach ($skills as $skill)
                                                         <option
+                                                                value="{{old('technology_id',$technology['id'])}}"
+
                                                                 value="{{$skill['id']}}"
+                                                                @if(in_array($skill['id'], $job->skill->pluck('id')->toArray())) selected @endif
                                                         >
                                                             {{$skill['name']}}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                <span class="text-danger">{{ $errors->first('skillSelect') }}</span>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -138,12 +140,12 @@
                                             @foreach ($offices as $office)
                                                 <option
                                                         value="{{$office['id']}}"
+                                                        @if(in_array($office['id'], $job->city->pluck('id')->toArray())) selected @endif
                                                 >
                                                     {{$office['name']}}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <span class="text-danger">{{ $errors->first('officeSelect') }}</span>
                                     </fieldset>
                                 </div>
                                 <div class="form-group">
@@ -153,7 +155,7 @@
                                             id="jobDesc"
                                             name="jobDesc"
                                             rows="3"
-                                    ></textarea>
+                                    >{{$job->job_desc}}</textarea>
                                     <span class="text-danger">{{ $errors->first('jobDesc') }}</span>
                                 </div>
                                 <div class="form-group">
@@ -163,7 +165,7 @@
                                             id="jobRequirement"
                                             name="jobRequirement"
                                             rows="3"
-                                    ></textarea>
+                                    >{{$job->job_requirements}}</textarea>
                                     <span class="text-danger">{{ $errors->first('jobRequirement') }}</span>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>

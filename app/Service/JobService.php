@@ -20,18 +20,18 @@ class JobService
     {
 //        dd($request);
         $job = Job::create([
-            'title' => $request->get('jobName'),
-            'company_id' => Auth::id(),
-            'is_active' => 1,
-            'salary' => $request->get('jobSalary'),
-            'job_level_id' => $request->get('jobLevel'),
-            'job_type_id' => $request->get('jobType'),
-            'job_desc' => $request->get('jobDesc'),
+            'title'            => $request->get('jobName'),
+            'company_id'       => Auth::id(),
+            'is_active'        => 1,
+            'salary'           => $request->get('jobSalary'),
+            'job_level_id'     => $request->get('jobLevel'),
+            'job_type_id'      => $request->get('jobType'),
+            'technology_id'    => $request->get('technologySelect'),
+            'job_desc'         => $request->get('jobDesc'),
             'job_requirements' => $request->get('jobRequirement'),
         ]);
 
         $job->city()->sync($request->officeSelect, false);
-        $job->technology()->sync($request->technologySelect, false);
         $job->skill()->sync($request->skillSelect, false);
 
         return $job;
@@ -40,23 +40,19 @@ class JobService
     /**
      * @throws Exception
      */
-    public function update(Request $request)
+    public function update(Request $request, string $jobId)
     {
         //update base information of company
-        $company = Company::find(['id' => $request->get('companyId') ?? Auth::id()])->first();
-        $company->name = $request->get('companyName');
-        $company->company_desc = $request->get('companyDesc');
-        $company->address = $request->get('companyAddress');
-        $company->phone = $request->get('companyPhone');
-        $company->start_work_time = $request->get('startTimeWork');
-        $company->end_work_time = $request->get('endTimeWork');
-        $company->number_of_personal = $request->get('numberOfPersonal');
-        $company->country_id = $request->get('countrySelect');
-        $company->office()->sync($request->get('officeSelect'));
-        $company->save();
+        $updateData              = $request->except('_token');
+        $updateData['is_active'] = $request->get('isActive') ? 1 : 0;
+        $job                     = Job::find($jobId);
+        $job->update($updateData);
+        $job->skill()->sync($request->get('skillSelect', false));
+        $job->city()->sync($request->get('officeSelect', false));
+        $job->save();
         //update company image
 
-        return $company;
+        return $job;
 
     }
 }
