@@ -19,9 +19,9 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/company">
+            <a class="nav-link" href="{{route('company.dashboard')}}">
                 <i class="fa fa-home menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">Trang quản lý</span>
             </a>
         </li>
         <li class="nav-item">
@@ -34,19 +34,17 @@
             <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
                aria-controls="page-layouts">
                 <i class="fab fa-trello menu-icon"></i>
-                <span class="menu-title">Page Layouts</span>
+                <span class="menu-title">Quản lý công việc</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="page-layouts">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                              href="pages/layout/boxed-layout.html">Boxed</a>
+                                                              href="{{route('company.jobList')}}">Danh sách công
+                            việc</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="pages/layout/rtl-layout.html">RTL</a>
+                    <li class="nav-item"><a class="nav-link" href="{{route('company.job')}}">Thêm mới công việc</a>
                     </li>
-                    <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                              href="pages/layout/horizontal-menu.html">Horizontal
-                            Menu</a></li>
                 </ul>
             </div>
         </li>

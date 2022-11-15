@@ -104,7 +104,12 @@ class JobController extends Controller
     {
         //Request validation
         if ($request->method() == 'GET') {
-            $job = Job::find(['id' => $jobId])->first();
+            $job = Job::where([['id', '=', $jobId], ['company_id', '=', Auth::id()]])->first();
+            if (!$job) {
+                return view('errors.404', [
+                    'error' => 'Không tìm thấy công việc'
+                ]);
+            }
             return view('pages/company/editJob', [
                 'company'      => Auth::user(),
                 'job'          => $job,

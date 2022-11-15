@@ -70,68 +70,23 @@
                 </ul>
             </li>
 
+            <li class="sidebar-item  has-sub">
+                <a href="{{route('admin.jobs')}}" class="sidebar-link">
+                    <i class="bi bi-map-fill"></i>
+                    <span>Công việc</span>
+                </a>
+                <ul class="submenu ">
+                    <li class="submenu-item ">
+                        <a href="{{route('admin.jobs')}}">Danh sách công việc</a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="sidebar-item  ">
                 <a href="ui-file-uploader.html" class="sidebar-link">
                     <i class="bi bi-cloud-arrow-up-fill"></i>
                     <span>File Uploader</span>
                 </a>
-            </li>
-
-            <li class="sidebar-item  has-sub">
-                <a href="#" class="sidebar-link">
-                    <i class="bi bi-map-fill"></i>
-                    <span>Maps</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="ui-map-google-map.html">Google Map</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="sidebar-item  has-sub">
-                <a href="#" class="sidebar-link">
-                    <i class="bi bi-map-fill"></i>
-                    <span>Maps</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="ui-map-google-map.html">Google Map</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="sidebar-item  has-sub">
-                <a href="#" class="sidebar-link">
-                    <i class="bi bi-map-fill"></i>
-                    <span>Maps</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="ui-map-google-map.html">Google Map</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="sidebar-item  has-sub">
-                <a href="#" class="sidebar-link">
-                    <i class="bi bi-map-fill"></i>
-                    <span>Maps</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="ui-map-google-map.html">Google Map</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                    </li>
-                </ul>
             </li>
 
         </ul>

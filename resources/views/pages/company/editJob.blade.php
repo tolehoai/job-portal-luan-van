@@ -40,12 +40,14 @@
                                     <input type="text" class="form-control" id="title" name="title"
                                            value="{{old('title', $job->title)}}"
                                            placeholder="Nhập vào tên công việc">
+                                    <span class="text-danger">{{ $errors->first('title') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="salary">Mức lương (đơn vị VNĐ)</label>
                                     <input type="text" class="form-control" id="salary" name="salary"
                                            value="{{old('salary', $job->salary)}}"
                                            placeholder="Nhập vào mức lương">
+                                    <span class="text-danger">{{ $errors->first('salary') }}</span>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -61,6 +63,7 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <span class="text-danger">{{ $errors->first('job_level_id') }}</span>
                                         </div>
                                     </div>
 
@@ -77,6 +80,7 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <span class="text-danger">{{ $errors->first('job_type_id') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -99,6 +103,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                <span class="text-danger">{{ $errors->first('technology_id') }}</span>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -124,6 +129,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                <span class="text-danger">{{ $errors->first('skillSelect') }}</span>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -146,27 +152,28 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        <span class="text-danger">{{ $errors->first('officeSelect') }}</span>
                                     </fieldset>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Mô tả công việc</label>
                                     <textarea
-                                            class="form-control {{ $errors->has('jobDesc') ? 'is-invalid' : '' }}"
-                                            id="jobDesc"
-                                            name="jobDesc"
+                                            class="form-control {{ $errors->has('job_desc') ? 'is-invalid' : '' }}"
+                                            id="job_desc"
+                                            name="job_desc"
                                             rows="3"
                                     >{{$job->job_desc}}</textarea>
-                                    <span class="text-danger">{{ $errors->first('jobDesc') }}</span>
+                                    <span class="text-danger">{{ $errors->first('job_desc') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Yêu cầu công việc</label>
                                     <textarea
-                                            class="form-control {{ $errors->has('jobRequirement ') ? 'is-invalid' : '' }}"
-                                            id="jobRequirement"
-                                            name="jobRequirement"
+                                            class="form-control {{ $errors->has('job_requirement ') ? 'is-invalid' : '' }}"
+                                            id="job_requirement"
+                                            name="job_requirement"
                                             rows="3"
                                     >{{$job->job_requirements}}</textarea>
-                                    <span class="text-danger">{{ $errors->first('jobRequirement') }}</span>
+                                    <span class="text-danger">{{ $errors->first('job_requirement') }}</span>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 <button class="btn btn-light">Cancel</button>
