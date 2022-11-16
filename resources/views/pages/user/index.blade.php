@@ -238,7 +238,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="browse-btn2 text-center mt-50">
-                                <a href="job_listing.html" class="border-btn2">Tất cả danh mục</a>
+                                <a href="{{route('jobs')}}" class="border-btn2">Tất cả danh mục</a>
                             </div>
                         </div>
                     </div>
@@ -253,7 +253,7 @@
                         <div class="col-xl-10">
                             <div class="cv-caption text-center">
                                 <p class="pera2">Tạo và quản lý CV</p>
-                                <a href="#" class="border-btn2 border-btn4">Tạo CV ngay</a>
+                                <a href="{{route('user')}}" class="border-btn2 border-btn4">Tạo CV ngay</a>
                             </div>
                         </div>
                     </div>

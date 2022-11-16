@@ -366,21 +366,24 @@
                                     <div class="mt-0 mb-15"><span>{{$job->jobType->name}}</span></div>
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex flex-end flex-column">
-
-                                    @if($job->user->where('id', Auth::user()->id)->first())
-                                        <button type="button" class="btn btn-primary hover-up" data-toggle="modal"
-                                                data-target="#exampleModal" disabled>
-                                            <i class="fa fa-check"></i> Đã ứng tuyển
-
-                                        </button>
+                                    @if(Auth::user())
+                                        @if($job->user->where('id', Auth::user()->id)->first())
+                                            <button type="button" class="btn btn-primary hover-up" data-toggle="modal"
+                                                    data-target="#exampleModal" disabled>
+                                                <i class="fa fa-check"></i> Đã ứng tuyển
+                                            </button>
+                                        @else
+                                            <button type="button" class="btn btn-primary hover-up" data-toggle="modal"
+                                                    data-target="#exampleModal">
+                                                <i class="fa fa-check"></i> Ứng tuyển ngay
+                                            </button>
+                                        @endif
                                     @else
                                         <button type="button" class="btn btn-primary hover-up" data-toggle="modal"
                                                 data-target="#exampleModal">
                                             <i class="fa fa-check"></i> Ứng tuyển ngay
                                         </button>
                                     @endif
-
-
                                 </div>
                             </div>
                             <div class="border-bottom pt-10 pb-10"></div>

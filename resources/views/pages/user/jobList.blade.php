@@ -485,13 +485,15 @@
                                                     </span>
                                                     <ul>
                                                         <li>
-                                                            {{$job->technology->name}},
+                                                            {{$job->technology->name}}
                                                         </li>
                                                     </ul>
                                                     <span class="text-gray"><i
                                                                 class="fas fa-map-marker-alt text-gray"></i></span>
                                                     @foreach ($job->city as $city)
-                                                        <p class="d-inline-block">{{$city->name}}, </p>
+                                                        <p class="d-inline-block">{{$city->name}}@if (!$loop->last)
+                                                                ,
+                                                            @endif </p>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -512,6 +514,7 @@
                             @endforeach
                         </div>
                     </section>
+                    {!! $jobs->withQueryString()->links() !!}
                     <!-- Featured_job_end -->
                 </div>
             </div>
