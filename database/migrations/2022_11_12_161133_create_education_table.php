@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('major');
             $table->float('gpa')->nullable();
             $table->text('desc');
-            $table->timestamps()->useCurrent();
+            $table->timestamps();
         });
     }
 

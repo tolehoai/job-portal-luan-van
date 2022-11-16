@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->integer('job_type_id');
             $table->integer('job_level_id');
             $table->integer('technology_id');
-            $table->timestamps()->useCurrent();
+            $table->timestamps();
         });
     }
 

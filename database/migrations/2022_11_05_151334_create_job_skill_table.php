@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('job_id');
             $table->string('skill_id');
-            $table->timestamps()->useCurrent();
+            $table->timestamps();
         });
     }
 

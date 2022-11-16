@@ -11,7 +11,7 @@ class Title extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'titles';
-
+    public $timestamps = true;
 
     protected $fillable = [
         'name',

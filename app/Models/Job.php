@@ -11,7 +11,7 @@ class Job extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'job';
-
+    public $timestamps = true;
 
     protected $fillable = [
         'title',

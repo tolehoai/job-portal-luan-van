@@ -10,7 +10,7 @@ class Cover extends Model
     use HasFactory;
 
     protected $table = 'covers';
-
+    public $timestamps = true;
 
     protected $fillable = [
         'path',

@@ -17,6 +17,7 @@ class Experience extends Model
      * @var array<int, string>
      */
     protected $table = 'experiences';
+    public $timestamps = true;
 
     protected $fillable = [
         'user_id',

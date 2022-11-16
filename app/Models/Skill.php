@@ -11,7 +11,7 @@ class Skill extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'skills';
-
+    public $timestamps = true;
 
     protected $fillable = [
         'name',

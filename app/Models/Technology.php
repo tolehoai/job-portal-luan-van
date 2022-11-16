@@ -11,7 +11,7 @@ class Technology extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'technology';
-
+    public $timestamps = true;
 
     protected $fillable = [
         'name',

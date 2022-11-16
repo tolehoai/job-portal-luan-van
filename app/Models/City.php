@@ -10,6 +10,7 @@ class City extends Model
     use HasFactory;
 
     protected $table = 'cities';
+    public $timestamps = true;
 
 
     protected $fillable = [

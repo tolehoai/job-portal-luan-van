@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('job_id');
             $table->string('status')->default('pending');
             $table->string('file_id')->nullable();
-            $table->timestamps()->useCurrent();
+            $table->timestamps();
         });
     }
 

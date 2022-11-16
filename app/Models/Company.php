@@ -11,6 +11,7 @@ class Company extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $table = 'companies';
+    public $timestamps = true;
 
 
     protected $fillable = [

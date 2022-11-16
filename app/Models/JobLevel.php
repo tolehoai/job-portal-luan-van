@@ -11,7 +11,7 @@ class JobLevel extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'job_levels';
-
+    public $timestamps = true;
 
     protected $fillable = [
         'name',

@@ -10,7 +10,7 @@ class Education extends Model
     use HasFactory;
 
     protected $table = 'education';
-
+    public $timestamps = true;
 
     protected $fillable = [
         'user_id',

@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('skill_id');
-            $table->timestamps()->useCurrent();
+            $table->timestamps();
         });
     }
 
