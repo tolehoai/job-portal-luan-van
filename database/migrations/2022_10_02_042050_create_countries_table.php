@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('country_name');
             $table->string('country_name_slug');
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

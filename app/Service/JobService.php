@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Hash;
 class JobService
 {
 
-    public function __construct(UploadImageService $uploadImageService)
+    private FileStoreService $fileStoreService;
+
+    public function __construct(FileStoreService $fileStoreService)
     {
+        $this->fileStoreService = $fileStoreService;
     }
 
     public function store(Request $request)
@@ -53,6 +56,20 @@ class JobService
         //update company image
 
         return $job;
+    }
 
+    public function applyJob(Request $request, string $jobId)
+    {
+        $job = Job::find($jobId);
+        if ($request->file('cv') != null) {
+            $job->user()->sync(
+                [
+                    Auth::id() => ['file_id' => $this->fileStoreService->store($request->file('cv'))->id]
+                ], false);
+        } else {
+            $job->user()->sync(Auth::id(), false);
+        }
+
+        return $job;
     }
 }

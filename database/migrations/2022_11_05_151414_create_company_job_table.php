@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('job_id');
             $table->string('company_id');
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

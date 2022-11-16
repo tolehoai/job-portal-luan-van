@@ -227,9 +227,131 @@
             color: #05264E;
         }
 
+        .pic {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .card-block {
+            width: 200px;
+            border: 1px solid lightgrey;
+            border-radius: 5px !important;
+            background-color: #FAFAFA;
+            margin-bottom: 30px;
+        }
+
+        .radio {
+            display: inline-block;
+            border-radius: 0;
+            box-sizing: border-box;
+            cursor: pointer;
+            color: #000;
+            font-weight: 500;
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+
+
+        .radio:hover {
+            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .radio.selected {
+            box-shadow: 0px 8px 16px 0px #EEEEEE;
+            -webkit-filter: grayscale(0%);
+            -moz-filter: grayscale(0%);
+            -o-filter: grayscale(0%);
+            -ms-filter: grayscale(0%);
+            filter: grayscale(0%);
+        }
+
+
     </style>
 @stop @section('content')
+    {{--Modal Session--}}
+    <!-- Button trigger modal -->
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <form id="applyJobForm" name="applyJobForm" method="POST" action="{{route('user.applyJob', $job->id)}}"
+              enctype="multipart/form-data">
+            @csrf
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chọn CV để ứng tuyển vào vị trí này</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                    <div class="card text-center justify-content-center shaodw-lg  card-1 border-0 bg-white px-sm-2">
+                                        <div class="card-body show  ">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-12 mx-auto">
+                                                    <h5><b>Chọn CV</b></h5>
+                                                    <p>Bạn có thể upload CV hoặc sử dụng CV được tạo tự động từ
+                                                        trang web của chúng tôi
+                                                    </p>
+                                                </div>
+                                                <div class="col-8 mx-auto">
+                                                    <div class="radio-group row justify-content-between px-3 text-center a d-flex">
+                                                        <div class="mr-sm-2 mx-1 card-block  py-0 text-center radio selected ">
+                                                            <div class="flex-row">
+                                                                <div class="col">
+                                                                    <div class="pic"><img
+                                                                                class="irc_mut img-fluid"
+                                                                                src="{{asset('storage/cv.png')}}"
+                                                                                width="100" height="100">
+                                                                    </div>
+                                                                    <p>Chọn CV từ hệ thống</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ml-sm-2 mx-1 card-block  py-0 text-center radio  ">
+                                                            <div class="flex-row">
+                                                                <div class="col">
+                                                                    <div class="pic"><img
+                                                                                class="irc_mut img-fluid"
+                                                                                src="{{asset('storage/upload-cv.png')}}"
+                                                                                width="100" height="100">
+                                                                    </div>
+                                                                    <input class="form-control" type="file"
+                                                                           id="formFile"
+                                                                           name="cv">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           id="useWebCV" name="useWebCV" value="true" checked>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     {{--          New Design--}}
     <main class="main">
         <section class="section-box mt-50">
@@ -244,9 +366,21 @@
                                     <div class="mt-0 mb-15"><span>{{$job->jobType->name}}</span></div>
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex flex-end flex-column">
-                                    <div class="btn btn-primary hover-up"
-                                         data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Ứng tuyển ngay
-                                    </div>
+
+                                    @if($job->user->where('id', Auth::user()->id)->first())
+                                        <button type="button" class="btn btn-primary hover-up" data-toggle="modal"
+                                                data-target="#exampleModal" disabled>
+                                            <i class="fa fa-check"></i> Đã ứng tuyển
+
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-primary hover-up" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                            <i class="fa fa-check"></i> Ứng tuyển ngay
+                                        </button>
+                                    @endif
+
+
                                 </div>
                             </div>
                             <div class="border-bottom pt-10 pb-10"></div>
@@ -418,6 +552,9 @@
                                     <li><b>Địa chỉ: </b>{{$job->company->address}}</li>
                                     <li><b>Số điện thoại: </b>{{$job->company->phone}}</li>
                                     <li><b>Email: </b>{{$job->company->email}}</li>
+                                    <li><b>Giờ làm
+                                            việc: </b>{{date_format(date_create($job->company->start_work_time),"H:i")}}
+                                        - {{date_format(date_create($job->company->end_work_time),"H:i")}}
                                 </ul>
                             </div>
                         </div>
@@ -485,8 +622,19 @@
 @stop @section('scripts')
     <script>
         $(document).ready(function () {
+            $('.radio-group .radio').click(function () {
+                let checkbox = $("#useWebCV");
+                if (checkbox.is(':checked')) {
+                    checkbox.prop('checked', false);
 
-        })
+                } else {
+                    checkbox.prop('checked', true);
+                }
+                $('.selected .fa').removeClass('fa-check');
+                $('.radio').removeClass('selected');
+                $(this).addClass('selected');
+            });
+        });
     </script>
 
 @stop

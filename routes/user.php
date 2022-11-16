@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/editEducation/{educationId}',
         [\App\Http\Controllers\User\EducationController::class, 'editEducation'])
          ->name('user.editEducation');
+    Route::post('/applyJob/{jobId}', [\App\Http\Controllers\User\JobController::class, 'applyJob'])
+         ->name('user.applyJob');
 });
 
 

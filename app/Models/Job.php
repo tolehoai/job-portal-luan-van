@@ -57,5 +57,10 @@ class Job extends Model
         return $this->belongsToMany(City::class);
     }
 
+    public function user()
+    {
+        return $this->belongsToMany(User::class)->withPivot('file_id');
+    }
+
 
 }

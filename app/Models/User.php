@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Education::class);
     }
+
+    public function job()
+    {
+        return $this->belongsToMany(Job::class)->withPivot('file_id');
+    }
 }

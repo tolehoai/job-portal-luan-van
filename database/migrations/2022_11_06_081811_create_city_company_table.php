@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('city_company', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
         });

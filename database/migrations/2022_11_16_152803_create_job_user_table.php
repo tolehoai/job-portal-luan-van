@@ -12,10 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('titles', function (Blueprint $table) {
+        Schema::create('job_user', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
+            $table->string('user_id');
+            $table->string('job_id');
+            $table->string('status')->default('pending');
+            $table->string('file_id')->nullable();
             $table->timestamps()->useCurrent();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('titles');
+        Schema::dropIfExists('job_user');
     }
 };

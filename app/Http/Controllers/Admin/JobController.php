@@ -34,7 +34,6 @@ class JobController extends Controller
     public function showJobDetail(string $jobId)
     {
         $job = Job::find(['id' => $jobId])->first();
-//        dd($job->company->toArray());
         $jobs      = Job::where([
             ['company_id', $job->company->id],
             ['id', '!=', $job->id]
@@ -50,7 +49,6 @@ class JobController extends Controller
 //            'company'      => $job->company,
         ]);
     }
-
 
 
 }

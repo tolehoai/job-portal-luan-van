@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->bigInteger('title_id');
             $table->string('company_name');
             $table->text('desc');
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 
