@@ -55,9 +55,6 @@
             width: 100%;
         }
 
-        .sidebar-border .sidebar-heading .avatar-sidebar .sidebar-info, .sidebar-shadow .sidebar-heading .avatar-sidebar .sidebar-info {
-        }
-
         .sidebar-border .sidebar-heading .avatar-sidebar .sidebar-info .sidebar-company, .sidebar-shadow .sidebar-heading .avatar-sidebar .sidebar-info .sidebar-company {
             font-size: 18px;
             font-family: "Plus Jakarta Sans", sans-serif;
@@ -541,11 +538,13 @@
                                              src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
                                         >
                                     </figure>
-                                    <div class="sidebar-info d-inline-block"><span
+                                    <div class="sidebar-info d-inline-block" style="padding-left: 0 !important;"><span
                                                 class="sidebar-company">{{$job->company->name}}</span><span
                                                 class="card-location">{{$job->company->country->country_name}}</span><a
                                                 class="link-underline mt-15"
-                                                href="#">{{$jobOfCompany}} công việc khác đang tuyển</a>
+                                                href="{{route('jobs', ['filter[name]' => $job->company->name])}}">{{$jobOfCompany}}
+                                            công
+                                            việc khác đang tuyển</a>
                                     </div>
                                 </div>
                             </div>
@@ -584,7 +583,8 @@
                                                     <div class="info-text">
                                                         <h5 class="font-md font-bold color-brand-1">{{$job->title}}</h5>
                                                         <div class="mt-0">
-                                                            <span class="card-briefcase pl-0">{{$job->jobType->name}}</span></span>
+                                                            <span class="card-briefcase pl-0"
+                                                                  style="background: none !important;">{{$job->jobType->name}}</span></span>
                                                             <h6 class="card-price">
                                                                 <x-money amount="{{$job->salary}}" currency="VND"/>
                                                             </h6>
@@ -592,7 +592,8 @@
                                                         <div>
                                                             <div class="row">
                                                                 <div class="col-12 text-end">
-                                                                    <span class="card-briefcase pl-0">
+                                                                    <span class="card-briefcase pl-0"
+                                                                          style="background: none !important;">
                                                                         @foreach($job->city as $city)
                                                                             {{$city->name}}@if (!$loop->last)
                                                                                 ,
@@ -614,10 +615,10 @@
                             <h6 class="f-18">Danh mục</h6>
                             <div class="sidebar-list-job">
                                 <a class="btn btn-grey-small mr-2 mb-2"
-                                   href="jobs-grid.html">{{$job->technology->name}}</a>
+                                   href="{{route('jobs',["filter[technology_id]"=>$job->technology->id])}}">{{$job->technology->name}}</a>
                                 @foreach($job->skill as $skill)
                                     <a class="btn btn-grey-small mr-2 mb-2"
-                                       href="jobs-grid.html">{{$skill->name}}</a>
+                                       href="{{route('jobs',["filter[skill]"=>$skill->id])}}">{{$skill->name}}</a>
                                 @endforeach
                             </div>
                         </div>

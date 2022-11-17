@@ -82,4 +82,11 @@ class Job extends Model
                      });
     }
 
+    public function scopeSkill($query, $skill)
+    {
+        return $query->whereHas('skill', function ($q) use ($skill) {
+            $q->where('skill_id', $skill);
+        });
+    }
+
 }

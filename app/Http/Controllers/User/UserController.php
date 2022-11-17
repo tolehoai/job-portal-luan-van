@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Skill;
 use App\Models\Title;
+use App\Models\User;
 use App\Service\CityService;
 use App\Service\UserService;
 use Illuminate\Http\Request;
@@ -56,22 +57,36 @@ class UserController extends Controller
         return redirect()->route('user')->with('success', 'Cập nhật thông tin thành công')->withInput();
     }
 
-
-    public function editCity(Request $request
-    ): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application {
-        if ($request->method() == 'GET') {
-            return view('pages/admin/city/editCity', [
-                "city" => City::where('id', $request->cityId)->first()
-            ]);
-        }
-        $city = $this->cityService->update($request);
-        if (!$city) {
-            return redirect()->route('admin.edit-city')
-                             ->with('error', 'Cập nhật thành phố thất bại')
+    //show cv of user
+    public function showCV($userId)
+    {
+        $user = User::find($userId);
+        if (!$user) {
+            return redirect()->route('home.index')
+                             ->with('error', 'Không tìm thấy thông tin người dùng')
                              ->withInput();
         }
 
-        return redirect()->route('admin.cities')->with('success', 'Cập nhật thành phố thành công')->withInput();
+        return view('pages/user/cv', [
+            'user'        => $user,
+            'skills'      => Skill::get(),
+            'titles'      => Title::get(),
+            'experiences' => $user->experience->sortByDesc('id'),
+            'educations'  => $user->education->sortByDesc('id')
+        ]);
+    }
+
+    //show job of user
+    public function showJobOfUser()
+    {
+        //get all job of user with pagination
+        $jobs = Auth::user()->job()->paginate(5);
+        
+        return view('pages/user/userJob', [
+            //get job with 5 item per page
+            'jobs' => $jobs,
+            'user' => Auth::user()
+        ]);
     }
 
 }

@@ -1,4 +1,5 @@
-@extends('layouts.user.master') @section('title', 'Admin') @section('style-libraries') @stop @section('styles')
+@php use Illuminate\Support\Facades\Auth; @endphp
+@extends('layouts.user.master') @section('title', 'Người dùng') @section('style-libraries') @stop @section('styles')
     {{--custom css item suggest search--}}
     <style>
         .emp-profile {
@@ -124,26 +125,37 @@
     </style>
 @stop @section('content')
     <div id="main py-4">
-        <p id="btnPrintCV">Print</p>
         <main class="container-fluid">
-            <div class="row">
+            <div class="row mx-5">
+                <div class="col-12">
+                    <div class="banner-hero banner-image-single">
+                        <img
+                                src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/page/candidates/img.png"
+                                alt="jobbox">
+                    </div>
+                    <div class="box-company-profile">
+                        <div class="image-compay">
+                            <img
+                                    src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
+                                    style="width: 130px;"
+                                    alt="jobbox">
+                        </div>
+                        <div class="row mt-50">
+                            <div class="col-lg-8 col-md-12">
+                                <h5 class="f-18">
+                                    {{$user->name}}</h5>
+                                <h6>
+                                    {{$user->title->name}}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-6">
                     <div class="emp-profile">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="profile-img">
-                                    <img src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
-                                         alt="profile" class="img-lg mb-3" style="width: 250px;">
-                                </div>
-                            </div>
                             <div class="col-md-12 user-header mb-3">
                                 <div class="profile-head mt-2">
-                                    <h5>
-                                        {{$user->name}}
-                                    </h5>
-                                    <h6>
-                                        {{$user->title->name}}
-                                    </h6>
                                     <div class="d-flex justify-content-between pt-5">
                                         <h4 class="m-0 p-0">Thông tin</h4>
                                         <button type="button" class="genric-btn primary" data-toggle="modal"
@@ -650,6 +662,9 @@
                     </div>
                 </div>
                 <div class="col-6" id="cv">
+                    <p id="btnPrintCV">
+                        <a href="{{route('cv', Auth::id())}}" class="btn btn-primary float-right">Tải CV</a>
+                    </p>
                     <div class="row">
                         <div class="col-4 m-0 p-0" style="background: #28bb9c">
                             <div id="info">
@@ -877,16 +892,6 @@
 @stop @section('scripts')
     <script>
         $(document).ready(function () {
-
-
-            $("#btnPrintCV").click(function () {
-                $("#cv").printThis({
-                    importCSS: true,            // import parent page css
-                    importStyle: false,         // import style tags
-                    printContainer: true,       // print outer container/$.selector
-                });
-            })
-
 
             $(".educationForm").hide();
 

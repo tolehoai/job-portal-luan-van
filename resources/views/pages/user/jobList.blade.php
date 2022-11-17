@@ -521,14 +521,14 @@
 
                     <div class="form-find text-start mt-40 wow animate__ animate__fadeInUp animated"
                          data-wow-delay=".2s"
-                         style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                         style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp; width: 900px !important;">
                         <form action="{{route('jobs')}}" method="GET" class="search-box" id="searchJobForm">
-                            <div class="input-form">
+                            <div class="input-form" style="width:450px !important;">
                                 <input type="text" name="filter[name]" placeholder="Tên công việc hoặc công ty"
                                        value="{{request()->get('filter')['name'] ?? ''}}"
                                        tabindex="0">
                             </div>
-                            <div class="select-form d-flex align-items-center">
+                            <div class="select-form d-flex align-items-center" style="width: auto !important;">
                                 <select id="city" name="filter[city]">
                                     <option>Chọn thành phố</option>
                                     @foreach($cities as $city)

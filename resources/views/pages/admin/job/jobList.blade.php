@@ -95,7 +95,6 @@
                                                             <i class="far fa-money-bill-alt me-2"></i>
                                                             <x-money amount="{{$job->salary}}" currency="VND"/>
                                                         </div>
-
                                                     </div>
                                                 </div>
 

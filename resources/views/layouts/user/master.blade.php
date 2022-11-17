@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('user_resource/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/style_1.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/jquery-ui.css') }}">
+    <link href="http://wp.alithemes.com/html/jobbox/demos/assets/css/style.css?version=4.0" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
           integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
@@ -99,6 +100,19 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/jquery-3.6.0.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/bootstrap.bundle.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/waypoints.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/wow.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/magnific-popup.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/select2.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/isotope.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/scrollup.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/swiper-bundle.min.js"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/main.js?v=4.0"></script>
 {{--Scripts link to file or js custom--}}
 <script>
     $(document).ready(function () {

@@ -36,17 +36,14 @@ class JobController extends Controller
                                 'technology_id',
                                 AllowedFilter::scope('salary'),
                                 AllowedFilter::scope('city'),
-                                AllowedFilter::scope('name')
-                            ]) // filter by title, job_type_id, job_level_id, technology_id
+                                AllowedFilter::scope('name'),
+                                AllowedFilter::scope('skill'),
+                            ]) // filter by title, job_type_id, job_level_id, technology_id, skill_id
                             ->allowedSorts([
                 'id',
                 'title',
                 'salary',
-                'is_active',
-                'job_type_id',
-                'job_level_id',
-                'technology_id'
-            ]) // sort by title, job_type_id, job_level_id, technology_id
+            ]) // sort by title, salary
                             ->with('jobType', 'jobLevel', 'technology', 'company')
                             ->defaultSort('-id')
                             ->where('is_active', 1)
