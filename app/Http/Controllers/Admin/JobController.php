@@ -11,6 +11,9 @@ use App\Models\JobType;
 use http\Env\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class JobController extends Controller
 {
@@ -26,8 +29,33 @@ class JobController extends Controller
 
     public function showListJob()
     {
+        $jobs = QueryBuilder::for(Job::class)
+                            ->allowedFilters([
+                                'job_type_id',
+                                'job_level_id',
+                                'technology_id',
+                                AllowedFilter::scope('salary'),
+                                AllowedFilter::scope('city'),
+                                AllowedFilter::scope('name')
+                            ]) // filter by title, job_type_id, job_level_id, technology_id
+                            ->allowedSorts([
+                'id',
+                'title',
+                'salary',
+                'is_active',
+                'job_type_id',
+                'job_level_id',
+                'technology_id'
+            ]) // sort by title, job_type_id, job_level_id, technology_id
+                            ->with('jobType', 'jobLevel', 'technology', 'company')
+                            ->defaultSort('-id')
+                            ->where('is_active', 1)
+                            ->paginate(10)
+                            ->appends(request()->query());
+
         return view('pages/user/jobList', [
-            'jobs' => Job::orderBy('id', 'DESC')->paginate(10)
+            'jobs'   => $jobs,
+            'cities' => City::get(),
         ]);
     }
 
@@ -37,19 +65,21 @@ class JobController extends Controller
         if (!$job) {
             return view('errors.404');
         }
-        $jobs      = Job::where([
+        $jobs = Job::where([
             ['company_id', $job->company->id],
             ['id', '!=', $job->id]
-        ])->take(5)->get();
+        ]);
+
         $relateJob = Job::where([
             ['technology_id', '=', $job->technology->id],
             ['id', '!=', $job->id]
         ])->take(6)->get();
+
         return view('pages/user/jobDetail', [
-            'job'          => $job,
-            'jobOfCompany' => $jobs,
-            'relatesJob'   => $relateJob,
-//            'company'      => $job->company,
+            'job'            => $job,
+            'top5CompanyJob' => $jobs->take(5)->get(),
+            'relatesJob'     => $relateJob,
+            'jobOfCompany'   => $jobs->count()
         ]);
     }
 

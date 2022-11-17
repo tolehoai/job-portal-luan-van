@@ -334,8 +334,13 @@
 
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                           id="useWebCV" name="useWebCV" value="true" checked>
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           style="display: none"
+                                                           id="useWebCV"
+                                                           name="useWebCV"
+                                                           value="true"
+                                                           checked>
                                                 </div>
                                             </div>
                                         </div>
@@ -345,8 +350,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Ứng tuyển</button>
                     </div>
                 </div>
             </div>
@@ -540,7 +545,7 @@
                                                 class="sidebar-company">{{$job->company->name}}</span><span
                                                 class="card-location">{{$job->company->country->country_name}}</span><a
                                                 class="link-underline mt-15"
-                                                href="#">{{count($jobOfCompany)}} công việc khác đang tuyển</a>
+                                                href="#">{{$jobOfCompany}} công việc khác đang tuyển</a>
                                     </div>
                                 </div>
                             </div>
@@ -565,7 +570,7 @@
                             <h6 class="f-18">Top 5 công việc mới nhất của công ty</h6>
                             <div class="sidebar-list-job">
                                 <ul>
-                                    @foreach($jobOfCompany as $job)
+                                    @foreach($top5CompanyJob as $job)
                                         <a href="{{route('job.detail', $job->id)}}">
                                             <li>
                                                 <div class="card-list-4 wow animate__animated animate__fadeIn hover-up"

@@ -62,5 +62,24 @@ class Job extends Model
         return $this->belongsToMany(User::class)->withPivot('file_id');
     }
 
+    public function scopeSalary($query, $minSalary, $maxSalary)
+    {
+        return $query->whereBetween('salary', [$minSalary, $maxSalary]);
+    }
+
+    public function scopeCity($query, $city)
+    {
+        return $query->whereHas('city', function ($q) use ($city) {
+            $q->where('city_id', $city);
+        });
+    }
+
+    public function scopeName($query, $titleOrCompanyName)
+    {
+        return $query->where('title', 'like', '%'.$titleOrCompanyName.'%')
+                     ->orWhereHas('company', function ($q) use ($titleOrCompanyName) {
+                         $q->where('name', 'like', '%'.$titleOrCompanyName.'%');
+                     });
+    }
 
 }
