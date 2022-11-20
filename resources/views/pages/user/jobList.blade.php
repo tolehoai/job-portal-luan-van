@@ -510,7 +510,8 @@
                 <div class="block-banner text-center">
                     <h3 class="wow animate__ animate__fadeInUp animated"
                         style="visibility: visible; animation-name: fadeInUp;">
-                        <span class="color-brand-2" style="color: #fb246a;">{{$jobs->total()}} Jobs</span> Available Now
+                        <span class="color-brand-2" style="color: #fb246a;">{{$jobs->total()}} Công việc</span> được tìm
+                        thấy
                     </h3>
                     <div class="font-sm color-text-paragraph-2 mt-10 wow animate__ animate__fadeInUp animated"
                          data-wow-delay=".1s"
@@ -592,13 +593,19 @@
                                 </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select id="cityFilter" name="filter[city]">
-                                        <option value="">Chọn thành phố</option>
-                                        @foreach($cities as $city)
-                                            <option value="{{$city->id}}"
-                                            >{{$city->name}}</option>
-                                        @endforeach
+                                    <select class="form-select" id="cityFilter" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
                                     </select>
+                                    {{--                                    <select id="cityFilter" name="filter[city]">--}}
+                                    {{--                                        <option value="">Chọn thành phố</option>--}}
+                                    {{--                                        @foreach($cities as $city)--}}
+                                    {{--                                            <option value="{{$city->id}}"--}}
+                                    {{--                                            >{{$city->name}}</option>--}}
+                                    {{--                                        @endforeach--}}
+                                    {{--                                    </select>--}}
                                 </div>
                                 <div class="small-section-tittle2 pt-80">
                                     <h4>Công nghệ</h4>
@@ -620,7 +627,7 @@
                                 </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select id="technologyFilter" name="filter[salary]">
+                                    <select id="salaryFilter" name="filter[salary]">
                                         <option value="">Chọn mức lương</option>
                                         <option value="0,5000000">Dưới 5 triệu</option>
                                         <option value="5000000,10000000">Từ 5-10 triệu</option>
@@ -747,6 +754,7 @@
             $('#technologyFilter').select2({
                 theme: "material"
             });
+            $('#salaryFilter').niceSelect();
         })
     </script>
 

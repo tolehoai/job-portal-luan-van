@@ -57,6 +57,8 @@
 <script src="{{ asset('user_resource/js/vendor/modernizr-3.5.0.min.js') }}"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="{{ asset('user_resource/js/vendor/jquery-1.12.4.min.js') }}"></script>
+<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/jquery-3.6.0.min.js"></script>
+
 <script src="{{ asset('user_resource/js/popper.min.js') }}"></script>
 <script src="{{ asset('user_resource/js/bootstrap.min.js') }}"></script>
 <!-- Jquery Mobile Menu -->
@@ -101,7 +103,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 <script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/modernizr-3.6.0.min.js"></script>
-<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/jquery-3.6.0.min.js"></script>
 <script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
 <script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/vendor/bootstrap.bundle.min.js"></script>
 <script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/waypoints.js"></script>
