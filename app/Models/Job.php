@@ -64,13 +64,17 @@ class Job extends Model
 
     public function scopeSalary($query, $minSalary, $maxSalary)
     {
-        return $query->whereBetween('salary', [$minSalary, $maxSalary]);
+        if ($maxSalary == 'max') {
+            return $query->where('salary', '>=', $minSalary);
+        } else {
+            return $query->whereBetween('salary', [$minSalary, $maxSalary]);
+        }
     }
 
-    public function scopeCity($query, $city)
+    public function scopeCity($query, $cityId)
     {
-        return $query->whereHas('city', function ($q) use ($city) {
-            $q->where('city_id', $city);
+        return $query->whereHas('city', function ($query) use ($cityId) {
+            $query->where('city_id', $cityId);
         });
     }
 

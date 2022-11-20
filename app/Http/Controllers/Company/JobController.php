@@ -48,7 +48,7 @@ class JobController extends Controller
     {
         return view('pages/company/jobList', [
             'company' => Auth::user(),
-            'jobs'    => Job::where(['company_id' => Auth::id()])->get()
+            'jobs'    => Job::where('company_id', Auth::user()->id)->paginate(10)
         ]);
     }
 

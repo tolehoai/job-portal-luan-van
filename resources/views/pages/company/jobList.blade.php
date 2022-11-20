@@ -20,7 +20,6 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            @php ($badgeColor = ["badge-primary","badge-success","badge-danger","badge-warning", "badge-info"])
                             @foreach ($jobs as $job)
                                 <div class="job-item p-4 mb-4 card">
                                     <div class="row g-4 d-flex align-items-center card-body p-0">
@@ -34,7 +33,9 @@
                                                     <span class="text-truncate me-3"><i
                                                                 class="fa fa-map-marker-alt text-primary me-2"></i>
                                                  @foreach ($job->city as $city)
-                                                            <p class="d-inline-block">{{$city->name}}, </p>
+                                                            <p class="d-inline-block">{{$city->name}}@if (!$loop->last)
+                                                                    ,
+                                                                @endif </p>
                                                         @endforeach
                                                 </span>
                                                     <div class="d-flex">
@@ -50,7 +51,7 @@
                                                         </div>
 
                                                         <div
-                                                                class="badge {{$badgeColor[$loop->index]}} badge-pill p-1 m-1">
+                                                                class="badge badge-primary badge-pill p-1 m-1">
                                                             <i class="far fa-money-bill-alt text-white me-2"></i>
                                                             <x-money amount="{{$job->salary}}" currency="VND"/>
                                                         </div>
@@ -61,7 +62,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="d-flex mb-3 flex-column align-items-center">
                                                 <button
                                                         class="btn btn-success btn-rounded btn-fw">{{$job->jobLevel->name}}
@@ -72,6 +73,13 @@
                                             <a href="{{route('company.editJob', $job->id)}}" type="button"
                                                class="btn btn-primary btn-fw my-1">Chỉnh sửa</a>
                                             <a type="button" class="btn btn-danger btn-fw my-1">Xóa</a>
+                                        </div>
+                                        <div class="col-md-2" style="font-size: 0.8rem">
+                                            @if($job->user->count()>0)
+                                                {{$job->user->count()}} Ứng cử viên
+                                            @else
+                                                Chưa có ứng cử viên
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Models\Job;
 use App\Models\JobType;
+use App\Models\Technology;
 use http\Env\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -51,8 +52,10 @@ class JobController extends Controller
                             ->appends(request()->query());
 
         return view('pages/user/jobList', [
-            'jobs'   => $jobs,
-            'cities' => City::get(),
+            'jobs'         => $jobs,
+            'cities'       => City::get(),
+            'jobTypes'     => JobType::get(),
+            'technologies' => Technology::get(),
         ]);
     }
 
