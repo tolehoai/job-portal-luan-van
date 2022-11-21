@@ -82,7 +82,7 @@
             top: 100%;
             border-top: 0;
             border-radius: 0 0 5px 5px;
-            max-height: 210px;
+            max-height: 200px;
             overflow-y: scroll;
             padding: 52px 0 0
         }
@@ -500,6 +500,18 @@
         .select2-search--dropdown.select2-search--hide {
             display: none;
         }
+
+        .nice-select .list {
+            margin-top: 5px;
+            top: 100%;
+            border-top: 0;
+            border-radius: 0 0 5px 5px;
+            max-height: 300px;
+            max-width: 200px;
+            overflow-y: scroll;
+            padding: 52px 0 0
+        }
+
     </style>
 @stop @section('content')
 
@@ -517,7 +529,7 @@
                          data-wow-delay=".1s"
                          style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero repellendus magni, <br
-                                class="d-none d-xl-block">atque delectus molestias quis?
+                            class="d-none d-xl-block">atque delectus molestias quis?
                     </div>
 
                     <div class="form-find text-start mt-40 wow animate__ animate__fadeInUp animated"
@@ -567,11 +579,24 @@
                     <!-- Job Category Listing start -->
                     <form action="{{route('jobs')}}" method="GET" class="search-box" id="searchJobForm">
                         <div class="job-category-listing mb-50 w-100">
+                            <div class="small-section-tittle2">
+                                <h4>Sắp xếp</h4>
+                            </div>
+                            <!-- Select job items start -->
+                            <div class="select-job-items2">
+                                <select class="w-100" id="sortJob" name="sort">
+                                    <option value="id">Mới nhất</option>
+                                    <option value="title">Tên A-Z</option>
+                                    <option value="-title">Tên Z-A</option>
+                                    <option value="salary">Lương tăng dần</option>
+                                    <option value="-salary">Lương giảm dần</option>
+                                </select>
+                            </div>
                             <!-- single one -->
                             <div class="single-listing">
 
                                 <!-- select-Categories start -->
-                                <div class="select-Categories pb-50">
+                                <div class="select-Categories pb-50 pt-80">
                                     <div class="small-section-tittle2">
                                         <h4>Loại công việc</h4>
                                     </div>
@@ -593,19 +618,14 @@
                                 </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select class="form-select" id="cityFilter" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select" id="cityFilter" name="filter[city]">
+                                        <option value="" selected>Chọn thành phố</option>
+                                        @foreach($cities as $city)
+                                            --}}
+                                            <option value="{{$city->id}}"
+                                            >{{$city->name}}</option>
+                                        @endforeach
                                     </select>
-                                    {{--                                    <select id="cityFilter" name="filter[city]">--}}
-                                    {{--                                        <option value="">Chọn thành phố</option>--}}
-                                    {{--                                        @foreach($cities as $city)--}}
-                                    {{--                                            <option value="{{$city->id}}"--}}
-                                    {{--                                            >{{$city->name}}</option>--}}
-                                    {{--                                        @endforeach--}}
-                                    {{--                                    </select>--}}
                                 </div>
                                 <div class="small-section-tittle2 pt-80">
                                     <h4>Công nghệ</h4>
@@ -650,92 +670,63 @@
                 </div>
                 <!-- Right content -->
                 <div class="col-xl-9 col-lg-9 col-md-8">
-                    <!-- Featured_job_start -->
-                    <section class="featured-job-area">
-                        <div class="container">
-                            <!-- Count of Job list Start -->
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="count-job mb-35 mt-5>
-                                        <span>{{$jobs->total()}} công việc được tìm thấy</span>
-                                        <!-- Select job items start -->
-                                        <div class=" select-job-items
-                                    ">
-                                    <span>Sort by</span>
-                                    <select name="select" style="display: none;">
-                                        <option value="">None</option>
-                                        <option value="">job list</option>
-                                        <option value="">job list</option>
-                                        <option value="">job list</option>
-                                    </select>
-                                    <div class="nice-select" tabindex="0"><span class="current">None</span>
-                                        <ul class="list">
-                                            <li data-value="" class="option selected focus">None</li>
-                                            <li data-value="" class="option">job list</li>
-                                            <li data-value="" class="option">job list</li>
-                                            <li data-value="" class="option">job list</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--  Select job items End-->
-                            </div>
-                        </div>
-                </div>
-                <!-- Count of Job list End -->
-                <!-- single-job-content -->
-                @foreach ($jobs as $job)
-                    <div class="single-job-items mb-30">
-                        <a href="{{route('job.detail', $job->id)}}">
-                            <div class="job-items row">
-                                <div class="col-2">
-                                    <div class="company-img">
-                                        <img
-                                                src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
-                                                alt=""
-                                                style="width: 100px;"
-                                        >
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="job-tittle job-tittle2">
+                    <div class="row">
+                        <div class="col-12">
+                            @foreach ($jobs as $job)
+                                <div class="single-job-items mb-30">
+                                    <a href="{{route('job.detail', $job->id)}}">
+                                        <div class="job-items row">
+                                            <div class="col-2">
+                                                <div class="company-img">
+                                                    <img
+                                                        src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
+                                                        alt=""
+                                                        style="width: 100px;"
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="job-tittle job-tittle2">
                                                     <span>
                                                         <h4>{{$job->title}}</h4>
                                                     </span>
-                                        <ul>
-                                            <li>
-                                                {{$job->technology->name}}
-                                            </li>
-                                        </ul>
-                                        <span class="text-gray"><i
-                                                    class="fas fa-map-marker-alt text-gray"></i></span>
-                                        @foreach ($job->city as $city)
-                                            <p class="d-inline-block">{{$city->name}}@if (!$loop->last)
-                                                    ,
-                                                @endif </p>
-                                        @endforeach
-                                    </div>
+                                                    <ul>
+                                                        <li>
+                                                            {{$job->technology->name}}
+                                                        </li>
+                                                    </ul>
+                                                    <span class="text-gray"><i
+                                                            class="fas fa-map-marker-alt text-gray"></i></span>
+                                                    @foreach ($job->city as $city)
+                                                        <p class="d-inline-block">{{$city->name}}@if (!$loop->last)
+                                                                ,
+                                                            @endif </p>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="col-3 d-flex flex-column align-items-end">
+                                                <div class="items-link items-link2 f-right">
+                                                    <button type="button"
+                                                            class="genric-btn primary circle arrow mb-2"
+                                                            style="background: #8b92dd">{{$job->jobLevel->name}}</button>
+                                                </div>
+                                                <b>
+                                                    <x-money amount="{{$job->salary}}" currency="VND"/>
+                                                </b>
+                                                <div>{{$job->jobType->name}}</div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="col-3 d-flex flex-column align-items-end">
-                                    <div class="items-link items-link2 f-right">
-                                        <button type="button"
-                                                class="genric-btn primary circle arrow mb-2"
-                                                style="background: #8b92dd">{{$job->jobLevel->name}}</button>
-                                    </div>
-                                    <b>
-                                        <x-money amount="{{$job->salary}}" currency="VND"/>
-                                    </b>
-                                    <div>{{$job->jobType->name}}</div>
-                                </div>
-                            </div>
-                        </a>
+                            @endforeach
+                        </div>
                     </div>
-                @endforeach
+                </div>
+                </section>
+                {!! $jobs->withQueryString()->links() !!}
+                <!-- Featured_job_end -->
             </div>
-            </section>
-            {!! $jobs->withQueryString()->links() !!}
-            <!-- Featured_job_end -->
         </div>
-    </div>
     </div>
     </div>
 
@@ -755,6 +746,7 @@
                 theme: "material"
             });
             $('#salaryFilter').niceSelect();
+            $('#sortJob').niceSelect();
         })
     </script>
 

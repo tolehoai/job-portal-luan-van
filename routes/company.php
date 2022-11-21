@@ -14,7 +14,7 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout']); // @Todo Remove logout GET method
 
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
-     ->name('company.password.request');
+    ->name('company.password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('company.password.email');
 
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
@@ -29,11 +29,14 @@ Route::middleware('company.auth')->group(function () {
     Route::get('/job', [\App\Http\Controllers\Company\JobController::class, 'index'])->name('company.job');
     Route::post('/job', [\App\Http\Controllers\Company\JobController::class, 'addJob'])->name('company.addJob');
     Route::get('/jobList', [\App\Http\Controllers\Company\JobController::class, 'showJobList'])
-         ->name('company.jobList');
+        ->name('company.jobList');
     Route::get('/editJob/{jobId}', [\App\Http\Controllers\Company\JobController::class, 'editJob'])
-         ->name('company.editJob');
+        ->name('company.editJob');
     Route::post('/editJob/{jobId}', [\App\Http\Controllers\Company\JobController::class, 'editJob'])
-         ->name('company.editJob');
+        ->name('company.editJob');
+    Route::get('/jobUser/{job_id}', [\App\Http\Controllers\Company\JobController::class, 'showJobUserList'])
+        ->name('company.jobUserList');
 
+    Route::get('/showJobCV/{jobId}', [\App\Http\Controllers\Company\JobController::class, 'showJobCV'])->name('showJobCV');
 
 });

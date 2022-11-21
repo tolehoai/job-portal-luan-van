@@ -37,7 +37,8 @@ Route::get('/company', [App\Http\Controllers\CompanyController::class, 'index'])
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/cv/{userId}', [\App\Http\Controllers\User\UserController::class, 'showCV'])->name('cv');
+Route::get('/cv/{userId}/{jobId}', [\App\Http\Controllers\User\UserController::class, 'showCV'])->name('cv');
+
 
 Route::get('/jobs', [\App\Http\Controllers\Admin\JobController::class, 'showListJob'])->name('jobs');
 Route::get('/job/{jobId}', [\App\Http\Controllers\Admin\JobController::class, 'showJobDetail'])->name('job.detail');

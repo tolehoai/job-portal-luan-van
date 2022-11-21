@@ -72,4 +72,12 @@ class JobService
 
         return $job;
     }
+
+    //getJobUserList($jobId)
+    public function getJobUserList($jobId)
+    {
+        $job = Job::find($jobId);
+        $users = $job->user()->paginate(10);
+        return $users;
+    }
 }

@@ -12,7 +12,7 @@ class IndexController
     {
         return view('pages/user/index', [
             'cities' => City::get(),
-            'jobs'   => Job::get()->take(5)
+            'jobs' => Job::get()->take(5)
         ]);
     }
 }

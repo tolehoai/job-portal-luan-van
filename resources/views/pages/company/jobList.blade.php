@@ -31,7 +31,7 @@
                                                 <h5 class="mb-3 pl-1">{{$job->title}}</h5>
                                                 <div class="d-flex flex-column ">
                                                     <span class="text-truncate me-3"><i
-                                                                class="fa fa-map-marker-alt text-primary me-2"></i>
+                                                            class="fa fa-map-marker-alt text-primary me-2"></i>
                                                  @foreach ($job->city as $city)
                                                             <p class="d-inline-block">{{$city->name}}@if (!$loop->last)
                                                                     ,
@@ -51,7 +51,7 @@
                                                         </div>
 
                                                         <div
-                                                                class="badge badge-primary badge-pill p-1 m-1">
+                                                            class="badge badge-primary badge-pill p-1 m-1">
                                                             <i class="far fa-money-bill-alt text-white me-2"></i>
                                                             <x-money amount="{{$job->salary}}" currency="VND"/>
                                                         </div>
@@ -65,7 +65,7 @@
                                         <div class="col-md-2">
                                             <div class="d-flex mb-3 flex-column align-items-center">
                                                 <button
-                                                        class="btn btn-success btn-rounded btn-fw">{{$job->jobLevel->name}}
+                                                    class="btn btn-success btn-rounded btn-fw">{{$job->jobLevel->name}}
                                                 </button>
                                             </div>
                                         </div>
@@ -75,11 +75,12 @@
                                             <a type="button" class="btn btn-danger btn-fw my-1">Xóa</a>
                                         </div>
                                         <div class="col-md-2" style="font-size: 0.8rem">
-                                            @if($job->user->count()>0)
-                                                {{$job->user->count()}} Ứng cử viên
-                                            @else
-                                                Chưa có ứng cử viên
-                                            @endif
+{{--                                            @if($job->user->count()>0)--}}
+{{--                                                <a href="{{route('cv',[$job->user, $job->id])}}"> {{$job->user->count()}}--}}
+{{--                                                    Ứng cử viên</a>--}}
+{{--                                            @else--}}
+{{--                                                Chưa có ứng cử viên--}}
+{{--                                            @endif--}}
                                         </div>
                                     </div>
                                 </div>
@@ -88,6 +89,7 @@
                     </div>
                 </div>
             </div>
+            {!! $jobs->links() !!}
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -95,7 +97,7 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                            class="far fa-heart text-danger"></i></span>
+                        class="far fa-heart text-danger"></i></span>
             </div>
         </footer>
         <!-- partial -->
