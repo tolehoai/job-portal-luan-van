@@ -74,6 +74,459 @@
             scrollbar-width: none; /* Firefox */
         }
 
+        .list {
+            max-height: 300px;
+            overflow-y: scroll !important;
+        }
+
+        .nice-select,
+        .nice-select.open .list {
+            width: 100%;
+            width: 325px;
+            border-radius: 8px;
+        }
+
+        .nice-select .list::-webkit-scrollbar {
+            width: 0
+        }
+
+        .nice-select .list {
+            margin-top: 5px;
+            top: 100%;
+            border-top: 0;
+            border-radius: 0 0 5px 5px;
+            max-height: 200px;
+            overflow-y: scroll;
+            padding: 52px 0 0
+        }
+
+        .nice-select.has-multiple {
+            white-space: inherit;
+            height: auto;
+            padding: 7px 12px;
+            min-height: 53px;
+            line-height: 22px
+        }
+
+        .nice-select.has-multiple span.current {
+            border: 1px solid #CCC;
+            background: #EEE;
+            padding: 0 10px;
+            border-radius: 3px;
+            display: inline-block;
+            line-height: 24px;
+            font-size: 14px;
+            margin-bottom: 3px;
+            margin-right: 3px
+        }
+
+        .nice-select.has-multiple .multiple-options {
+            display: block;
+            line-height: 37px;
+            margin-left: 30px;
+            padding: 0
+        }
+
+        .nice-select .nice-select-search-box {
+            box-sizing: border-box;
+            position: absolute;
+            width: 100%;
+            margin-top: 5px;
+            top: 100%;
+            left: 0;
+            z-index: 8;
+            padding: 5px;
+            background: #FFF;
+            opacity: 0;
+            pointer-events: none;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 0 0 1px rgba(68, 88, 112, .11);
+            -webkit-transform-origin: 50% 0;
+            -ms-transform-origin: 50% 0;
+            transform-origin: 50% 0;
+            -webkit-transform: scale(.75) translateY(-21px);
+            -ms-transform: scale(.75) translateY(-21px);
+            transform: scale(.75) translateY(-21px);
+            -webkit-transition: all .2s cubic-bezier(.5, 0, 0, 1.25), opacity .15s ease-out;
+            transition: all .2s cubic-bezier(.5, 0, 0, 1.25), opacity .15s ease-out
+        }
+
+        .nice-select .nice-select-search {
+            box-sizing: border-box;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-shadow: none;
+            color: #333;
+            display: inline-block;
+            vertical-align: middle;
+            padding: 7px 12px;
+            margin: 0 10px 0 0;
+            width: 100% !important;
+            min-height: 36px;
+            line-height: 22px;
+            height: auto;
+            outline: 0 !important
+        }
+
+        .nice-select.open .nice-select-search-box {
+            opacity: 1;
+            z-index: 10;
+            pointer-events: auto;
+            -webkit-transform: scale(1) translateY(0);
+            -ms-transform: scale(1) translateY(0);
+            transform: scale(1) translateY(0)
+        }
+
+        .select2-container--material {
+            width: 100% !important;
+        }
+
+        .select2-container--material .select2-selection--single {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #ced4da;
+            border-radius: 0;
+            box-shadow: none;
+            box-sizing: content-box;
+            height: auto;
+            margin: 0;
+            outline: none;
+            padding: 8px 0 5px 0;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .select2-container--material .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 28px;
+            padding-left: 0;
+        }
+
+        .select2-container--material .select2-selection--single .select2-selection__clear {
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+        }
+
+        .select2-container--material .select2-selection--single .select2-selection__placeholder {
+            color: #999;
+        }
+
+        .select2-container--material .select2-selection--single .select2-selection__arrow {
+            height: 26px;
+            margin: 0.6rem 0 0.4rem 0;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px;
+        }
+
+        .select2-container--material .select2-selection--single .select2-selection__arrow b {
+            border-color: #888 transparent transparent transparent;
+            border-style: solid;
+            border-width: 5px 4px 0 4px;
+            height: 0;
+            left: 50%;
+            margin-left: -4px;
+            margin-top: -2px;
+            position: absolute;
+            top: 50%;
+            width: 0;
+        }
+
+        .select2-container--material[dir="rtl"] .select2-selection--single .select2-selection__clear {
+            float: left;
+        }
+
+        .select2-container--material[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+            left: 1px;
+            right: auto;
+        }
+
+        .select2-container--material.select2-container--disabled .select2-selection--single {
+            background-color: #eee;
+            cursor: default;
+        }
+
+        .select2-container--material.select2-container--disabled .select2-selection--single .select2-selection__clear {
+            display: none;
+        }
+
+        .select2-container--material.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent #888 transparent;
+            border-width: 0 4px 5px 4px;
+        }
+
+        .select2-container--material .select2-selection--multiple {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #ced4da;
+            border-radius: 0;
+            box-shadow: none;
+            box-sizing: content-box;
+            cursor: text;
+            height: auto;
+            margin: 0;
+            outline: none;
+            padding: 5px 0 0 0;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .select2-container--material .select2-selection--multiple .select2-selection__rendered {
+            box-sizing: border-box;
+            list-style: none;
+            margin: 0;
+            padding: 0 5px;
+            width: 100%;
+        }
+
+        .select2-container--material .select2-selection--multiple .select2-selection__rendered li {
+            list-style: none;
+        }
+
+        .select2-container--material .select2-selection--multiple .select2-selection__placeholder {
+            color: #999;
+            margin-top: 5px;
+            float: left;
+        }
+
+        .select2-container--material .select2-selection--multiple .select2-selection__clear {
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            margin-top: 5px;
+            margin-right: 10px;
+        }
+
+        .select2-container--material .select2-selection--multiple .select2-selection__choice {
+            background-color: #ffca28;
+            border-radius: 16px;
+            color: rgba(0, 0, 0, 0.6);
+            cursor: default;
+            float: left;
+            margin-right: 5px;
+            margin-top: 6px;
+            padding: 0 12px;
+        }
+
+        .select2-container--material .select2-selection--multiple .select2-selection__choice__remove {
+            cursor: pointer;
+            display: inline-block;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .select2-container--material .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #333;
+        }
+
+        .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-search--inline {
+            float: right;
+        }
+
+        .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+            margin-left: 5px;
+            margin-right: auto;
+        }
+
+        .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+            margin-left: 2px;
+            margin-right: auto;
+        }
+
+        .select2-container--material.select2-container--disabled .select2-selection--multiple {
+            background-color: #eee;
+            cursor: default;
+        }
+
+        .select2-container--material.select2-container--disabled .select2-selection__choice__remove {
+            display: none;
+        }
+
+        .select2-container--material.select2-container--open.select2-container--above .select2-selection--single, .select2-container--material.select2-container--open.select2-container--above .select2-selection--multiple {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .select2-container--material.select2-container--open.select2-container--below .select2-selection--single, .select2-container--material.select2-container--open.select2-container--below .select2-selection--multiple {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .select2-container--material.select2-container--focus .select2-selection--single {
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            outline: 0;
+        }
+
+        .select2-container--material.select2-container--focus .select2-selection--multiple {
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            outline: 0;
+        }
+
+        .select2-container--material .select2-search--dropdown .select2-search__field {
+            border: none;
+            border-bottom: 1px solid #ced4da;
+            border-radius: 0;
+            outline: none;
+        }
+
+        .select2-container--material .select2-search--dropdown .select2-search__field:focus:not([readonly]) {
+            box-shadow: 0 1px 0 0 #ced4da;
+            border-bottom: 1px solid #ced4da;
+        }
+
+        .select2-container--material .select2-search--inline .select2-search__field {
+            background: transparent;
+            border: none !important;
+            outline: 0;
+            box-shadow: none !important;
+            -webkit-appearance: textfield;
+        }
+
+        .select2-container--material .select2-results > .select2-results__options {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .select2-container--material .select2-results__option[role=group] {
+            padding: 0;
+        }
+
+        .select2-container--material .select2-results__option[aria-disabled=true] {
+            color: #999;
+        }
+
+        .select2-container--material .select2-results__option[aria-selected=true] {
+            background-color: #ddd;
+        }
+
+        .select2-container--material .select2-results__option .select2-results__option {
+            padding-left: 1em;
+        }
+
+        .select2-container--material .select2-results__option .select2-results__option .select2-results__group {
+            padding-left: 0;
+        }
+
+        .select2-container--material .select2-results__option .select2-results__option .select2-results__option {
+            margin-left: -1em;
+            padding-left: 2em;
+        }
+
+        .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+            margin-left: -2em;
+            padding-left: 3em;
+        }
+
+        .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+            margin-left: -3em;
+            padding-left: 4em;
+        }
+
+        .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+            margin-left: -4em;
+            padding-left: 5em;
+        }
+
+        .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+            margin-left: -5em;
+            padding-left: 6em;
+        }
+
+        .select2-container--material .select2-results__option--highlighted[aria-selected] {
+            background-color: #3f729b;
+            color: white;
+        }
+
+        .select2-container--material .select2-results__group {
+            cursor: default;
+            display: block;
+            padding: 6px;
+        }
+
+        .select2-dropdown {
+            background-color: white;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            display: block;
+            position: absolute;
+            left: -100000px;
+            width: 100%;
+            z-index: 1051;
+            -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .select2-results {
+            display: block;
+        }
+
+        .select2-results__options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .select2-results__option {
+            padding: 6px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .select2-results__option[aria-selected] {
+            cursor: pointer;
+        }
+
+        .select2-container--open .select2-dropdown {
+            left: 0;
+        }
+
+        .select2-container--open .select2-dropdown--above {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            min-width: 190px !important;
+        }
+
+        .select2-container--open .select2-dropdown--below {
+            border-top: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            min-width: 190px !important;
+        }
+
+        .select2-search--dropdown {
+            display: block;
+            padding: 4px;
+        }
+
+        .select2-search--dropdown .select2-search__field {
+            padding: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+
+        .select2-search--dropdown.select2-search--hide {
+            display: none;
+        }
+
+        .nice-select .list {
+            margin-top: 5px;
+            top: 100%;
+            border-top: 0;
+            border-radius: 0 0 5px 5px;
+            max-height: 300px;
+            max-width: 200px;
+            overflow-y: scroll;
+            padding: 52px 0 0
+        }
+
 
     </style>
 @stop
@@ -107,22 +560,24 @@
                             <div class="row">
                                 <div class="col-xl-8">
                                     <!-- form -->
-                                    <form action="#" class="search-box">
+                                    <form action="{{route('jobs')}}" method="GET" class="search-box" id="searchJobForm" style="background-color: white !important;">
                                         <div class="input-form">
-                                            <input type="text" placeholder="Tên công việc hoặc công ty">
+                                            <input type="text" name="filter[name]"
+                                                   value="{{request()->get('filter')['name'] ?? ''}}"
+                                                   placeholder="Tên công việc hoặc công ty">
                                         </div>
-                                        <div class="select-form">
+                                        <div class="select-form d-flex justify-content-center align-items-center">
                                             <div class="select-itms">
-                                                <select name="select" id="cityList">
+                                                <select id="cityList" name="filter[city]">
                                                     <option value="">Tất cả thành phố</option>
                                                     @foreach($cities as $city)
-                                                        <option value="{{$city->slug}}">{{$city->name}}</option>
+                                                        <option value="{{$city->id}}">{{$city->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="search-form">
-                                            <a href="#">Tìm việc</a>
+                                            <a id="btnSearchJob" style="cursor:pointer;">Tìm việc</a>
                                         </div>
                                     </form>
                                 </div>
@@ -280,9 +735,10 @@
                                         <div class="job-items">
                                             <div class="company-img">
                                                 <img
-                                                <img src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
-                                                     alt=""
-                                                     style="width:102px">
+                                                <img
+                                                    src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
+                                                    alt=""
+                                                    style="width:102px">
                                             </div>
                                             <div class="job-tittle">
 
@@ -377,8 +833,8 @@
                                         <div class="testimonial-founder  ">
                                             <div class="founder-img mb-30">
                                                 <img
-                                                        src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
-                                                        alt="">
+                                                    src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
+                                                    alt="">
                                                 <span>Margaret Lawson</span>
                                                 <p>Creative Director</p>
                                             </div>
@@ -400,8 +856,8 @@
                                         <div class="testimonial-founder  ">
                                             <div class="founder-img mb-30">
                                                 <img
-                                                        src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
-                                                        alt="">
+                                                    src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
+                                                    alt="">
                                                 <span>Margaret Lawson</span>
                                                 <p>Creative Director</p>
                                             </div>
@@ -423,8 +879,8 @@
                                         <div class="testimonial-founder  ">
                                             <div class="founder-img mb-30">
                                                 <img
-                                                        src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
-                                                        alt="">
+                                                    src="{{ asset('user_resource/img/testmonial/testimonial-founder.png') }}"
+                                                    alt="">
                                                 <span>Margaret Lawson</span>
                                                 <p>Creative Director</p>
                                             </div>
@@ -548,7 +1004,13 @@
     <script>
         $(document).ready(function () {
             // $('#cityList').select2();
-            $('#cityList').niceSelect();
+            // $('#cityList').niceSelect();
+            $('#btnSearchJob').click(function () {
+                $('#searchJobForm').submit();
+            })
+            $('#cityList').select2({
+                theme: "material"
+            });
         });
     </script>
 @stop

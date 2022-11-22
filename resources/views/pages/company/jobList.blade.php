@@ -75,12 +75,12 @@
                                             <a type="button" class="btn btn-danger btn-fw my-1">Xóa</a>
                                         </div>
                                         <div class="col-md-2" style="font-size: 0.8rem">
-{{--                                            @if($job->user->count()>0)--}}
-{{--                                                <a href="{{route('cv',[$job->user, $job->id])}}"> {{$job->user->count()}}--}}
-{{--                                                    Ứng cử viên</a>--}}
-{{--                                            @else--}}
-{{--                                                Chưa có ứng cử viên--}}
-{{--                                            @endif--}}
+                                            @if($job->user->count()>0)
+                                                <a href="{{route('showJobCV',$job->id)}}"> {{$job->user->count()}}
+                                                    Ứng cử viên</a>
+                                            @else
+                                                Chưa có ứng cử viên
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

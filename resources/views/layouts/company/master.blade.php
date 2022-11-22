@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Melody Admin</title>
     <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ asset('user_resource/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('company_resource/vendors/iconfonts/font-awesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{asset('company_resource/vendors/css/vendor.bundle.base.css')}}">
     <link rel="stylesheet" href="{{asset('company_resource/vendors/css/vendor.bundle.addons.css')}}">
@@ -22,11 +23,13 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('company_resource/css/style.css')}}">
     <!-- endinject -->
-    <link rel="stylesheet" href="http://127.0.0.1:8000/admin_resource/vendors/mdtimepicker/mdtimepicker.css">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js"
             integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.css') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <link rel="shortcut icon" href="http://www.urbanui.com/"/>
     @yield('style-libraries')
     {{--Styles custom--}}
@@ -57,6 +60,8 @@
 <!-- Plugin js for this page-->
 <!-- End plugin js for this page-->
 <!-- inject:js -->
+<script src="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.js') }}"></script>
+
 <script src="{{asset('company_resource/js/off-canvas.js')}}"></script>
 <script src="{{asset('company_resource/js/hoverable-collapse.js')}}"></script>
 <script src="{{asset('company_resource/js/misc.js')}}"></script>
@@ -66,7 +71,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.js') }}"></script>
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="{{asset('company_resource/js/dashboard.js')}}"></script>
@@ -76,6 +80,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.js"
         integrity="sha512-/lbeISSLChIunUcgNvSFJSC+LFCZg08JHFhvDfDWDlY3a/NYb/NPKOcfDte3aA6E3mxm9a3sdxvkktZJSCpxGw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ asset('user_resource/js/jquery.nice-select.min.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<script src="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.js') }}"></script>
 
 {{--Scripts link to file or js custom--}}
 

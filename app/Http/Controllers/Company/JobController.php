@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Enum\Action;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Company\CreateCompanyRequest;
 use App\Models\City;
@@ -184,11 +185,43 @@ class JobController extends Controller
             ]);
         }
         $users = $this->jobService->getJobUserList($jobId);
+
         return view('pages/company/jobUserList', [
             'company' => Auth::user(),
             'job' => $job,
             'users' => $users->all()
         ]);
+    }
+
+    //change status of user_id in this job_id
+    public function changeCandidateStatus(Request $request, string $jobId, string $userId)
+    {
+        $job = Job::where([['id', '=', $jobId], ['company_id', '=', Auth::id()]])->first();
+        if (!$job) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy công việc'
+            ]);
+        }
+        $user = User::where('id', '=', $userId)->first();
+        if (!$user) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng'
+            ]);
+        }
+        $jobUser = User::find($userId)->job()->where('job_id', '=', $jobId)->first();
+        if (!$jobUser) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng trong công việc'
+            ]);
+        }
+        //Send interview mail if request status is Đang phỏng vấn
+        if ($request->status == 'Đang phỏng vấn') {
+            $this->jobService->sendInvitationMail($job, $user);
+        }
+        $jobUser->pivot->status = $request->status;
+        $jobUser->pivot->save();
+        return redirect()->route('showJobCV', $jobId)->with('success', 'Thành công! Trạng thái đã được thay đổi')
+            ->withInput();
     }
 
 }

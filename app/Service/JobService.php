@@ -2,12 +2,14 @@
 
 namespace App\Service;
 
+use App\Mail\InterviewMail;
 use App\Models\Company;
 use App\Models\Job;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class JobService
 {
@@ -23,14 +25,14 @@ class JobService
     {
 //        dd($request);
         $job = Job::create([
-            'title'            => $request->get('jobName'),
-            'company_id'       => Auth::id(),
-            'is_active'        => 1,
-            'salary'           => $request->get('jobSalary'),
-            'job_level_id'     => $request->get('jobLevel'),
-            'job_type_id'      => $request->get('jobType'),
-            'technology_id'    => $request->get('technologySelect'),
-            'job_desc'         => $request->get('jobDesc'),
+            'title' => $request->get('jobName'),
+            'company_id' => Auth::id(),
+            'is_active' => 1,
+            'salary' => $request->get('jobSalary'),
+            'job_level_id' => $request->get('jobLevel'),
+            'job_type_id' => $request->get('jobType'),
+            'technology_id' => $request->get('technologySelect'),
+            'job_desc' => $request->get('jobDesc'),
             'job_requirements' => $request->get('jobRequirement'),
         ]);
 
@@ -46,9 +48,9 @@ class JobService
     public function update(Request $request, string $jobId)
     {
         //update base information of company
-        $updateData              = $request->except('_token');
+        $updateData = $request->except('_token');
         $updateData['is_active'] = $request->get('isActive') ? 1 : 0;
-        $job                     = Job::find($jobId);
+        $job = Job::find($jobId);
         $job->update($updateData);
         $job->skill()->sync($request->get('skillSelect', false));
         $job->city()->sync($request->get('officeSelect', false));
@@ -79,5 +81,11 @@ class JobService
         $job = Job::find($jobId);
         $users = $job->user()->paginate(10);
         return $users;
+    }
+
+    //send invitation mail to user with job information
+    public function sendInvitationMail($job, $user)
+    {
+        Mail::to($user->email)->queue(new InterviewMail($job, $user));
     }
 }

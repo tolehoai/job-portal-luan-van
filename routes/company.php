@@ -38,5 +38,6 @@ Route::middleware('company.auth')->group(function () {
         ->name('company.jobUserList');
 
     Route::get('/showJobCV/{jobId}', [\App\Http\Controllers\Company\JobController::class, 'showJobCV'])->name('showJobCV');
+    Route::post('/changeCandidateStatus/{jobId}/{candidateID}', [\App\Http\Controllers\Company\JobController::class, 'changeCandidateStatus'])->name('changeCandidateStatus');
 
 });
