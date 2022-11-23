@@ -3,6 +3,9 @@
 namespace App\Service;
 
 use App\Mail\InterviewMail;
+use App\Mail\OfferMail;
+use App\Mail\ThankyouMailForNotSuitable;
+use App\Mail\ThankyouMailForRejectOffer;
 use App\Models\Company;
 use App\Models\Job;
 use Exception;
@@ -84,8 +87,26 @@ class JobService
     }
 
     //send invitation mail to user with job information
-    public function sendInvitationMail($job, $user)
+    public function sendInvitationMail($job, $user, $interviewDateTime, $interviewAddress)
     {
-        Mail::to($user->email)->queue(new InterviewMail($job, $user));
+        Mail::to($user->email)->queue(new InterviewMail($job, $user, $interviewDateTime, $interviewAddress));
+    }
+
+    //send offer mail to user with job infomation
+    public function sendOfferMail($job, $user, $salary, $startDate)
+    {
+        Mail::to($user->email)->queue(new OfferMail($job, $user, $salary, $startDate));
+    }
+
+    //send sendThankyouMailForRejectOffer to user
+    public function sendThankyouMailForRejectOffer($user)
+    {
+        Mail::to($user->email)->queue(new ThankyouMailForRejectOffer($user));
+    }
+
+    //send sendThankyouMailForNotSuitable to user
+    public function sendThankyouMailForNotSuitable($user)
+    {
+        Mail::to($user->email)->queue(new ThankyouMailForNotSuitable($user));
     }
 }

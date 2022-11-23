@@ -1,11 +1,11 @@
-<p>Dear {{$full_name}},</p>
+<p>Chào {{$full_name}},</p>
 
-<p>Thank you for applying for the position of {{$job_title}} with {{$company_name}}.</p>
+<p>Cảm ơn bạn đã ứng tuyển vào vị trí {{$job_title}} tại {{$company_name}}.</p>
 
-<p>We would like to invite you to come to our office to interview for the position. Your interview has been scheduled
-    for 1 pm on May 10, 2022, at 123 Main Street, Minneapolis, MN 55199.</p>
+<p>Chúng tôi muốn mời bạn đến văn phòng của chúng tôi để phỏng vấn cho vị trí. Cuộc phỏng vấn của bạn đã được lên lịch
+    vào {{$interview_date_time}}, tại nền tảng video trực tuyến <a href="{{$interview_address}}">Link</a>.</p>
 
 
-<p>Sincerely,</p>
+<p>Trân trọng,</p>
 
-<p>HR of {{$company_name}}</p>
+<p>HR của {{$company_name}}</p>

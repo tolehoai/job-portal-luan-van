@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="preloader-inner position-relative">
@@ -55,6 +56,11 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="{{route('user')}}">Thông tin cá nhân</a>
+                                            <a class="dropdown-item" href="{{route('user.job','all')}}">Công việc đã ứng
+                                                tuyển</a>
+                                            <a class="dropdown-item"
+                                               href="{{route('showOnlyCv',Auth::id())}}">CV
+                                                của tôi</a>
                                             <a class="dropdown-item" href="/logout">Đăng xuất</a>
                                         </div>
                                     </div>

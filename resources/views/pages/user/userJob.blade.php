@@ -128,14 +128,14 @@
         <section class="section-box-2">
             <div class="container-fluid mx-5">
                 <div class="banner-hero banner-image-single"><img
-                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/page/candidates/img.png"
-                            alt="jobbox"><a class="btn-editor" href="#"></a></div>
+                        src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/page/candidates/img.png"
+                        alt="jobbox"><a class="btn-editor" href="#"></a></div>
                 <div class="box-company-profile">
                     <div class="image-compay">
                         <img
-                                src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
-                                style="width: 130px;"
-                                alt="jobbox">
+                            src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
+                            style="width: 130px;"
+                            alt="jobbox">
                     </div>
                     <div class="row mt-50">
                         <div class="col-lg-8 col-md-12">
@@ -155,15 +155,12 @@
                     <div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="box-nav-tabs nav-tavs-profile mb-5">
                             <ul class="nav" role="tablist">
-                                <li><a class="btn btn-border aboutus-icon mb-20 active" href="#tab-all-job"
-                                       data-bs-toggle="tab" role="tab" aria-controls="tab-all-job"
-                                       aria-selected="true">My Profile</a></li>
-                                <li><a class="btn btn-border recruitment-icon mb-20" href="#tab-interview-job"
-                                       data-bs-toggle="tab" role="tab" aria-controls="tab-interview-job"
-                                       aria-selected="false">My Jobs</a></li>
-                                <li><a class="btn btn-border people-icon mb-20" href="#tab-pass-job"
-                                       data-bs-toggle="tab" role="tab" aria-controls="tab-pass-job"
-                                       aria-selected="false">Saved Jobs</a></li>
+                                <li><a class="btn btn-border aboutus-icon mb-20"
+                                       href="{{route('user.job', 'all')}}">Tất cả công việc</a></li>
+                                <li><a class="btn btn-border recruitment-icon mb-20"
+                                       href="{{route('user.job', 'pending')}}">Chờ xử lý</a></li>
+                                <li><a class="btn btn-border people-icon mb-20"
+                                       href="{{route('user.job', 'processed')}}">Đã xử lý</a></li>
                             </ul>
                             <div class="border-bottom pt-10 pb-10"></div>
                             <div class="mt-20 mb-20"><a class="link-red" href="#">Delete Account</a></div>
@@ -175,7 +172,15 @@
 
                                 <div class="tab-pane fade show active" id="tab-all-job" role="tabpanel"
                                      aria-labelledby="tab-interview-job">
-                                    <h3 class="mt-0 color-brand-1 mb-50">Tất cả công việc đã ứng tuyển</h3>
+                                    <h3 class="mt-0 color-brand-1 mb-50">
+                                        @if($status=='all')
+                                            Tất cả công việc
+                                        @elseif($status=='pending')
+                                            Công việc đang chờ xử lý
+                                        @elseif($status=='processed')
+                                            Công việc đã xử lý
+                                        @endif
+                                    </h3>
                                     <div class="row display-list">
                                         @foreach($jobs as $job)
                                             <a href="{{route('job.detail', $job->id)}}">
@@ -186,25 +191,48 @@
                                                                 <div class="card-grid-2-image-left">
                                                                     <div class="image-box">
                                                                         <img
-                                                                                src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
-                                                                                style="width: 64px; border-radius: 10px"
-                                                                                alt="jobBox"
+                                                                            src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
+                                                                            style="width: 64px; border-radius: 10px"
+                                                                            alt="jobBox"
                                                                         >
                                                                     </div>
                                                                     <div class="right-info">
                                                                         <p class="name-job">{{$job->company->name}}</p>
-                                                                        <span class="location-small">{{$job->company->country->country_name}}</span>
+                                                                        <span
+                                                                            class="location-small">{{$job->company->country->country_name}}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-6">
+                                                                @if($job->pivot->status == 'Chờ xử lý')
+                                                                    <span
+                                                                        class="badge badge-primary float-right m-3 p-3 text-white">Chờ xử lý</span>
+                                                                @elseif($job->pivot->status == 'Đang phỏng vấn')
+                                                                    <span
+                                                                        class="badge badge-info float-right m-3 p-3 text-white">Đang phỏng vấn</span>
+                                                                @elseif($job->pivot->status == 'Chờ phản hồi')
+                                                                    <span
+                                                                        class="badge badge-warning float-right m-3 p-3 text-white">Chờ phản hồi</span>
+                                                                @elseif($job->pivot->status == 'Chấp nhận offer')
+                                                                    <span
+                                                                        class="badge badge-success float-right m-3 p-3 text-white">Chấp nhận offer</span>
+                                                                @elseif($job->pivot->status == 'Từ chối offer')
+                                                                    <span
+                                                                        class="badge badge-danger float-right m-3 p-3 text-white">Từ chối offer</span>
+                                                                @else
+                                                                    <span
+                                                                        class="badge badge-danger float-right m-3 p-3 text-white">Không phù hợp</span>
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                         <div class="card-block-info">
-                                                            <h4><p>{{$job->title}}</p></h4>
-                                                            <div class="mt-5">
-                                                                <span class="card-briefcase">{{$job->jobType->name}}</span>
+                                                            <h4 class="p-0 m-0 ml-3"><p
+                                                                    class="m-0 p-0">{{$job->title}}</p></h4>
+                                                            <div class="mt-1 ml-3">
+                                                                <span
+                                                                    class="card-briefcase">{{$job->jobType->name}}</span>
                                                             </div>
-                                                            <p class="font-sm color-text-paragraph mt-10">{!! $job->company->company_desc !!}</p>
-                                                            <div class="card-2-bottom mt-20">
+                                                            <div class="card-2-bottom mt-20 ml-3">
                                                                 <div class="row">
                                                                     <div class="col-lg-7 col-7">
                                                                     <span class="card-text-price">
@@ -221,149 +249,6 @@
                                         @endforeach
                                     </div>
                                     {!! $jobs->links() !!}
-                                    <div class="paginations">
-                                        <ul class="pager">
-                                            <li><a class="pager-prev" href="#"></a></li>
-                                            <li><a class="pager-number" href="#">1</a></li>
-                                            <li><a class="pager-number" href="#">2</a></li>
-                                            <li><a class="pager-number" href="#">3</a></li>
-                                            <li><a class="pager-number" href="#">4</a></li>
-                                            <li><a class="pager-number" href="#">5</a></li>
-                                            <li><a class="pager-number active" href="#">6</a></li>
-                                            <li><a class="pager-number" href="#">7</a></li>
-                                            <li><a class="pager-next" href="#"></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-interview-job" role="tabpanel"
-                                     aria-labelledby="tab-interview-job">
-                                    <h3 class="mt-0 color-brand-1 mb-50">Công việc đang phỏng vấn</h3>
-                                    <div class="row display-list">
-                                        <div class="col-xl-12 col-12">
-                                            <div class="card-grid-2 hover-up"><span class="flash"></span>
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <div class="card-grid-2-image-left">
-                                                            <div class="image-box">
-                                                                <img src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-5.png"
-                                                                     alt="jobBox">
-                                                            </div>
-                                                            <div class="right-info">
-                                                                <p class="name-job">Linkedin</p>
-                                                                <span class="location-small">New York, US</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 text-start text-md-end pr-60 col-md-6 col-sm-12">
-                                                        <div class="pl-15 mb-15 mt-30">
-                                                            <p class="btn btn-grey-small mr-5">Adobe XD</p>
-                                                            <p class="btn btn-grey-small mr-5">Figma</p></div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-block-info">
-                                                    <h4><p>React Native Web Developer</p></h4>
-                                                    <div class="mt-5">
-                                                        <span class="card-briefcase">Fulltime</span>
-                                                    </div>
-                                                    <p class="font-sm color-text-paragraph mt-10">Lorem ipsum dolor
-                                                        sit amet, consectetur adipisicing elit. Recusandae
-                                                        architecto eveniet, dolor quo repellendus pariatur
-                                                    </p>
-                                                    <div class="card-2-bottom mt-20">
-                                                        <div class="row">
-                                                            <div class="col-lg-7 col-7">
-                                                                <span class="card-text-price">$500</span>
-                                                            </div>
-                                                            <div class="col-lg-5 col-5 text-end">
-                                                                <div class="btn btn-apply-now"
-                                                                     data-bs-toggle="modal"
-                                                                     data-bs-target="#ModalApplyJobForm">Apply now
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="paginations">
-                                        <ul class="pager">
-                                            <li><a class="pager-prev" href="#"></a></li>
-                                            <li><a class="pager-number" href="#">1</a></li>
-                                            <li><a class="pager-number" href="#">2</a></li>
-                                            <li><a class="pager-number" href="#">3</a></li>
-                                            <li><a class="pager-number" href="#">4</a></li>
-                                            <li><a class="pager-number" href="#">5</a></li>
-                                            <li><a class="pager-number active" href="#">6</a></li>
-                                            <li><a class="pager-number" href="#">7</a></li>
-                                            <li><a class="pager-next" href="#"></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-pass-job" role="tabpanel"
-                                     aria-labelledby="tab-interview-job">
-                                    <h3 class="mt-0 color-brand-1 mb-50">Công việc được phê duyệt</h3>
-                                    <div class="row display-list">
-                                        <div class="col-xl-12 col-12">
-                                            <div class="card-grid-2 hover-up"><span class="flash"></span>
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <div class="card-grid-2-image-left">
-                                                            <div class="image-box">
-                                                                <img src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/brands/brand-5.png"
-                                                                     alt="jobBox">
-                                                            </div>
-                                                            <div class="right-info">
-                                                                <p class="name-job">Linkedin</p>
-                                                                <span class="location-small">New York, US</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 text-start text-md-end pr-60 col-md-6 col-sm-12">
-                                                        <div class="pl-15 mb-15 mt-30">
-                                                            <p class="btn btn-grey-small mr-5">Adobe XD</p>
-                                                            <p class="btn btn-grey-small mr-5">Figma</p></div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-block-info">
-                                                    <h4><p>React Native Web Developer</p></h4>
-                                                    <div class="mt-5">
-                                                        <span class="card-briefcase">Fulltime</span>
-                                                    </div>
-                                                    <p class="font-sm color-text-paragraph mt-10">Lorem ipsum dolor
-                                                        sit amet, consectetur adipisicing elit. Recusandae
-                                                        architecto eveniet, dolor quo repellendus pariatur
-                                                    </p>
-                                                    <div class="card-2-bottom mt-20">
-                                                        <div class="row">
-                                                            <div class="col-lg-7 col-7">
-                                                                <span class="card-text-price">$500</span>
-                                                            </div>
-                                                            <div class="col-lg-5 col-5 text-end">
-                                                                <div class="btn btn-apply-now"
-                                                                     data-bs-toggle="modal"
-                                                                     data-bs-target="#ModalApplyJobForm">Apply now
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="paginations">
-                                        <ul class="pager">
-                                            <li><a class="pager-prev" href="#"></a></li>
-                                            <li><a class="pager-number" href="#">1</a></li>
-                                            <li><a class="pager-number" href="#">2</a></li>
-                                            <li><a class="pager-number" href="#">3</a></li>
-                                            <li><a class="pager-number" href="#">4</a></li>
-                                            <li><a class="pager-number" href="#">5</a></li>
-                                            <li><a class="pager-number active" href="#">6</a></li>
-                                            <li><a class="pager-number" href="#">7</a></li>
-                                            <li><a class="pager-next" href="#"></a></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -376,8 +261,8 @@
                 <div class="box-newsletter">
                     <div class="row">
                         <div class="col-xl-3 col-12 text-center d-none d-xl-block"><img
-                                    src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/template/newsletter-left.png"
-                                    alt="joxBox"></div>
+                                src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/template/newsletter-left.png"
+                                alt="joxBox"></div>
                         <div class="col-lg-12 col-xl-6 col-12">
                             <h2 class="text-md-newsletter text-center">New Things Will Always<br> Update Regularly</h2>
                             <div class="box-form-newsletter mt-40">
@@ -389,8 +274,8 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-12 text-center d-none d-xl-block"><img
-                                    src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/template/newsletter-right.png"
-                                    alt="joxBox"></div>
+                                src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/template/newsletter-right.png"
+                                alt="joxBox"></div>
                     </div>
                 </div>
             </div>

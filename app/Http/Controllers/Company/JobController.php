@@ -47,6 +47,7 @@ class JobController extends Controller
 
     public function showJobList()
     {
+
         return view('pages/company/jobList', [
             'company' => Auth::user(),
             'jobs' => Job::where('company_id', Auth::user()->id)->paginate(10)
@@ -214,10 +215,25 @@ class JobController extends Controller
                 'error' => 'Không tìm thấy người dùng trong công việc'
             ]);
         }
+
+
         //Send interview mail if request status is Đang phỏng vấn
         if ($request->status == 'Đang phỏng vấn') {
-            $this->jobService->sendInvitationMail($job, $user);
+            $this->jobService->sendInvitationMail($job, $user, $request->interview_datetime, $request->interview_address);
         }
+        //send offer mail if request status is Chờ phản hồi
+        if ($request->status == 'Chờ phản hồi') {
+            $this->jobService->sendOfferMail($job, $user, $request->offer_salary, $request->offer_start_date);
+        }
+        //send thank you mail if request status is Từ chối offer
+        if ($request->status == 'Từ chối offer') {
+            $this->jobService->sendThankyouMailForRejectOffer($user);
+        }
+        //send thank you mail if request status if Không phù hợp
+        if ($request->status == 'Không phù hợp') {
+            $this->jobService->sendThankyouMailForNotSuitable($user);
+        }
+
         $jobUser->pivot->status = $request->status;
         $jobUser->pivot->save();
         return redirect()->route('showJobCV', $jobId)->with('success', 'Thành công! Trạng thái đã được thay đổi')

@@ -38,6 +38,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/cv/{userId}/{jobId}', [\App\Http\Controllers\User\UserController::class, 'showCV'])->name('cv');
+Route::get('/cv/{userId}', [\App\Http\Controllers\User\UserController::class, 'showOnlyCV'])->name('showOnlyCv');
 
 
 Route::get('/jobs', [\App\Http\Controllers\Admin\JobController::class, 'showListJob'])->name('jobs');

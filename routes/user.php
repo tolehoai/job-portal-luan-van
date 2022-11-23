@@ -19,22 +19,22 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [\App\Http\Controllers\User\UserController::class, 'index'])->name('user');
-    Route::get('/job', [\App\Http\Controllers\User\UserController::class, 'showJobOfUser'])->name('user.job');
+    Route::get('/job/{jobStatus}', [\App\Http\Controllers\User\UserController::class, 'showJobOfUser'])->name('user.job');
     Route::post('/updateDesc', [\App\Http\Controllers\User\UserController::class, 'update'])->name('user.update');
     Route::post('/updateSkill', [\App\Http\Controllers\User\UserController::class, 'updateSkill'])
-         ->name('user.addSkill');
+        ->name('user.addSkill');
     Route::post('/addExperience/{userId}', [\App\Http\Controllers\User\ExperienceController::class, 'addExperience'])
-         ->name('user.addExperience');
+        ->name('user.addExperience');
     Route::post('/editExperience/{experienceId}',
         [\App\Http\Controllers\User\ExperienceController::class, 'editExperience'])
-         ->name('user.editExperience');
+        ->name('user.editExperience');
     Route::post('/addEducation/{userId}', [\App\Http\Controllers\User\EducationController::class, 'addEducation'])
-         ->name('user.addEducation');
+        ->name('user.addEducation');
     Route::post('/editEducation/{educationId}',
         [\App\Http\Controllers\User\EducationController::class, 'editEducation'])
-         ->name('user.editEducation');
+        ->name('user.editEducation');
     Route::post('/applyJob/{jobId}', [\App\Http\Controllers\User\JobController::class, 'applyJob'])
-         ->name('user.applyJob');
+        ->name('user.applyJob');
 });
 
 

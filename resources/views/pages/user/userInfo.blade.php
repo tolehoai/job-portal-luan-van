@@ -130,15 +130,15 @@
                 <div class="col-12">
                     <div class="banner-hero banner-image-single">
                         <img
-                                src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/page/candidates/img.png"
-                                alt="jobbox">
+                            src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/page/candidates/img.png"
+                            alt="jobbox">
                     </div>
                     <div class="box-company-profile">
                         <div class="image-compay">
                             <img
-                                    src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
-                                    style="width: 130px;"
-                                    alt="jobbox">
+                                src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
+                                style="width: 130px;"
+                                alt="jobbox">
                         </div>
                         <div class="row mt-50">
                             <div class="col-lg-8 col-md-12">
@@ -391,7 +391,8 @@
                                                     <select id="experience_title_class" class="experience_title_class"
                                                             name="title_id"
                                                             style="width: 100%;">
-                                                        <option value="{{$experience->title_id}}">{{$experience->title->name}}
+                                                        <option
+                                                            value="{{$experience->title_id}}">{{$experience->title->name}}
                                                         </option>
                                                         @foreach($titles as $title)
                                                             <option value="{{$title->id}}">{{$title->name}}</option>
@@ -663,19 +664,21 @@
                 </div>
                 <div class="col-6" id="cv">
                     <p id="btnPrintCV">
-                        <a href="{{route('cv', Auth::id())}}" class="btn btn-primary float-right">Tải CV</a>
+                        <a href="{{route('showOnlyCv', Auth::id())}}" class="btn btn-primary float-right">Tải CV</a>
                     </p>
                     <div class="row">
                         <div class="col-4 m-0 p-0" style="background: #28bb9c">
                             <div id="info">
                                 <div id="info1" class="d-flex flex-column">
                                     <div class="d-flex justify-content-center pt-5">
-                                        <img src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
-                                             class="rounded-circle" alt="Ảnh" height="150px">
+                                        <img
+                                            src="{{$user->image !== null ? asset($user->image->path) : asset('storage/images/default.png')}}"
+                                            class="rounded-circle" alt="Ảnh" height="150px">
                                     </div>
                                     <div class="d-flex align-items-center flex-column pt-4">
-                                        <h5 class="text-white">{{$user->name}}</h5>
-                                        <h6 class="text-white">{{$user->title->name}}</h6>
+                                        <h5 class="text-white text-center">{{$user->name}}</h5>
+                                        <h6 class="text-white text-center"
+                                            style="font-size: 0.9rem !important;">{{$user->title->name}}</h6>
                                     </div>
                                 </div>
                                 <div class="info2 p-3" style="font-size: 0.8rem !important;">
@@ -731,10 +734,12 @@
                                                 style="font-size: 1.1rem">{{$education->university_name}}</h5>
                                             <span style="font-size: 0.7rem">{{date('d/m/Y', strtotime($education->start_date))}} - {{$education->end_date!=null ? date('d/m/Y', strtotime($education->end_date)) : 'Hiện tại'}}</span>
                                             <div id="content_hocvan">
-                                                <span style="font-size: 0.9rem">Chuyên ngành: {{$education->major}}</span>
+                                                <span
+                                                    style="font-size: 0.9rem">Chuyên ngành: {{$education->major}}</span>
                                                 <br>
                                                 @if($education->gpa !=null)
-                                                    <span style="font-size: 0.9rem">Điểm trung bình: {{$education->gpa}}</span>
+                                                    <span
+                                                        style="font-size: 0.9rem">Điểm trung bình: {{$education->gpa}}</span>
                                                     <br>
                                                 @endif
                                                 <span style="font-size: 0.9rem"
@@ -759,7 +764,8 @@
                                                 style="font-size: 1.1rem">{{$experience->company_name}}</h5>
                                             <span style="font-size: 0.7rem">{{date('d/m/Y', strtotime($experience->start_date))}} - {{$experience->end_date!=null ? date('d/m/Y', strtotime($experience->end_date)) : 'Hiện tại'}}</span>
                                             <div id="content_hocvan">
-                                                <span style="font-size: 0.9rem">Vị trí: {{$experience->title->name}}</span>
+                                                <span
+                                                    style="font-size: 0.9rem">Vị trí: {{$experience->title->name}}</span>
                                                 <br>
                                                 <span style="font-size: 0.9rem"
                                                       class="font-italic"> {{$experience->desc}}</span>

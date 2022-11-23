@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('admins')->insert([
             [
-                'name'     => 'Admin',
-                'email'    => 'admin@gmail.com',
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
                 'password' => bcrypt('admin'),
             ]
         ]);
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < $limit; $i++) {
             $countryName = $faker->country;
             DB::table('countries')->insert([
-                'country_name'      => $countryName,
+                'country_name' => $countryName,
                 'country_name_slug' => Str::slug($countryName)
             ]);
         }
@@ -118,7 +118,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $jobTypeList = ['Full-time', 'Part-time', 'Remote', 'Freelance'];
+        $jobTypeList = ['Full-time', 'Part-time', 'Remote', 'Freelance', 'Internship'];
 
         for ($i = 0; $i < count($jobTypeList); $i++) {
             $jobTypeName = $jobTypeList[$i];
@@ -128,7 +128,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $jobLevelList = ['Intern Developer', 'Fresher Developer', 'Junior Developer', 'Senior Developer', 'Leader'];
+        $jobLevelList = ['Intern Developer', 'Fresher Developer', 'Junior Developer', 'Senior Developer', 'Leader', 'Manager', 'Director', 'CEO', 'Founder'];
 
         for ($i = 0; $i < count($jobLevelList); $i++) {
             $jobLevelName = $jobLevelList[$i];
@@ -138,7 +138,9 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $skills = ['HTML', 'CSS', 'Javascript', 'PHP'];
+
+        $skills = ['HTML', 'CSS', 'Javascript', 'PHP', 'Laravel', 'React', 'Vue', 'Angular', 'NodeJS', 'Python', 'Django', 'Ruby', 'Ruby on Rails', 'Java', 'C#', 'C++', 'C', 'Go', 'Swift', 'Kotlin', 'Objective-C', 'Flutter', 'Dart', 'MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Kubernetes', 'AWS', 'GCP', 'Azure', 'Git', 'Github', 'Gitlab', 'Bitbucket', 'Jira', 'Confluence', 'Trello', 'Slack', 'Discord', 'Zoom', 'Skype', 'Google Meet', 'Microsoft Teams', 'Jenkins', 'Travis CI', 'Circle CI', 'Github Actions', 'Gitlab CI', 'Bitbucket Pipelines', 'Heroku', 'Netlify', 'Vercel', 'Digital Ocean', 'Vultr', 'Linode', 'AWS Lightsail', 'AWS EC2', 'AWS S3', 'AWS Lambda', 'AWS Cloudfront', 'AWS Route53', 'AWS Cloudwatch', 'AWS Cloudformation', 'AWS IAM', 'AWS SNS', 'AWS SQS', 'AWS SES', 'AWS RDS', 'AWS DynamoDB', 'AWS Elasticache', 'AWS ElastiSearch', 'AWS Kinesis', 'AWS Athena', 'AWS Glue', 'AWS Redshift', 'AWS EMR'];
+
 
         for ($i = 0; $i < count($skills); $i++) {
             $skill = $skills[$i];
@@ -148,7 +150,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $technologies = ['Frontend', 'Backend', 'Fullstack', 'DevOps'];
+        $technologies = ['Frontend', 'Backend', 'Fullstack', 'DevOps', 'Mobile', 'QA', 'Database', 'Security', 'Data', 'AI', 'ML', 'Cloud', 'Embedded', 'Game', 'Blockchain', 'IoT', 'AR/VR', 'Robotics', 'UI/UX', 'Design', 'Marketing', 'Sales', 'Business', 'Finance', 'HR', 'Project Management', 'Support', 'Tester', 'Other'];
 
         for ($i = 0; $i < count($technologies); $i++) {
             $technology = $technologies[$i];
@@ -160,87 +162,87 @@ class DatabaseSeeder extends Seeder
 
         $companies = [
             [
-                'name'               => "NFQ Asia",
-                'country_id'         => 1,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => "nfq@nfq.asia",
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'name' => "NFQ Asia",
+                'country_id' => 1,
+                'company_desc' => $faker->paragraph,
+                'address' => $faker->address,
+                'email' => "nfq@nfq.asia",
+                'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
             ],
             [
-                'name'               => "Fpt Software",
-                'country_id'         => 2,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => "fpt@fpt.com",
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'name' => "Fpt Software",
+                'country_id' => 2,
+                'company_desc' => $faker->paragraph,
+                'address' => $faker->address,
+                'email' => "fpt@fpt.com",
+                'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
             ],
             [
-                'name'               => "Biwoco",
-                'country_id'         => 2,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => "biwoco@biwoco.com",
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'name' => "Biwoco",
+                'country_id' => 2,
+                'company_desc' => $faker->paragraph,
+                'address' => $faker->address,
+                'email' => "biwoco@biwoco.com",
+                'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
             ],
             [
-                'name'               => "TMA Solution",
-                'country_id'         => 2,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => "tma@tma.com",
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'name' => "TMA Solution",
+                'country_id' => 2,
+                'company_desc' => $faker->paragraph,
+                'address' => $faker->address,
+                'email' => "tma@tma.com",
+                'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
             ],
             [
-                'name'               => "NAB Innovation Centre Vietnam",
-                'country_id'         => 2,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => "nab@nab.com",
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'name' => "NAB Innovation Centre Vietnam",
+                'country_id' => 2,
+                'company_desc' => $faker->paragraph,
+                'address' => $faker->address,
+                'email' => "nab@nab.com",
+                'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
             ],
             [
-                'name'               => "Travala",
-                'country_id'         => 2,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => "travala@travala.com",
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'name' => "Travala",
+                'country_id' => 2,
+                'company_desc' => $faker->paragraph,
+                'address' => $faker->address,
+                'email' => "travala@travala.com",
+                'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
             ],
             [
-                'name'               => "Zalo",
-                'country_id'         => 2,
-                'company_desc'       => $faker->paragraph,
-                'address'            => $faker->address,
-                'email'              => "zalo@zalo.com",
-                'password'           => bcrypt('123456'),
-                'phone'              => $faker->phoneNumber,
-                'start_work_time'    => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
-                'end_work_time'      => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'name' => "Zalo",
+                'country_id' => 2,
+                'company_desc' => $faker->paragraph,
+                'address' => $faker->address,
+                'email' => "zalo@zalo.com",
+                'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
+                'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
             ],
 
@@ -1119,33 +1121,33 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 0; $i < 100; $i++) {
             DB::table('job')->insert([
-                'company_id'       => $faker->numberBetween(1, 7),
-                'title'            => $faker->jobTitle,
-                'salary'           => $faker->numberBetween(5000000, 150000000),
-                'is_active'        => 1,
-                'job_desc'         => $faker->text(1000),
+                'company_id' => $faker->numberBetween(1, 7),
+                'title' => $faker->jobTitle,
+                'salary' => $faker->numberBetween(5000000, 150000000),
+                'is_active' => 1,
+                'job_desc' => $faker->text(1000),
                 'job_requirements' => $faker->text(1000),
-                'job_type_id'      => $faker->numberBetween(1, 4),
-                'job_level_id'     => $faker->numberBetween(1, 5),
-                'technology_id'    => $faker->numberBetween(1, 4),
+                'job_type_id' => $faker->numberBetween(1, 4),
+                'job_level_id' => $faker->numberBetween(1, 5),
+                'technology_id' => $faker->numberBetween(1, 4),
             ]);
         }
 
         for ($i = 0; $i < 100; $i++) {
             DB::table('job_skill')->insert([
-                'job_id'   => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
                 'skill_id' => $faker->numberBetween(1, 4),
             ]);
             DB::table('job_skill')->insert([
-                'job_id'   => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
                 'skill_id' => $faker->numberBetween(1, 4),
             ]);
             DB::table('job_skill')->insert([
-                'job_id'   => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
                 'skill_id' => $faker->numberBetween(1, 4),
             ]);
             DB::table('job_skill')->insert([
-                'job_id'   => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
                 'skill_id' => $faker->numberBetween(1, 4),
             ]);
         }
@@ -1153,19 +1155,19 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             DB::table('city_job')->insert([
                 'city_id' => $faker->numberBetween(1, 63),
-                'job_id'  => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
             ]);
             DB::table('city_job')->insert([
                 'city_id' => $faker->numberBetween(1, 63),
-                'job_id'  => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
             ]);
             DB::table('city_job')->insert([
                 'city_id' => $faker->numberBetween(1, 63),
-                'job_id'  => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
             ]);
             DB::table('city_job')->insert([
                 'city_id' => $faker->numberBetween(1, 63),
-                'job_id'  => $faker->numberBetween(1, 100),
+                'job_id' => $faker->numberBetween(1, 100),
             ]);
 
         }

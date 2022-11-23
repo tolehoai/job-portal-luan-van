@@ -61,6 +61,19 @@ class UserController extends Controller
     }
 
     //show cv of user
+    public function showOnlyCV()
+    {
+        return view('pages/user/cv', [
+            'user' => Auth::user(),
+            'skills' => Skill::get(),
+            'titles' => Title::get(),
+            'experiences' => Auth::user()->experience->sortByDesc('id'),
+            'educations' => Auth::user()->education->sortByDesc('id'),
+            'filePath' => null
+        ]);
+    }
+
+    //show cv of user
     public function showCV($userId, $jobId)
     {
         $job = Job::find($jobId);
@@ -122,15 +135,33 @@ class UserController extends Controller
     }
 
     //show job of user
-    public function showJobOfUser()
+    public function showJobOfUser(string $status)
     {
+        //check $status if not equa all, pending, processed return 404 page
+        if ($status != 'all' && $status != 'pending' && $status != 'processed') {
+            return abort(404);
+        }
+        //get current auth user
+        $user = Auth::user();
         //get all job of user with pagination
-        $jobs = Auth::user()->job()->paginate(5);
+        if ($status == 'all') {
+            $jobs = $user->job()->paginate(5);
+        } elseif ($status == 'pending') {
+            //Find job of user where status are Chờ xử lý
+            $jobs = $user->job()->wherePivot('status', 'Chờ xử lý')->paginate(5);
+        } elseif ($status == 'processed') {
+            //Find job of this user where status in pivot table are Đang phỏng vấn, Chờ phản hồi, Chấp nhận offer, Từ chối offer, Không phù hợp with orWhere
+            $jobs = $user->job()->wherePivot('status', 'Chấp nhận offer')
+                ->orWherePivot('status', 'Từ chối offer')
+                ->orWherePivot('status', 'Không phù hợp')
+                ->orWherePivot('status', 'Đang phỏng vấn')
+                ->orWherePivot('status', 'Chờ phản hồi')->paginate(5);
+        }
 
         return view('pages/user/userJob', [
-            //get job with 5 item per page
             'jobs' => $jobs,
-            'user' => Auth::user()
+            'user' => Auth::user(),
+            'status' => $status
         ]);
     }
 

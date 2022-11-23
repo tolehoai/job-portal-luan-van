@@ -72,68 +72,146 @@
                                                     @if($user->pivot->status == 'Chờ xử lý')
 
                                                         <!-- Button trigger modal -->
-                                                        <button type="button" class="badge badge-primary text-white"
+                                                        <button type="button"
+                                                                class="badge badge-primary text-white m-1 p-1"
                                                                 data-toggle="modal" data-target="#exampleModal"
                                                                 style="cursor: pointer">
                                                             Mời phỏng vấn
                                                         </button>
+                                                        <input type="submit" class="btn btn-danger m-1 p-1"
+                                                               value="Không phù hợp" name="status"
+                                                               style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
+                                                        </button>
 
+
+                                                        <div class="modal fade" id="rejectCandidate" tabindex="-1"
+                                                             role="dialog" aria-labelledby="exampleModalLabel"
+                                                             aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <form
+                                                                    action="{{route('changeCandidateStatus', [$user->id, $job->id])}}"
+                                                                    method="POST"
+                                                                >
+                                                                    @csrf
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">
+                                                                                Xác nhận ứng viên này không phù hợp</h5>
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal"
+                                                                                    aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            Bạn có chắn chắn không muốn ứng viên này
+                                                                            tham gia vào vị trí tuyển dụng này không?
+                                                                            <input type="hidden" name="status"
+                                                                                   value="Không phù hợp">
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-dismiss="modal">Huỷ bỏ
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                    class="btn btn-primary">
+                                                                                Xác nhận
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="exampleModal" tabindex="-1"
                                                              role="dialog" aria-labelledby="exampleModalLabel"
                                                              aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">
-                                                                            Mời phỏng vấn</h5>
-                                                                        <button type="button" class="close"
-                                                                                data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div class='input-group date'
-                                                                             id='datetimepicker1'>
-                                                                            Ngày phỏng vấn:
-                                                                            <input type="text" name="date"
-                                                                                   class="form-control"
-                                                                                   id="datetimepicker1"
-                                                                                   placeholder="Chọn ngày phỏng vấn"
-                                                                                   required>
-                                                                            <span class="input-group-addon">
-                                                                                <span
-                                                                                    class="glyphicon glyphicon-calendar"></span>
-                                                                            </span>
-                                                                            Giờ phỏng vấn:
-                                                                            <input type="text" name="time"
-                                                                                   class="form-control"
-                                                                                   id="interviewTime"
-                                                                                   placeholder="Chọn ngày phỏng vấn"
-                                                                                   required>
+                                                                <form
+                                                                    action="{{route('changeCandidateStatus', [ $job->id,$user->id])}}"
+                                                                    method="POST"
+                                                                >
+                                                                    @csrf
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">
+                                                                                Mời phỏng vấn</h5>
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal"
+                                                                                    aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Thời
+                                                                                    gian
+                                                                                    phỏng vấn</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       id="interview_datetime"
+                                                                                       name="interview_datetime"
 
+                                                                                       placeholder="Nhập vào ngày phỏng vấn">
+                                                                                <input type="hidden" name="status"
+                                                                                       value="Đang phỏng vấn">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="exampleInputPassword1">Link
+                                                                                    phỏng
+                                                                                    vấn</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       id="interview_address"
+                                                                                       name="interview_address"
+
+                                                                                       placeholder="Nhập vào đường link phỏng vấn online">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-dismiss="modal">Đóng
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                    class="btn btn-primary">
+                                                                                Lưu
+                                                                            </button>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">Close
-                                                                        </button>
-                                                                        <button type="button" class="btn btn-primary">
-                                                                            Save changes
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+                                                                </form>
                                                             </div>
                                                         </div>
 
-                                                        <input type="hidden" name="status" value="Đang phỏng vấn">
                                                     @endif
                                                     @if($user->pivot->status == 'Đang phỏng vấn')
-                                                        <input type="submit" class="btn btn-success m-1 p-1"
-                                                               value="Đậu phỏng vấn" name="status"
-                                                               style="font-size: 0.8125rem !important;border-radius: 0.125rem !important;">
+                                                        <button type="button" class="btn btn-success m-1 p-1"
+                                                                data-toggle="modal" data-target="#offerCandidate"
+                                                                style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
+                                                            Đậu phỏng vấn
+                                                        </button>
                                                         <input type="submit" class="btn btn-danger m-1 p-1"
                                                                value="Không phù hợp" name="status"
+                                                               style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
+
+
+                                                    @endif
+                                                    @if($user->pivot->status == 'Đậu phỏng vấn')
+                                                        <input type="submit" class="btn btn-success m-1 p-1"
+                                                               value="Gửi offer" name="status"
+                                                               style="font-size: 0.8125rem !important;border-radius: 0.125rem !important;">
+                                                        <input type="submit" class="btn btn-danger m-1 p-1"
+                                                               value="Từ chối offer" name="status"
+                                                               style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
+                                                    @endif
+                                                    @if($user->pivot->status == 'Chờ phản hồi')
+                                                        <input type="submit" class="btn btn-success m-1 p-1"
+                                                               value="Chấp nhận offer" name="status"
+                                                               style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
+                                                        <input type="submit" class="btn btn-danger m-1 p-1"
+                                                               value="Từ chối offer" name="status"
                                                                style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
                                                     @endif
                                                 </form>
@@ -149,27 +227,70 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="offerCandidate" tabindex="-1"
+         role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form
+                action="{{route('changeCandidateStatus', [ $job->id,$user->id])}}"
+                method="POST"
+            >
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"
+                            id="exampleModalLabel">
+                            Nhập thông tin offer cho ứng cử
+                            viên</h5>
+                        <button type="button" class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Mức
+                                lương</label>
+                            <input type="text" class="form-control"
+                                   id="offer_salary"
+                                   name="offer_salary"
+                                   placeholder="Nhập vào mức lương">
+                            <input type="hidden" name="status"
+                                   value="Chờ phản hồi">
+                        </div>
+                        <div class="form-group">
+                            <label
+                                for="exampleInputPassword1">Ngày bắt
+                                đầu
+                                làm việc</label>
+                            <input type="text" class="form-control"
+                                   id="offer_start_date"
+                                   name="offer_start_date"
+                                   placeholder="Nhập vào ngày bắt đầu làm việc">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal">Huỷ
+                        </button>
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Lưu
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 @stop
 @section('scripts')
     <script>
         //your js code here
         $(document).ready(function () {
-            $('#datetimepicker1').datepicker({
-                container: $('body'),
-            });
-            $('#interviewTime').timepicker({
-                container: $('body'),
-                timeFormat: 'h:mm p',
-                interval: 60,
-                minTime: '10',
-                maxTime: '6:00pm',
-                defaultTime: '11',
-                startTime: '10:00',
-                dynamic: false,
-                dropdown: true,
-                scrollbar: true,
-            });
         });
     </script>
 
