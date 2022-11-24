@@ -32,7 +32,8 @@ class UserController extends Controller
             'skills' => Skill::get(),
             'titles' => Title::get(),
             'experiences' => Auth::user()->experience->sortByDesc('id'),
-            'educations' => Auth::user()->education->sortByDesc('id')
+            'educations' => Auth::user()->education->sortByDesc('id'),
+            'cities' => City::get(),
         ]);
     }
 
@@ -143,6 +144,8 @@ class UserController extends Controller
         }
         //get current auth user
         $user = Auth::user();
+        $jobs = $user->job();
+
         //get all job of user with pagination
         if ($status == 'all') {
             $jobs = $user->job()->paginate(5);
@@ -150,12 +153,8 @@ class UserController extends Controller
             //Find job of user where status are Chờ xử lý
             $jobs = $user->job()->wherePivot('status', 'Chờ xử lý')->paginate(5);
         } elseif ($status == 'processed') {
-            //Find job of this user where status in pivot table are Đang phỏng vấn, Chờ phản hồi, Chấp nhận offer, Từ chối offer, Không phù hợp with orWhere
-            $jobs = $user->job()->wherePivot('status', 'Chấp nhận offer')
-                ->orWherePivot('status', 'Từ chối offer')
-                ->orWherePivot('status', 'Không phù hợp')
-                ->orWherePivot('status', 'Đang phỏng vấn')
-                ->orWherePivot('status', 'Chờ phản hồi')->paginate(5);
+            //Find job of this user where status in pivot table are not equa Chờ xử lý
+            $jobs = $user->job()->wherePivot('status', '!=', 'Chờ xử lý')->paginate(5);
         }
 
         return view('pages/user/userJob', [
@@ -165,4 +164,19 @@ class UserController extends Controller
         ]);
     }
 
+    //delete user
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('home.index')
+                ->with('error', 'Không tìm thấy thông tin người dùng')
+                ->withInput();
+        }
+        $user->delete();
+
+        return redirect()->route('home.index')
+            ->with('success', 'Xóa người dùng thành công')
+            ->withInput();
+    }
 }

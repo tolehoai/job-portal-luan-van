@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class Job extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes, CascadeSoftDeletes;
 
     protected $table = 'job';
     public $timestamps = true;
+    protected $cascadeDeletes = ['user'];
 
     protected $fillable = [
         'title',
@@ -80,10 +83,10 @@ class Job extends Model
 
     public function scopeName($query, $titleOrCompanyName)
     {
-        return $query->where('title', 'like', '%'.$titleOrCompanyName.'%')
-                     ->orWhereHas('company', function ($q) use ($titleOrCompanyName) {
-                         $q->where('name', 'like', '%'.$titleOrCompanyName.'%');
-                     });
+        return $query->where('title', 'like', '%' . $titleOrCompanyName . '%')
+            ->orWhereHas('company', function ($q) use ($titleOrCompanyName) {
+                $q->where('name', 'like', '%' . $titleOrCompanyName . '%');
+            });
     }
 
     public function scopeSkill($query, $skill)

@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
+            $table->softDeletes();
         });
     }
 

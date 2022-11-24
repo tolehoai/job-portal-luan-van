@@ -137,7 +137,6 @@
         <p id="btnPrintCV">
             <button class="btn btn-primary float-right">Tải CV</button>
         </p>
-        <a class="btn btn-primary text-white" href="{{route('user')}}">Chỉnh sửa CV</a>
         @if($filePath != null)
             <div class="row justify-content-center">
                 <iframe src="{{asset($filePath)}}" width="50%" height="600">

@@ -1133,6 +1133,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+
         for ($i = 0; $i < 100; $i++) {
             DB::table('job_skill')->insert([
                 'job_id' => $faker->numberBetween(1, 100),
@@ -1170,6 +1171,14 @@ class DatabaseSeeder extends Seeder
                 'job_id' => $faker->numberBetween(1, 100),
             ]);
 
+        }
+
+        for ($i = 0; $i < 20; $i++) {
+            DB::table('users')->insert([
+                'name' => $faker->name,
+                'email' => 'user' . $i . '@gmail.com',
+                'password' => bcrypt('123456'),
+            ]);
         }
     }
 }

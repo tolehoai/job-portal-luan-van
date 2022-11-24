@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Title;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -45,7 +46,8 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         return view('auth.register', [
-            'jobTitles' => Title::get()
+            'jobTitles' => Title::get(),
+            'cities' => City::get(),
         ]);
     }
 
@@ -58,12 +60,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+//        dd($data);
         return Validator::make($data, [
-            'name'     => ['required', 'string', 'max:255'],
-            'title'    => ['required', 'string', 'max:255'],
-            'phone'    => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password_confirmation'=>['required', 'string', 'min:6'],
         ]);
     }
 
@@ -77,10 +82,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
+            'name' => $data['name'],
+            'email' => $data['email'],
             'title_id' => $data['title'],
-            'phone'    => $data['phone'],
+            'city_id' => $data['city'],
+            'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
         ]);
     }

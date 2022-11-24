@@ -240,4 +240,18 @@ class JobController extends Controller
             ->withInput();
     }
 
+    //delete job
+    public function deleteJob(string $jobId)
+    {
+        $job = Job::where([['id', '=', $jobId], ['company_id', '=', Auth::id()]])->first();
+        if (!$job) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy công việc'
+            ]);
+        }
+        $job->delete();
+        return redirect()->route('company.jobList')->with('success', 'Thành công! Công việc đã được xóa')
+            ->withInput();
+    }
+
 }

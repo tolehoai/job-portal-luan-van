@@ -19,6 +19,7 @@
           integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     {{--    <link rel="stylesheet" href="{{ asset('admin_resource/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('user_resource/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_resource/css/app.css') }}">
@@ -26,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/fontawesome/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('admin_resource/vendors/sweetalert2/sweetalert2.min.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
+
     @yield('style-libraries')
     {{--Styles custom--}}
     @yield('styles')
@@ -71,6 +73,7 @@
 
 {{-- toastr js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script src="{{ asset('user_resource/js/jquery.nice-select.min.js') }}"></script>
 
 {{--Scripts link to file or js custom--}}
 

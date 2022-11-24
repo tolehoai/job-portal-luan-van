@@ -191,6 +191,14 @@
                                         <p> {{$user->title->name}}</p>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p style="color: black">Thành phố</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p> {{$user->city->name}}</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="userDesc col-md-12 ">
                                 <div class="user-header mb-3">
@@ -678,7 +686,9 @@
                                     <div class="d-flex align-items-center flex-column pt-4">
                                         <h5 class="text-white text-center">{{$user->name}}</h5>
                                         <h6 class="text-white text-center"
-                                            style="font-size: 0.9rem !important;">{{$user->title->name}}</h6>
+                                            style="font-size: 0.9rem !important;">@if($user->title)
+                                                ?{{$user->title->name}}
+                                            @endif</h6>
                                     </div>
                                 </div>
                                 <div class="info2 p-3" style="font-size: 0.8rem !important;">
@@ -792,7 +802,7 @@
             >
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -807,6 +817,15 @@
                                        onblur=" this.placeholder='Nhập vào họ và tên' "
                                        required="" class=" single-input "
                                        value=" {{$user->name}}">
+                            </div>
+                            <div class="mt-10">
+                                <label for="title_id">Chọn thành phố</label>
+                                <select id="city" name="city_id" style="width: 100%;">
+                                    <option value="{{$user->city->id}}">{{$user->city->name}}</option>
+                                    @foreach($cities as $cities)
+                                        <option value="{{$cities->id}}">{{$cities->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mt-10">
                                 <label for="title_id">Chọn chức danh</label>
@@ -939,6 +958,9 @@
             });
 
             $('#title').select2({
+                dropdownParent: $('#changeInformationModal')
+            });
+            $('#city').select2({
                 dropdownParent: $('#changeInformationModal')
             });
 

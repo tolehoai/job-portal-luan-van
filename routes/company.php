@@ -36,6 +36,9 @@ Route::middleware('company.auth')->group(function () {
         ->name('company.editJob');
     Route::get('/jobUser/{job_id}', [\App\Http\Controllers\Company\JobController::class, 'showJobUserList'])
         ->name('company.jobUserList');
+    //Delete job
+    Route::post('/deleteJob/{jobId}', [\App\Http\Controllers\Company\JobController::class, 'deleteJob'])
+        ->name('company.deleteJob');
 
     Route::get('/showJobCV/{jobId}', [\App\Http\Controllers\Company\JobController::class, 'showJobCV'])->name('showJobCV');
     Route::post('/changeCandidateStatus/{jobId}/{candidateID}', [\App\Http\Controllers\Company\JobController::class, 'changeCandidateStatus'])->name('changeCandidateStatus');

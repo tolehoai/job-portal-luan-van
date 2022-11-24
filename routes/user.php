@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [\App\Http\Controllers\User\UserController::class, 'index'])->name('user');
     Route::get('/job/{jobStatus}', [\App\Http\Controllers\User\UserController::class, 'showJobOfUser'])->name('user.job');
     Route::post('/updateDesc', [\App\Http\Controllers\User\UserController::class, 'update'])->name('user.update');
+    Route::post('/deleteUser/{userId}', [\App\Http\Controllers\User\UserController::class, 'deleteUser'])->name('user.delete');
     Route::post('/updateSkill', [\App\Http\Controllers\User\UserController::class, 'updateSkill'])
         ->name('user.addSkill');
     Route::post('/addExperience/{userId}', [\App\Http\Controllers\User\ExperienceController::class, 'addExperience'])

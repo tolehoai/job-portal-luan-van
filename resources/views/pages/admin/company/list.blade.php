@@ -66,11 +66,11 @@
                                                        href="{{route('admin.edit-company', $company->id)}}">Chỉnh
                                                         sửa
                                                     </a>
-                                                    <a class="deleteCityBtn d-inline-block">
-                                                        <form class="deleteCityForm"
-                                                              action="{{route('admin.delete-city')}}" method="POST">
+                                                    <a class="deleteCompanyBtn d-inline-block">
+                                                        <form class="deleteCompanyForm"
+                                                              action="{{route('admin.delete-company', $company->id)}}"
+                                                              method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="cityId" value="{{$company->id}}">
                                                             <button type="submit" class="btn btn-danger">Xóa</button>
                                                         </form>
                                                     </a>
@@ -99,7 +99,30 @@
     {{--quick defined--}}
     <script>
         $(function () {
-            // your custom javascript
+            $(document).ready(function () {
+
+                $(".deleteCompanyBtn").click(function (e) {
+                    e.preventDefault();
+                    // let form = $(e.target);
+                    let formData = $(e.target).closest('.deleteCompanyForm');
+                    Swal.fire({
+                        title: 'Xác nhận xóa?',
+                        text: "Bạn có chắc chắn muốn xóa công ty này",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Xác nhận',
+                        cancelButtonText: 'Hủy',
+                        showCloseButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            formData.submit();
+                        }
+                    })
+                })
+            });
+
         });
     </script>
 @stop

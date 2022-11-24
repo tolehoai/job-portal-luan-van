@@ -21,40 +21,61 @@ class JobController extends Controller
 
     public function index()
     {
-//        dd(Job::orderBy('id', 'DESC')->paginate(5)->items()[0]->technology);
+        $jobs = QueryBuilder::for(Job::class)
+            ->allowedFilters([
+                'job_type_id',
+                'job_level_id',
+                'technology_id',
+                AllowedFilter::scope('salary'),
+                AllowedFilter::scope('city'),
+                AllowedFilter::scope('name'),
+                AllowedFilter::scope('skill'),
+            ]) // filter by title, job_type_id, job_level_id, technology_id, skill_id
+            ->allowedSorts([
+                'id',
+                'title',
+                'salary',
+            ]) // sort by title, salary
+            ->with('jobType', 'jobLevel', 'technology', 'company')
+            ->defaultSort('-id')
+            ->where('is_active', 1)
+            ->paginate(10)
+            ->appends(request()->query());
         return view('pages/admin/job/jobList', [
-            'jobs'     => Job::orderBy('id', 'DESC')->paginate(5),
-            'jobTypes' => JobType::get()
+            'jobs' => $jobs,
+            'jobTypes' => JobType::get(),
+            'cities' => City::get(),
+            'technologies' => Technology::get()
         ]);
     }
 
     public function showListJob()
     {
         $jobs = QueryBuilder::for(Job::class)
-                            ->allowedFilters([
-                                'job_type_id',
-                                'job_level_id',
-                                'technology_id',
-                                AllowedFilter::scope('salary'),
-                                AllowedFilter::scope('city'),
-                                AllowedFilter::scope('name'),
-                                AllowedFilter::scope('skill'),
-                            ]) // filter by title, job_type_id, job_level_id, technology_id, skill_id
-                            ->allowedSorts([
+            ->allowedFilters([
+                'job_type_id',
+                'job_level_id',
+                'technology_id',
+                AllowedFilter::scope('salary'),
+                AllowedFilter::scope('city'),
+                AllowedFilter::scope('name'),
+                AllowedFilter::scope('skill'),
+            ]) // filter by title, job_type_id, job_level_id, technology_id, skill_id
+            ->allowedSorts([
                 'id',
                 'title',
                 'salary',
             ]) // sort by title, salary
-                            ->with('jobType', 'jobLevel', 'technology', 'company')
-                            ->defaultSort('-id')
-                            ->where('is_active', 1)
-                            ->paginate(10)
-                            ->appends(request()->query());
+            ->with('jobType', 'jobLevel', 'technology', 'company')
+            ->defaultSort('-id')
+            ->where('is_active', 1)
+            ->paginate(10)
+            ->appends(request()->query());
 
         return view('pages/user/jobList', [
-            'jobs'         => $jobs,
-            'cities'       => City::get(),
-            'jobTypes'     => JobType::get(),
+            'jobs' => $jobs,
+            'cities' => City::get(),
+            'jobTypes' => JobType::get(),
             'technologies' => Technology::get(),
         ]);
     }
@@ -76,10 +97,10 @@ class JobController extends Controller
         ])->take(6)->get();
 
         return view('pages/user/jobDetail', [
-            'job'            => $job,
+            'job' => $job,
             'top5CompanyJob' => $jobs->take(5)->get(),
-            'relatesJob'     => $relateJob,
-            'jobOfCompany'   => $jobs->count()
+            'relatesJob' => $relateJob,
+            'jobOfCompany' => $jobs->count()
         ]);
     }
 

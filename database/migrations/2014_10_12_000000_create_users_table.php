@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('city_id')->nullable();
             $table->integer('title_id')->nullable();
             $table->string('phone')->nullable();
             $table->text('desc')->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

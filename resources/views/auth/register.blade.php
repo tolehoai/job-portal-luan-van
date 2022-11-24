@@ -45,11 +45,34 @@
 
                                             @error('title')
                                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="row mb-3">
+                                        <label for="title"
+                                               class="col-md-4 col-form-label text-md-end">{{ __('Thành phố') }}</label>
+
+                                        <div class="col-md-6">
+                                            <select id="city"
+                                                    class="form-control @error('title') is-invalid @enderror"
+                                                    name="city"
+                                            >
+                                                @foreach($cities as $cities)
+                                                    <option value="{{$cities->id}}">{{$cities->name}}</option>
+                                                @endforeach
+                                            </select>
+
+                                            @error('city')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
 
                                     <div class="row mb-3">
                                         <label for="name"
@@ -59,7 +82,8 @@
                                             <input id="name" type="text"
                                                    class="form-control @error('phone') is-invalid @enderror"
                                                    name="phone"
-                                                   value="{{ old('phone') }}" required autocomplete="title" autofocus>
+                                                   value="{{ old('phone') }}" required autocomplete="title"
+                                                   autofocus>
 
                                             @error('phone')
                                             <span class="invalid-feedback" role="alert">
@@ -111,7 +135,8 @@
 
                                         <div class="col-md-6">
                                             <input id="password-confirm" type="password" class="form-control"
-                                                   name="password_confirmation" required autocomplete="new-password">
+                                                   name="password_confirmation" required
+                                                   autocomplete="new-password">
                                         </div>
                                     </div>
 
@@ -149,6 +174,7 @@
     <script>
         $(document).ready(function () {
             $('#title').select2();
+            $('#city').select2();
         });
     </script>
 @stop

@@ -69,10 +69,17 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 d-flex align-items-center">
                                             <a href="{{route('company.editJob', $job->id)}}" type="button"
-                                               class="btn btn-primary btn-fw my-1">Chỉnh sửa</a>
-                                            <a type="button" class="btn btn-danger btn-fw my-1">Xóa</a>
+                                               class="btn-primary btn-fw my-1 p-2 mr-2">Chỉnh sửa</a>
+                                            <a class="btn-danger btn-fw my-1 deleteJobBtn d-inline-block">
+                                                <form class="deleteJobForm"
+                                                      action="{{route('company.deleteJob', $job->id)}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger">Xóa</button>
+                                                </form>
+                                            </a>
                                         </div>
                                         <div class="col-md-2" style="font-size: 0.8rem">
                                             @if($job->user->count()>0)
@@ -122,5 +129,25 @@
         //End CKEDITOR
 
         // new AutoNumeric('#jobSalary', 'integer');
+        $(".deleteJobBtn").click(function (e) {
+            e.preventDefault();
+            // let form = $(e.target);
+            let formData = $(e.target).closest('.deleteJobForm');
+            Swal.fire({
+                title: 'Xác nhận xóa?',
+                text: "Bạn có chắc chắn muốn xóa công việc này",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy',
+                showCloseButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formData.submit();
+                }
+            })
+        })
     </script>
 @stop

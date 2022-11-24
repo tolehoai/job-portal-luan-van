@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->time('end_work_time');
             $table->integer('number_of_personal');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unsignedBigInteger('country_id')->nullable();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');

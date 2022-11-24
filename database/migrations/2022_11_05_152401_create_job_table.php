@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->integer('job_level_id');
             $table->integer('technology_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

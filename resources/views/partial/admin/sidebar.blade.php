@@ -83,9 +83,9 @@
             </li>
 
             <li class="sidebar-item  ">
-                <a href="ui-file-uploader.html" class="sidebar-link">
+                <a href="{{route('admin.users')}}" class="sidebar-link">
                     <i class="bi bi-cloud-arrow-up-fill"></i>
-                    <span>File Uploader</span>
+                    <span>Danh sách người dùng</span>
                 </a>
             </li>
 

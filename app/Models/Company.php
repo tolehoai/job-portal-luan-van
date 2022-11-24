@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class Company extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes, CascadeSoftDeletes;
 
     protected $table = 'companies';
     public $timestamps = true;
-
+    protected $cascadeDeletes = ['jobs', 'office', 'image', 'cover'];
 
     protected $fillable = [
         'name',

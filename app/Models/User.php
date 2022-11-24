@@ -3,15 +3,19 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, CascadeSoftDeletes;
+
     public $timestamps = true;
+    protected $cascadeDeletes = ['job', 'image', 'cover'];
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'title_id',
+        'city_id',
         'desc',
         'phone',
         'email',
@@ -52,10 +57,21 @@ class User extends Authenticatable
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    public function cover()
+    {
+        return $this->morphOne(Cover::class, 'imageable');
+    }
+
     public function title()
     {
         return $this->belongsTo(Title::class);
     }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
 
     public function skill()
     {

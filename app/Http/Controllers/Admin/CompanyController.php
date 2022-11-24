@@ -154,15 +154,25 @@ class CompanyController extends Controller
             ]
         );
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', 'Failed! Company not created')
+            return redirect()->back()->with('failed', 'Thất bại! Có lỗi khi chỉnh sửa thông tin công ty')
                 ->withErrors($validator)
                 ->withInput();
         }
         $company = $this->companyService->update($request);
         if (!$company) {
-            return redirect()->route('admin.edit-company')->with('failed', 'Failed! Company not created')->withInput();
+
+            return redirect()->route('admin.edit-company')->with('failed', 'Thất bại! Có lỗi khi chỉnh sửa thông tin công ty')->withInput();
         }
 
-        return redirect()->route('admin.companyList')->with('success', 'Success! Company created')->withInput();
+        return redirect()->route('admin.companyList')->with('success', 'Thành công! Thông tin công ty đã được thay đổi')->withInput();
+    }
+
+    //soft delete company
+    public function deleteCompany($companyId)
+    {
+        $company = Company::find($companyId);
+        $company->delete();
+
+        return redirect()->route('admin.companyList')->with('success', 'Xóa công ty thành công');
     }
 }
