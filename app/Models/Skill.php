@@ -20,4 +20,9 @@ class Skill extends Model
 
     protected $hidden = [];
 
+    public function user()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 }

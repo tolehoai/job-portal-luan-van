@@ -576,7 +576,7 @@
                                                      style="visibility: hidden; animation-name: none;">
                                                     <div class="image">
                                                         <img
-                                                                src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/cover/default.png')}}"
+                                                                src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
                                                                 alt="jobBox"
                                                                 style="width: 52px; border-radius: 10px; height: auto">
                                                     </div>

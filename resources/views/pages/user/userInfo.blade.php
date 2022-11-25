@@ -262,6 +262,9 @@
                                         <label for="userDesc">Chọn kỹ năng</label>
                                         <select id="skill" name="skills[]" multiple="multiple"
                                                 style="width: 100% !important;">
+                                           @foreach($user->skill as $skill)
+                                                <option value="{{$skill->id}}" selected>{{$skill->name}}</option>
+                                            @endforeach
                                             @foreach($skills as $skill)
                                                 <option value="{{$skill->id}}">{{$skill->name}}</option>
                                             @endforeach

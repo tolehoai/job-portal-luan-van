@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('user_id');
             $table->string('job_id');
+            $table->string('company_id');
             $table->string('status')->default('Chờ xử lý');
             $table->string('file_id')->nullable();
             $table->timestamps();

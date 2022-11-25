@@ -88,6 +88,8 @@
                                             @else
                                                 Chưa có ứng cử viên
                                             @endif
+                                            <br>
+                                            <a href="{{route('company.jobDetail', $job->id)}}">Chi tiết công việc</a>
                                         </div>
                                     </div>
                                 </div>

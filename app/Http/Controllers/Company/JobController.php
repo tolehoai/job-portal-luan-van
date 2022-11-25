@@ -18,6 +18,7 @@ use App\Models\User;
 use App\Service\CompanyService;
 use App\Service\JobService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -63,6 +64,89 @@ class JobController extends Controller
             'company' => Auth::user(),
             'job' => $job,
             'users' => $users
+        ]);
+    }
+
+    public function getAllSkillOfThisUserAndMergeResultToArray($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $skills = $user->skill()->get();
+            $result = [];
+            foreach ($skills as $skill) {
+                array_push($result, $skill->id);
+            }
+            //sort $result
+            sort($result);
+            //merge result into string
+            return $result;
+        }
+        return null;
+    }
+
+    public function checkSuitableSkill($arr1, $arr2)
+    {
+        //intersection of 2 array
+        $result = array_intersect($arr1, $arr2);
+        //convert result to string
+        $result = implode(',', $result);
+        //convert $arr1 to string
+        $arr1Str = implode(',', $arr1);
+
+        return $result == $arr1Str;
+    }
+
+    //show job detail
+    public function jobDetail($id)
+    {
+        $job = Job::find($id);
+        //return 404 page if not found job
+        if (!$job) {
+            return abort(404);
+        }
+        //find user of this job
+        $users = $job->user()->get();
+
+        //find skill of this job and merge this skill into one array
+        $skills = $job->skill()->get();
+        $skill = [];
+        foreach ($skills as $item) {
+            $skill[] = $item->id;
+        }
+        //sort skill array
+        sort($skill);
+
+        //get all user where city of user is same with city of job
+        //get city list of this job
+        $cities = $job->city()->get()->toArray();
+        //merge city list into one array
+        $city = [];
+        foreach ($cities as $item) {
+            $city[] = $item['id'];
+        }
+
+        $allUsers =User::whereIn('city_id', $city)->get();
+        //each user, return user skill
+        $userSkill = [];
+        foreach ($allUsers as $user) {
+            $userSkill[$user->id] = $this->getAllSkillOfThisUserAndMergeResultToArray($user->id);
+        }
+        //I have a $skill and $userSkill, find in $userSkill, if $skill is in $userSkill, return user
+        $suitableUsers = [];
+        foreach ($userSkill as $key => $value) {
+            if ($this->checkSuitableSkill($skill, $value)) {
+                $suitableUsers[] = $key;
+            }
+        }
+        //find user by $suitableUsers list
+
+        $suggestUsers = User::whereIn('id', $suitableUsers)->paginate(10);
+
+        return view('pages/company/jobDetail', [
+            'company' => Auth::user(),
+            'job' => $job,
+            'users' => $users,
+            'suggestUsers' => $suggestUsers
         ]);
     }
 
@@ -251,6 +335,33 @@ class JobController extends Controller
         }
         $job->delete();
         return redirect()->route('company.jobList')->with('success', 'Thành công! Công việc đã được xóa')
+            ->withInput();
+    }
+
+    //send invitaion mal of this job to this candidate
+    public function sendInvitationMail(Request $request, string $jobId, string $userId)
+    {
+        $job = Job::where([['id', '=', $jobId], ['company_id', '=', Auth::id()]])->first();
+        if (!$job) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy công việc'
+            ]);
+        }
+        $user = User::where('id', '=', $userId)->first();
+        if (!$user) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng'
+            ]);
+        }
+        $jobUser = User::find($userId)->job()->where('job_id', '=', $jobId)->first();
+        if (!$jobUser) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng trong công việc'
+            ]);
+        }
+        //get link for this job
+        $this->jobService->sendIntroduceMail($job, $user);
+        return redirect()->route('company.jobDetail', $jobId)->with('success', 'Thành công! Email đã được gửi')
             ->withInput();
     }
 

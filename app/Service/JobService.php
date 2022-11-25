@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Mail\InterviewMail;
+use App\Mail\IntroduceMail;
 use App\Mail\OfferMail;
 use App\Mail\ThankyouMailForNotSuitable;
 use App\Mail\ThankyouMailForRejectOffer;
@@ -66,13 +67,18 @@ class JobService
     public function applyJob(Request $request, string $jobId)
     {
         $job = Job::find($jobId);
+        //get company_id of this job
+        $companyId = $job->company_id;
         if ($request->file('cv') != null) {
             $job->user()->sync(
                 [
-                    Auth::id() => ['file_id' => $this->fileStoreService->store($request->file('cv'))->id]
+                    Auth::id() => ['file_id' => $this->fileStoreService->store($request->file('cv'))->id, 'company_id' => $companyId]
                 ], false);
         } else {
-            $job->user()->sync(Auth::id(), false);
+            $job->user()->sync(
+                [
+                    Auth::id() => ['company_id' => $companyId]
+                ], false);
         }
 
         return $job;
@@ -108,5 +114,11 @@ class JobService
     public function sendThankyouMailForNotSuitable($user)
     {
         Mail::to($user->email)->queue(new ThankyouMailForNotSuitable($user));
+    }
+
+    //send introduce mail to user with job infomation
+    public function sendIntroduceMail($job, $user)
+    {
+        Mail::to($user->email)->queue(new IntroduceMail($job, $user));
     }
 }
