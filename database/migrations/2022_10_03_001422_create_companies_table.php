@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->longText('company_desc');
+            $table->longText('company_overview')->nullable();
             $table->string('address');
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration {
             $table->time('start_work_time');
             $table->time('end_work_time');
             $table->integer('number_of_personal');
+            $table->float('rating_score')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();
 

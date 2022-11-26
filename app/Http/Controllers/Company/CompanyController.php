@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
 use App\Service\CompanyService;
+use App\Service\RatingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +20,13 @@ use Termwind\Components\Anchor;
 class CompanyController extends Controller
 {
     private CompanyService $companyService;
+    private RatingService $ratingService;
 
-    public function __construct(CompanyService $companyService)
+
+    public function __construct(CompanyService $companyService, RatingService $ratingService)
     {
         $this->companyService = $companyService;
+        $this->ratingService = $ratingService;
     }
 
     public function index()
@@ -62,19 +66,32 @@ class CompanyController extends Controller
 
         if ($request->method() == 'GET') {
             return view('pages/company/editCompany', [
-                'company'  => Auth::user(),
+                'company' => Auth::user(),
                 'countrys' => Country::get()->toArray(),
-                'cities'   => $cities
+                'cities' => $cities
             ]);
         }
         $company = $this->companyService->update($request);
         if (!$company) {
             return redirect()->route('company.edit')->with('failed', 'Thất bại! Có lỗi khi cập nhật thông tin')
-                             ->withInput();
+                ->withInput();
         }
 
         return redirect()->route('company.info')->with('success', 'Thành công! Thông tin đã được thay đổi')
-                         ->withInput();
+            ->withInput();
     }
+
+    public function ratingCompany(Request $request, $companyId)
+    {
+        $rating = $this->ratingService->rating($request, $companyId);
+        if (!$rating) {
+            return redirect()->route('company.detail', $companyId)->with('failed', 'Thất bại! Có lỗi khi đánh giá công ty')
+                ->withInput();
+        }
+
+        return redirect()->route('company.detail', $companyId)->with('success', 'Thành công! Đánh giá công ty thành công')
+            ->withInput();
+    }
+
 
 }

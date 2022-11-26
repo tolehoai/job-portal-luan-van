@@ -96,4 +96,6 @@ class Job extends Model
         });
     }
 
+
+
 }

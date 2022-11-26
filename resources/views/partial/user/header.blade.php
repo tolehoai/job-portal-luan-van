@@ -31,7 +31,7 @@
                                     <ul id="navigation">
                                         <li><a href="{{route('home.index')}}">Trang chủ</a></li>
                                         <li><a href="{{route('jobs')}}">Tìm kiếm công việc</a></li>
-                                        <li><a href="about.html">Về chúng tôi</a></li>
+                                        <li><a href="{{route('companies')}}">Công ty</a></li>
                                         <!-- <li><a href="#">Page</a>
                                             <ul class="submenu">
                                                 <li><a href="blog.html">Blog</a></li>

@@ -15,6 +15,7 @@
     </style>
 @stop
 @section('content')
+
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">
@@ -50,6 +51,63 @@
                                     </thead>
                                     <tbody>
                                     @foreach($users as $user)
+                                        <div class="modal fade" id="offerCandidate{{ $loop->index }}" tabindex="-1"
+                                             role="dialog" aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <form
+                                                    action="{{route('changeCandidateStatus', [ $job->id,$user->id])}}"
+                                                    method="POST"
+                                                >
+                                                    @csrf
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="exampleModalLabel">
+                                                                Nhập thông tin offer cho ứng cử
+                                                                viên - {{$user->name}}</h5>
+                                                            <button type="button" class="close"
+                                                                    data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Mức
+                                                                    lương</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="offer_salary"
+                                                                       name="offer_salary"
+                                                                       placeholder="Nhập vào mức lương">
+                                                                <input type="hidden" name="status"
+                                                                       value="Chờ phản hồi">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label
+                                                                    for="exampleInputPassword1">Ngày bắt
+                                                                    đầu
+                                                                    làm việc</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="offer_start_date"
+                                                                       name="offer_start_date"
+                                                                       placeholder="Nhập vào ngày bắt đầu làm việc">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-secondary"
+                                                                    data-dismiss="modal">Huỷ
+                                                            </button>
+                                                            <button type="submit"
+                                                                    class="btn btn-primary">
+                                                                Lưu
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td><img
@@ -74,7 +132,8 @@
                                                         <!-- Button trigger modal -->
                                                         <button type="button"
                                                                 class="badge badge-primary text-white m-1 p-1"
-                                                                data-toggle="modal" data-target="#exampleModal"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal{{ $loop->index}}"
                                                                 style="cursor: pointer">
                                                             Mời phỏng vấn
                                                         </button>
@@ -125,7 +184,8 @@
                                                             </div>
                                                         </div>
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                        <div class="modal fade" id="exampleModal{{ $loop->index}}"
+                                                             tabindex="-1"
                                                              role="dialog" aria-labelledby="exampleModalLabel"
                                                              aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -138,7 +198,7 @@
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
                                                                                 id="exampleModalLabel">
-                                                                                Mời phỏng vấn</h5>
+                                                                                Mời phỏng vấn - {{$user->name}}</h5>
                                                                             <button type="button" class="close"
                                                                                     data-dismiss="modal"
                                                                                     aria-label="Close">
@@ -188,14 +248,14 @@
                                                     @endif
                                                     @if($user->pivot->status == 'Đang phỏng vấn')
                                                         <button type="button" class="btn btn-success m-1 p-1"
-                                                                data-toggle="modal" data-target="#offerCandidate"
+                                                                data-toggle="modal"
+                                                                data-target="#offerCandidate{{ $loop->index }}"
                                                                 style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
                                                             Đậu phỏng vấn
                                                         </button>
                                                         <input type="submit" class="btn btn-danger m-1 p-1"
                                                                value="Không phù hợp" name="status"
                                                                style="font-size: 0.8125rem !important; border-radius: 0.125rem !important;">
-
 
                                                     @endif
                                                     @if($user->pivot->status == 'Đậu phỏng vấn')
@@ -228,63 +288,6 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="offerCandidate" tabindex="-1"
-         role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form
-                action="{{route('changeCandidateStatus', [ $job->id,$user->id])}}"
-                method="POST"
-            >
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"
-                            id="exampleModalLabel">
-                            Nhập thông tin offer cho ứng cử
-                            viên</h5>
-                        <button type="button" class="close"
-                                data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Mức
-                                lương</label>
-                            <input type="text" class="form-control"
-                                   id="offer_salary"
-                                   name="offer_salary"
-                                   placeholder="Nhập vào mức lương">
-                            <input type="hidden" name="status"
-                                   value="Chờ phản hồi">
-                        </div>
-                        <div class="form-group">
-                            <label
-                                for="exampleInputPassword1">Ngày bắt
-                                đầu
-                                làm việc</label>
-                            <input type="text" class="form-control"
-                                   id="offer_start_date"
-                                   name="offer_start_date"
-                                   placeholder="Nhập vào ngày bắt đầu làm việc">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-secondary"
-                                data-dismiss="modal">Huỷ
-                        </button>
-                        <button type="submit"
-                                class="btn btn-primary">
-                            Lưu
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 
 @stop
 @section('scripts')

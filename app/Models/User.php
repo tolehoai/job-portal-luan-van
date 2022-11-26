@@ -92,4 +92,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Job::class)->withPivot('file_id')->withPivot('status');
     }
+
+    public function rating()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

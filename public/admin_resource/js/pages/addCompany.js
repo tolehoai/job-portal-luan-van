@@ -13,6 +13,13 @@ $(document).ready(function () {
             console.error(error);
         });
     //End CKEDITOR
+    //CKEDITOR
+    ClassicEditor
+        .create(document.querySelector('#companyOverview'))
+        .catch(error => {
+            console.error(error);
+        });
+    //End CKEDITOR
 
     //Timepicker
     $('#startTimeWork').mdtimepicker({

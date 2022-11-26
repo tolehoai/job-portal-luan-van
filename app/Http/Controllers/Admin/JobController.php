@@ -9,12 +9,12 @@ use App\Models\Country;
 use App\Models\Job;
 use App\Models\JobType;
 use App\Models\Technology;
-use http\Env\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
@@ -49,8 +49,23 @@ class JobController extends Controller
         ]);
     }
 
-    public function showListJob()
+    public function showListJob(Request $request)
     {
+        $companySearchName = $request->get('filter') ? $request->get('filter')['name'] : null;
+        if ($request->filter) {
+            if (isset($request->filter['job_type_id'])) {
+                $companySearchJobType = $request->get('filter')['job_type_id'];
+            }
+            if (isset($request->filter['city'])) {
+                $companySearchCity = $request->get('filter')['city'];
+            }
+            if (isset($request->filter['technology_id'])) {
+                $companySearchTechnology = $request->get('filter')['technology_id'];
+            }
+            if (isset($request->filter['salary'])) {
+                $companySearchSalary = $request->get('filter')['salary'];
+            }
+        }
         $jobs = QueryBuilder::for(Job::class)
             ->allowedFilters([
                 'job_type_id',
@@ -71,12 +86,16 @@ class JobController extends Controller
             ->where('is_active', 1)
             ->paginate(10)
             ->appends(request()->query());
-
         return view('pages/user/jobList', [
             'jobs' => $jobs,
             'cities' => City::get(),
             'jobTypes' => JobType::get(),
             'technologies' => Technology::get(),
+            'companySearchName' => $companySearchName,
+            'companySearchJobType' => $companySearchJobType ?? [],
+            'companySearchCity' => $companySearchCity ?? null,
+            'companySearchTechnology' => $companySearchTechnology ?? null,
+            'companySearchSalary' => $companySearchSalary ?? null,
         ]);
     }
 

@@ -11,7 +11,7 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('company.lo
 Route::post('login', [LoginController::class, 'login']);
 
 //Route::post('logout', [LoginController::class, 'logout'])->name('admin.logout');
-Route::get('logout', [LoginController::class, 'logout']); // @Todo Remove logout GET method
+Route::post('logout', [LoginController::class, 'logout'])->name('company.logout'); // @Todo Remove logout GET method
 
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('company.password.request');

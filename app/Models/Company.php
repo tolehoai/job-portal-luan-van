@@ -19,6 +19,7 @@ class Company extends Authenticatable
     protected $fillable = [
         'name',
         'company_desc',
+        'company_overview',
         'address',
         'email',
         'password',
@@ -27,7 +28,9 @@ class Company extends Authenticatable
         'end_work_time',
         'number_of_personal',
         'country_id',
-        'logo_img'
+        'logo_img',
+        'rating_score',
+        'cover_img',
     ];
 
     protected $hidden = [
@@ -58,5 +61,10 @@ class Company extends Authenticatable
     public function jobs()
     {
         return $this->hasMany(Job::class);
+    }
+
+    public function rating()
+    {
+        return $this->hasMany(Rating::class);
     }
 }

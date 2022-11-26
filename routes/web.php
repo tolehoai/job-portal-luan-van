@@ -40,6 +40,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/cv/{userId}/{jobId}', [\App\Http\Controllers\User\UserController::class, 'showCV'])->name('cv');
 Route::get('/cv/{userId}', [\App\Http\Controllers\User\UserController::class, 'showOnlyCV'])->name('showOnlyCv');
 
+Route::get('/companies', [\App\Http\Controllers\Admin\CompanyController::class, 'showCompanyList'])->name('companies');
+Route::get('/companyDetail/{companyId}', [\App\Http\Controllers\Admin\CompanyController::class, 'companyDetail'])->name('company.detail');
 
 Route::get('/jobs', [\App\Http\Controllers\Admin\JobController::class, 'showListJob'])->name('jobs');
 Route::get('/job/{jobId}', [\App\Http\Controllers\Admin\JobController::class, 'showJobDetail'])->name('job.detail');
+
+Route::get('/companies', [\App\Http\Controllers\Admin\CompanyController::class, 'showCompanyList'])->name('companies');
+

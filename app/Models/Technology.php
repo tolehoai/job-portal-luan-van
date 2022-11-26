@@ -19,4 +19,10 @@ class Technology extends Model
     ];
 
     protected $hidden = [];
+
+    public function jobs()
+    {
+        //technology has many jobs
+        return $this->hasMany(Job::class);
+    }
 }

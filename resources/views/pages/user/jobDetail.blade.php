@@ -375,6 +375,7 @@
                                                 <i class="fa fa-check"></i> Đã ứng tuyển
                                             </button>
                                         @else
+
                                             <button type="button" class="btn btn-primary hover-up" data-toggle="modal"
                                                     data-target="#exampleModal">
                                                 <i class="fa fa-check"></i> Ứng tuyển ngay

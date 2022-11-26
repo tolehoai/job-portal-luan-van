@@ -74,6 +74,7 @@
 {{-- toastr js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <script src="{{ asset('user_resource/js/jquery.nice-select.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 {{--Scripts link to file or js custom--}}
 

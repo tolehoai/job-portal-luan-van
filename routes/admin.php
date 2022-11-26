@@ -24,9 +24,7 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('admin.password.update');
 
 Route::middleware('admin.auth')->group(function () {
-    Route::get('/', function () {
-        return view('pages/admin/index');
-    })->name('admin.dashboard');
+    Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
     //company
     Route::get('/company', [CompanyController::class, 'index'])->name('admin.companyList');
     Route::get('/add-company', [CompanyController::class, 'showAddCompany'])->name('admin.show-add-company');

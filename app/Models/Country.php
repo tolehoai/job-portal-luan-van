@@ -5,10 +5,11 @@ namespace App\Models;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Country extends Model
 {
-    use HasFactory, CascadeSoftDeletes;
+    use HasFactory,SoftDeletes, CascadeSoftDeletes;
 
     protected $table = 'countries';
     public $timestamps = true;

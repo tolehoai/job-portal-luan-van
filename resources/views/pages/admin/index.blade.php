@@ -24,13 +24,13 @@
         <div class="row">
             <div class="col-12 py-2">
                 <div class="page-heading">
-                    <h3>Profile Statistics</h3>
+                    <h3>Trang quản lý</h3>
                 </div>
                 <div class="page-content">
                     <section class="row">
                         <div class="col-12 col-lg-9">
                             <div class="row">
-                                <div class="col-6 col-lg-3 col-md-6">
+                                <div class="col-6 col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body px-3 py-4-5">
                                             <div class="row">
@@ -40,14 +40,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <h6 class="text-muted font-semibold">Profile Views</h6>
+                                                    <h6 class="text-muted font-semibold">Tổng số công ty</h6>
                                                     <h6 class="font-extrabold mb-0">112.000</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-lg-3 col-md-6">
+                                <div class="col-6 col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body px-3 py-4-5">
                                             <div class="row">
@@ -57,14 +57,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <h6 class="text-muted font-semibold">Followers</h6>
+                                                    <h6 class="text-muted font-semibold">Tổng số công việc</h6>
                                                     <h6 class="font-extrabold mb-0">183.000</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-lg-3 col-md-6">
+                                <div class="col-6 col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body px-3 py-4-5">
                                             <div class="row">
@@ -74,39 +74,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <h6 class="text-muted font-semibold">Following</h6>
+                                                    <h6 class="text-muted font-semibold">Tổng số người dùng</h6>
                                                     <h6 class="font-extrabold mb-0">80.000</h6>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-lg-3 col-md-6">
-                                    <div class="card">
-                                        <div class="card-body px-3 py-4-5">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="stats-icon red">
-                                                        <i class="iconly-boldBookmark"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <h6 class="text-muted font-semibold">Saved Post</h6>
-                                                    <h6 class="font-extrabold mb-0">112</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4>Profile Visit</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="chart-profile-visit"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -115,115 +86,50 @@
                                 <div class="col-12 col-xl-4">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4>Profile Visit</h4>
+                                            <h4>Tổng quan</h4>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-9">
                                                     <div class="d-flex align-items-center">
-                                                        <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                                             style="width:10px">
-                                                            <use
-                                                                xlink:href="{{ asset('admin_resource/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill') }}"/>
-                                                        </svg>
-                                                        <h5 class="mb-0 ms-3">Europe</h5>
+
+                                                        <h5 class="mb-0 ms-3">Tổng số ứng viên</h5>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
-                                                    <h5 class="mb-0">862</h5>
+                                                <div class="col-3">
+                                                    <h5 class="mb-0">{{$statistic['totalJobUser']}}</h5>
                                                 </div>
                                                 <div class="col-12">
                                                     <div id="chart-europe"></div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="d-flex align-items-center">
-                                                        <svg class="bi text-success" width="32" height="32" fill="blue"
-                                                             style="width:10px">
-                                                            <use
-                                                                xlink:href="{{ asset('admin_resource/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill') }}"/>
-                                                        </svg>
-                                                        <h5 class="mb-0 ms-3">America</h5>
+                                            @foreach($statistic['jobUserStatus'] as $job)
+                                                <div class="row">
+                                                    <div class="col-9">
+                                                        <div class="d-flex align-items-center">
+
+                                                            <h5 class="mb-0 ms-3">{{$job->status}}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <h5 class="mb-0">{{$job->total}}</h5>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div id="chart-america"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
-                                                    <h5 class="mb-0">375</h5>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div id="chart-america"></div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="d-flex align-items-center">
-                                                        <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                                             style="width:10px">
-                                                            <use
-                                                                xlink:href="{{ asset('admin_resource/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill') }}"/>
-                                                        </svg>
-                                                        <h5 class="mb-0 ms-3">Indonesia</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <h5 class="mb-0">1025</h5>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div id="chart-indonesia"></div>
-                                                </div>
-                                            </div>
+                                            @endforeach
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-xl-8">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4>Latest Comments</h4>
+                                            <h4>Biểu đồ tổng quan</h4>
                                         </div>
                                         <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-lg">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Comment</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img
-                                                                        src="{{ asset('admin_resource/images/faces/5.jpg') }}">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Congratulations on your graduation!</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img
-                                                                        src="{{ asset('admin_resource/images/faces/2.jpg') }}">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Wow amazing design! Can you make
-                                                                another
-                                                                tutorial for
-                                                                this design?</p>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            <canvas id="myChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -245,49 +151,163 @@
                             </div>
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Recent Messages</h4>
+                                    <h4>Thông tin</h4>
                                 </div>
-                                <div class="card-content pb-4">
-                                    <div class="recent-message d-flex px-4 py-3">
-                                        <div class="avatar avatar-lg">
-                                            <img src="{{ asset('admin_resource/images/faces/4.jpg') }}">
-                                        </div>
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">Hank Schrader</h5>
-                                            <h6 class="text-muted mb-0">@johnducky</h6>
-                                        </div>
-                                    </div>
-                                    <div class="recent-message d-flex px-4 py-3">
-                                        <div class="avatar avatar-lg">
-                                            <img src="{{ asset('admin_resource/images/faces/5.jpg') }}">
-                                        </div>
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">Dean Winchester</h5>
-                                            <h6 class="text-muted mb-0">@imdean</h6>
-                                        </div>
-                                    </div>
-                                    <div class="recent-message d-flex px-4 py-3">
-                                        <div class="avatar avatar-lg">
-                                            <img src="{{ asset('admin_resource/images/faces/1.jpg') }}">
-                                        </div>
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">John Dodol</h5>
-                                            <h6 class="text-muted mb-0">@dodoljohn</h6>
+                                <div class="card-body">
+                                    <canvas id="myChartOval"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title">Top 5 công ty được đánh giá cao nhất</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a href="invoices.html"
+                                                   class="btn-right btn btn-sm btn-outline-primary">
+                                                    View All
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="px-4">
-                                        <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                                            Conversation
-                                        </button>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-stripped table-hover">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Customer</th>
+                                                    <th>Amount</th>
+                                                    <th>Due Date</th>
+                                                    <th>Status</th>
+                                                    <th class="text-right">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($topCompanyRating as $companyRating)
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <img
+                                                                    class="avatar avatar-sm me-2 avatar-img rounded-circle"
+                                                                    src="{{$companyRating->image !== null ? asset($companyRating->image->path) : asset('storage/images/default.png')}}"
+                                                                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 10%"
+                                                                    alt="User Image">
+                                                            </h2>
+                                                        </td>
+                                                        <td>$118</td>
+                                                        <td>23 Nov 2020</td>
+                                                        <td><span class="badge bg-success-light">Paid</span></td>
+                                                        <td class="text-right">
+                                                            <div class="dropdown dropdown-action">
+                                                                <a href="#" class="action-icon dropdown-toggle"
+                                                                   data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                                        class="fas fa-ellipsis-h"></i></a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a class="dropdown-item" href="edit-invoice.html"><i
+                                                                            class="far fa-edit me-2"></i>Edit</a>
+                                                                    <a class="dropdown-item" href="view-invoice.html"><i
+                                                                            class="far fa-eye me-2"></i>View</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                            class="far fa-trash-alt me-2"></i>Delete</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                            class="far fa-check-circle me-2"></i>Mark as
+                                                                        sent</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                            class="far fa-paper-plane me-2"></i>Send
+                                                                        Invoice</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                            class="far fa-copy me-2"></i>Clone
+                                                                        Invoice</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Visitors Profile</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="chart-visitors-profile"></div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title">Top 5 công ty tuyển dụng nhiều nhân sự nhất</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a href="estimates.html"
+                                                   class="btn-right btn btn-sm btn-outline-primary">
+                                                    View All
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Customer</th>
+                                                    <th>Expiry Date</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
+                                                    <th class="text-right">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="profile.html"><img
+                                                                    class="avatar avatar-sm me-2 avatar-img rounded-circle"
+                                                                    src="assets/img/profiles/avatar-05.jpg"
+                                                                    alt="User Image"> Greg Lynch</a>
+                                                        </h2>
+                                                    </td>
+                                                    <td>5 Nov 2020</td>
+                                                    <td>$175</td>
+                                                    <td><span class="badge bg-info-light">Sent</span></td>
+                                                    <td class="text-right">
+                                                        <div class="dropdown dropdown-action">
+                                                            <a href="#" class="action-icon dropdown-toggle"
+                                                               data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                                    class="fas fa-ellipsis-h"></i></a>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <a class="dropdown-item" href="edit-invoice.html"><i
+                                                                        class="far fa-edit me-2"></i>Edit</a>
+                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                        class="far fa-trash-alt me-2"></i>Delete</a>
+                                                                <a class="dropdown-item" href="view-estimate.html"><i
+                                                                        class="far fa-eye me-2"></i>View</a>
+                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                        class="far fa-file-alt me-2"></i>Convert to
+                                                                    Invoice</a>
+                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                        class="far fa-check-circle me-2"></i>Mark as
+                                                                    sent</a>
+                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                        class="far fa-paper-plane me-2"></i>Send
+                                                                    Estimate</a>
+                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                        class="far fa-check-circle me-2"></i>Mark as
+                                                                    Accepted</a>
+                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                        class="far fa-times-circle me-2"></i>Mark as
+                                                                    Rejected</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -308,6 +328,118 @@
     <script>
         $(function () {
             // your custom javascript
+            var labelConvert = '{!! json_encode($statistic['jobUserStatusChart']['labels']) !!}';
+            var labelConvert = JSON.parse(labelConvert);
+            var dataConvert = '{!! json_encode($statistic['jobUserStatusChart']['data']) !!}';
+            var dataConvert = JSON.parse(dataConvert);
+            const ctx = document.getElementById('myChart');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labelConvert,
+                    datasets: [{
+                        label: 'Trạng thái của ứng cử viên',
+                        data: dataConvert,
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                    }],
+
+                },
+                //display label and number of each status at the top of this chart
+                options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex] + ' ' + value;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+
+            });
+            const ctx1 = document.getElementById('myChartOval');
+            new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: labelConvert,
+                    datasets: [{
+                        label: 'Trạng thái của ứng cử viên',
+                        data: dataConvert,
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                    }],
+
+                },
+                //display label and number of each status at the top of this chart
+                options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex] + ' ' + value;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+
+            });
         });
     </script>
 @stop

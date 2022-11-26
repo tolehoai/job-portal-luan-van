@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('user_resource/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/style_1.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('user_resource/css/star-rating-svg.css') }}">
     <link href="http://wp.alithemes.com/html/jobbox/demos/assets/css/style.css?version=4.0" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
@@ -91,6 +92,7 @@
 <script src="{{ asset('user_resource/js/mail-script.js') }}"></script>
 <script src="{{ asset('user_resource/js/jquery.ajaxchimp.min.js') }}"></script>
 <script src="{{ asset('user_resource/js/printThis.js') }}"></script>
+<script src="{{ asset('user_resource/js/jquery.star-rating-svg.js') }}"></script>
 
 <!-- Jquery Plugins, main Jquery -->
 <script src="{{ asset('user_resource/js/plugins.js') }}"></script>

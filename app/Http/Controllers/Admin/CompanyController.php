@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Company\CreateCompanyRequest;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
+use App\Models\Job;
 use App\Models\Office;
 use App\Models\Skill;
 use App\Service\CompanyService;
@@ -53,6 +54,7 @@ class CompanyController extends Controller
                 'officeSelect' => 'required',
                 'numberOfPersonal' => 'required|integer',
                 'companyDesc' => 'required',
+                'companyOverview' => 'required',
                 'companyAddress' => 'required',
                 'companyPhone' => 'required',
                 'companyEmail' => 'required|email',
@@ -72,6 +74,7 @@ class CompanyController extends Controller
                 'officeSelect.required' => 'Bạn phải chọn văn phòng',
                 'numberOfPersonal.required' => 'Bạn phải nhập số lượng nhân viên',
                 'companyDesc.required' => 'Bạn phải nhập mô tả công ty',
+                'companyOverview.required' => 'Bạn phải nhập tổng quan công ty',
                 'companyAddress.required' => 'Bạn phải nhập địa chỉ công ty',
                 'companyPhone.required' => 'Bạn phải nhập số điện thoại công ty',
                 'companyEmail.required' => 'Bạn phải nhập email công ty',
@@ -87,6 +90,14 @@ class CompanyController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        //check if email exit in company
+        $checkEmail = Company::where('email', $request->companyEmail)->first();
+        if ($checkEmail) {
+            return redirect()->route('admin.show-add-company')->with('failed', 'Failed! Company not created')
+                ->withErrors(['companyEmail' => 'Email đã tồn tại'])
+                ->withInput();
+        }
+
         $company = $this->companyService->store($request);
         if ($company) {
             return redirect()->route('admin.companyList')->with('success', 'Tạo mới công ty thành công');
@@ -175,4 +186,31 @@ class CompanyController extends Controller
 
         return redirect()->route('admin.companyList')->with('success', 'Xóa công ty thành công');
     }
+
+    public function showCompanyList()
+    {
+        //find all Company with pagination
+        $companies = Company::with('office')->paginate(20);
+        return view('pages/user/companyList', [
+            'companies' => $companies
+        ]);
+    }
+
+    public function companyDetail($companyId)
+    {
+        $company = Company::where('id', $companyId)->first();
+        //get company rating infomation
+        $companyRating = $this->companyService->getRatingInfomation($companyId);
+
+        $latestJob = Job::where('company_id', $companyId)->orderBy('created_at', 'desc')->take(5)->get();
+        return view('pages/user/companyDetail', [
+            'company' => $company,
+            'latestJob' => $latestJob,
+            'companyRatingScore' => $companyRating['score'],
+            'companyRatingTotal' => $companyRating['total'],
+            'companyRating'=> $companyRating['rating']
+        ]);
+    }
+
+
 }

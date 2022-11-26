@@ -113,6 +113,21 @@
                                                             </div>
                                                         </div>
 
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Tổng quan công ty</label>
+                                                                <textarea
+                                                                    class="form-control {{ $errors->has('companyOverview') ? 'is-invalid' : '' }}"
+                                                                    id="companyOverview"
+                                                                    name="companyOverview"
+                                                                    rows="3">
+                                                                    {{ old('companyOverview') }}
+                                                                </textarea>
+                                                                <span
+                                                                    class="text-danger">{{ $errors->first('companyOverview') }}</span>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="col-6">
                                                             <div class=" form-group">
                                                                 <label>Địa chỉ</label>

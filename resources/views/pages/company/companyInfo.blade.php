@@ -99,7 +99,7 @@
                                     </address>
                                 </div>
                             </div>
-                            <h5>Danh sách văn phòng:</h5>
+                            <h5 class="pt-3">Danh sách văn phòng:</h5>
                             <div class="col-lg-6 grid-margin stretch-card m-0 p-0">
                                 <div class="card">
                                     <div class="card-body">
@@ -124,6 +124,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <h5 class="pt-4">Tổng quan công ty</h5>
+                            {!! $company->company_overview !!}
+
                         </div>
                     </div>
                 </div>

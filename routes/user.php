@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function () {
         ->name('user.editEducation');
     Route::post('/applyJob/{jobId}', [\App\Http\Controllers\User\JobController::class, 'applyJob'])
         ->name('user.applyJob');
+    //user rating company
+    Route::post('/ratingCompany/{companyId}', [\App\Http\Controllers\Company\CompanyController::class, 'ratingCompany'])
+        ->name('user.rating');
 });
 
 

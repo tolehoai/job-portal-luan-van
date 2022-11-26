@@ -578,6 +578,10 @@
                     </div>
                     <!-- Job Category Listing start -->
                     <form action="{{route('jobs')}}" method="GET" class="search-box" id="searchJobForm">
+                        @if($companySearchName)
+                            <input type="hidden" name="filter[name]"
+                                   value="{{$companySearchName}}">
+                        @endif
                         <div class="job-category-listing mb-50 w-100">
                             <div class="small-section-tittle2">
                                 <h4>Sắp xếp</h4>
@@ -604,6 +608,10 @@
                                         <label class="container">{{$jobType->name}}
                                             <input type="checkbox" name="filter[job_type_id][]"
                                                    value="{{$jobType->id}}"
+                                                   @if(in_array($jobType->id, $companySearchJobType))
+                                                       checked
+                                                @endif
+
                                             >
                                             <span class="checkmark"></span>
                                         </label>
@@ -619,10 +627,17 @@
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
                                     <select class="form-select" id="cityFilter" name="filter[city]">
-                                        <option value="" selected>Chọn thành phố</option>
+                                        <option value=""
+                                                @if(!$companySearchCity)
+                                                    selected
+                                            @endif
+                                        >Chọn thành phố
+                                        </option>
                                         @foreach($cities as $city)
-                                            --}}
                                             <option value="{{$city->id}}"
+                                                    @if($companySearchCity == $city->id)
+                                                        selected
+                                                @endif
                                             >{{$city->name}}</option>
                                         @endforeach
                                     </select>
@@ -633,9 +648,17 @@
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
                                     <select id="technologyFilter" name="filter[technology_id]">
-                                        <option value="">Chọn công nghệ</option>
+                                        <option value=""
+                                                @if(!$companySearchTechnology)
+                                                    selected
+                                            @endif
+                                        >Chọn công nghệ
+                                        </option>
                                         @foreach($technologies as $technology)
                                             <option value="{{$technology->id}}"
+                                                    @if($companySearchTechnology == $technology->id)
+                                                        selected
+                                                @endif
                                             >{{$technology->name}}</option>
                                         @endforeach
                                     </select>
@@ -648,12 +671,42 @@
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
                                     <select id="salaryFilter" name="filter[salary]">
-                                        <option value="">Chọn mức lương</option>
-                                        <option value="0,5000000">Dưới 5 triệu</option>
-                                        <option value="5000000,10000000">Từ 5-10 triệu</option>
-                                        <option value="10000000,15000000">Từ 10-20 triệu</option>
-                                        <option value="20000000,40000000">Từ 20-40 triệu</option>
-                                        <option value="40000000,max">Trên 40 triệu</option>
+                                        <option value=""
+                                                @if(!$companySearchSalary)
+                                                    selected
+                                            @endif
+                                        >Chọn mức lương
+                                        </option>
+                                        <option value="0,5000000"
+                                                @if($companySearchSalary == '0,5000000')
+                                                    selected
+                                            @endif
+                                        >Dưới 5 triệu
+                                        </option>
+                                        <option value="5000000,10000000"
+                                                @if($companySearchSalary == '5000000,10000000')
+                                                    selected
+                                            @endif
+                                        >Từ 5-10 triệu
+                                        </option>
+                                        <option value="10000000,15000000"
+                                                @if($companySearchSalary == '10000000,15000000')
+                                                    selected
+                                            @endif
+                                        >Từ 10-20 triệu
+                                        </option>
+                                        <option value="20000000,40000000"
+                                                @if($companySearchSalary == '20000000,40000000')
+                                                    selected
+                                            @endif
+                                        >Từ 20-40 triệu
+                                        </option>
+                                        <option value="40000000,max"
+                                                @if($companySearchSalary == '40000000,max')
+                                                    selected
+                                            @endif
+                                        >Trên 40 triệu
+                                        </option>
                                     </select>
                                 </div>
 
