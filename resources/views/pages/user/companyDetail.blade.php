@@ -280,6 +280,7 @@
                 <section class="section-box-2">
                     <div class="container">
                         <div class="banner-hero banner-image-single"><img
+                                style="height: 305px !important; width: 100% !important; object-fit: cover !important;"
                                 src="{{$company->cover !== null ? asset($company->cover->path) : asset('storage/cover/default.png')}}"
                                 alt="jobBox"></div>
                         <div class="box-company-profile">
@@ -360,6 +361,42 @@
                         </div>
                         <div class="col-lg-4 col-md-12 col-sm-12 col-12 pl-40 pl-lg-15 mt-lg-30">
                             <div class="sidebar-border">
+                                <div class="sidebar-heading mb-4">
+                                    <div class="avatar-sidebar d-flex align-items-center">
+
+                                        <figure class="d-inline-block m-0 p-0 mr-2">
+                                            <img alt="jobBox"
+                                                 src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
+                                            >
+                                        </figure>
+                                        <div class="sidebar-info d-inline-block" style="padding-left: 0 !important;"><span
+                                                class="sidebar-company">{{$job->company->name}}</span><span
+                                                class="card-location">{{$job->company->country->country_name}}</span><a
+                                                class="link-underline mt-15"
+                                                href="{{route('jobs', ['filter[name]' => $job->company->name])}}">{{$jobOfCompany}}
+                                                công
+                                                việc khác đang tuyển</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sidebar-list-job">
+                                    <div class="box-map">
+                                        <img alt="jobBox"
+                                             src="{{$job->company->cover !== null ? asset($job->company->cover->path) : asset('storage/cover/default.png')}}"
+                                             style="width: 100%; height: 150px; object-fit: cover; border-radius: 16px">
+
+                                    </div>
+                                    <ul class="ul-disc mt-3">
+                                        <li><b>Địa chỉ: </b>{{$job->company->address}}</li>
+                                        <li><b>Số điện thoại: </b>{{$job->company->phone}}</li>
+                                        <li><b>Email: </b>{{$job->company->email}}</li>
+                                        <li><b>Giờ làm
+                                                việc: </b>{{date_format(date_create($job->company->start_work_time),"H:i")}}
+                                            - {{date_format(date_create($job->company->end_work_time),"H:i")}}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar-border">
                                 <div class="sidebar-heading">
                                     <div class="avatar-sidebar">
                                         <div class="sidebar-info pl-0"><span class="sidebar-company">Đánh giá</span>
@@ -423,6 +460,7 @@
 
                                 </div>
                             </div>
+
                             <div class="sidebar-border-bg bg-right"><span class="text-grey">ĐANG CÓ RẤT NHIỀU CÔNG VIỆC HẤP DẪN TẠI</span><span
                                     class="text-hiring">IT JOB</span>
                                 <p class="font-xxs color-text-paragraph mt-5">Chúng tôi giúp các nhà phát triển tuyệt

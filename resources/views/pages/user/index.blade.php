@@ -748,7 +748,6 @@
                                                     <!-- <li>NFQ Asia</li> -->
                                                     <li><i class="fas fa-map-marker-alt"></i>{{$job->company->address}}
                                                     </li>
-                                                    <li>{{$job->salary}}</li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -262,7 +262,7 @@
                                         <label for="userDesc">Chọn kỹ năng</label>
                                         <select id="skill" name="skills[]" multiple="multiple"
                                                 style="width: 100% !important;">
-                                           @foreach($user->skill as $skill)
+                                            @foreach($user->skill as $skill)
                                                 <option value="{{$skill->id}}" selected>{{$skill->name}}</option>
                                             @endforeach
                                             @foreach($skills as $skill)
@@ -690,7 +690,7 @@
                                         <h5 class="text-white text-center">{{$user->name}}</h5>
                                         <h6 class="text-white text-center"
                                             style="font-size: 0.9rem !important;">@if($user->title)
-                                                ?{{$user->title->name}}
+                                                {{$user->title->name}}
                                             @endif</h6>
                                     </div>
                                 </div>

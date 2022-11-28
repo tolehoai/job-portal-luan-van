@@ -19,6 +19,7 @@ use App\Service\CompanyService;
 use App\Service\JobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -118,14 +119,17 @@ class JobController extends Controller
 
         //get all user where city of user is same with city of job
         //get city list of this job
-        $cities = $job->city()->get()->toArray();
+//        $cities = $job->city()->get()->toArray();
         //merge city list into one array
-        $city = [];
-        foreach ($cities as $item) {
-            $city[] = $item['id'];
-        }
+//        $city = [];
+//        foreach ($cities as $item) {
+//            $city[] = $item['id'];
+//        }
 
-        $allUsers =User::whereIn('city_id', $city)->get();
+//        $allUsers =User::whereIn('city_id', $city)->get();
+
+        //find all user in database
+        $allUsers = User::all();
         //each user, return user skill
         $userSkill = [];
         foreach ($allUsers as $user) {
@@ -319,6 +323,7 @@ class JobController extends Controller
         }
 
         $jobUser->pivot->status = $request->status;
+        $jobUser->pivot->updated_at = Carbon::now();
         $jobUser->pivot->save();
         return redirect()->route('showJobCV', $jobId)->with('success', 'Thành công! Trạng thái đã được thay đổi')
             ->withInput();
@@ -339,7 +344,7 @@ class JobController extends Controller
     }
 
     //send invitaion mal of this job to this candidate
-    public function sendInvitationMail(Request $request, string $jobId, string $userId)
+    public function sendInvitationMail(Request $request, string $jobId, string $candidateId)
     {
         $job = Job::where([['id', '=', $jobId], ['company_id', '=', Auth::id()]])->first();
         if (!$job) {
@@ -347,13 +352,13 @@ class JobController extends Controller
                 'error' => 'Không tìm thấy công việc'
             ]);
         }
-        $user = User::where('id', '=', $userId)->first();
+        $user = User::where('id', '=', $candidateId)->first();
         if (!$user) {
             return view('errors.404', [
                 'error' => 'Không tìm thấy người dùng'
             ]);
         }
-        $jobUser = User::find($userId)->job()->where('job_id', '=', $jobId)->first();
+        $jobUser = User::find($candidateId)->job()->where('job_id', '=', $jobId)->first();
         if (!$jobUser) {
             return view('errors.404', [
                 'error' => 'Không tìm thấy người dùng trong công việc'
@@ -363,6 +368,40 @@ class JobController extends Controller
         $this->jobService->sendIntroduceMail($job, $user);
         return redirect()->route('company.jobDetail', $jobId)->with('success', 'Thành công! Email đã được gửi')
             ->withInput();
+    }
+
+    public function showCandidateHistory(string $companyId, string $candidateId)
+    {
+        $company = Company::where('id', '=', $companyId)->first();
+        if (!$company) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy công ty'
+            ]);
+        }
+        $user = User::where('id', '=', $candidateId)->first();
+        if (!$user) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng'
+            ]);
+        }
+        $jobs = $this->jobService->getJobListOfCandidateInCompany($companyId, $candidateId);
+        $histories = [];
+        //loop into $jobs and push value to $histories array
+
+        foreach ($jobs as $job) {
+            $histories[] = [
+                'jobName' => $job->title,
+                'jobUser' => $job->user()->where('user_id', '=', $candidateId)->first(),
+                'userStatus' => $job->user()->where('user_id', '=', $candidateId)->first()->pivot->status,
+                'timestamp' => $job->user()->where('user_id', '=', $candidateId)->first()->pivot->updated_at
+            ];
+        }
+
+        return view('pages/company/candidateHistory', [
+            'company' => $company,
+            'user' => $user,
+            'histories' => $histories
+        ]);
     }
 
 }

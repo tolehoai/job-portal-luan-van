@@ -62,7 +62,7 @@ class Job extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class)->withPivot('file_id')->withPivot('status');
+        return $this->belongsToMany(User::class)->withPivot('file_id')->withPivot('status')->withTimestamps();
     }
 
     public function scopeSalary($query, $minSalary, $maxSalary)

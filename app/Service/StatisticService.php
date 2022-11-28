@@ -15,6 +15,7 @@ class StatisticService
     //get statistic infomation: company. job, user, skill, technology, city
     public function getAdminStatistic()
     {
+
         //get total number of each user status in job user table with total of status and conver to array
         $jobUserStatus = DB::table('job_user')
             ->select('status', DB::raw('count(*) as total'))

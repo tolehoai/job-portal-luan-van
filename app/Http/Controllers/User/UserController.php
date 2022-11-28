@@ -62,14 +62,15 @@ class UserController extends Controller
     }
 
     //show cv of user
-    public function showOnlyCV()
+    public function showOnlyCV(string $candidateId)
     {
+        $user = User::find($candidateId);
         return view('pages/user/cv', [
-            'user' => Auth::user(),
+            'user' => $user,
             'skills' => Skill::get(),
             'titles' => Title::get(),
-            'experiences' => Auth::user()->experience->sortByDesc('id'),
-            'educations' => Auth::user()->education->sortByDesc('id'),
+            'experiences' => $user->experience->sortByDesc('id'),
+            'educations' => $user->education->sortByDesc('id'),
             'filePath' => null
         ]);
     }

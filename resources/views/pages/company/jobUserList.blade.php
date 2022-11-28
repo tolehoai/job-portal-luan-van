@@ -23,7 +23,7 @@
                     <div class="d-flex justify-content-between flex-wrap">
                         <div class="d-flex align-items-end flex-wrap">
                             <div class="mr-md-3 mr-xl-5">
-                                <h2>Job User List</h2>
+                                <h2>Danh sách ứng cử viên của công việc {{$job->title}}</h2>
                             </div>
                         </div>
                     </div>

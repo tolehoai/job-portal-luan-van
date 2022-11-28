@@ -290,7 +290,8 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
-                                    <div class="card text-center justify-content-center shaodw-lg  card-1 border-0 bg-white px-sm-2">
+                                    <div
+                                        class="card text-center justify-content-center shaodw-lg  card-1 border-0 bg-white px-sm-2">
                                         <div class="card-body show  ">
                                             <div class="row d-flex justify-content-between">
                                                 <div class="col-12 mx-auto">
@@ -300,14 +301,16 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-8 mx-auto">
-                                                    <div class="radio-group row justify-content-between px-3 text-center a d-flex">
-                                                        <div class="mr-sm-2 mx-1 card-block  py-0 text-center radio selected ">
+                                                    <div
+                                                        class="radio-group row justify-content-between px-3 text-center a d-flex">
+                                                        <div
+                                                            class="mr-sm-2 mx-1 card-block  py-0 text-center radio selected ">
                                                             <div class="flex-row">
                                                                 <div class="col">
                                                                     <div class="pic"><img
-                                                                                class="irc_mut img-fluid"
-                                                                                src="{{asset('storage/cv.png')}}"
-                                                                                width="100" height="100">
+                                                                            class="irc_mut img-fluid"
+                                                                            src="{{asset('storage/cv.png')}}"
+                                                                            width="100" height="100">
                                                                     </div>
                                                                     <p>Chọn CV từ hệ thống</p>
                                                                 </div>
@@ -317,9 +320,9 @@
                                                             <div class="flex-row">
                                                                 <div class="col">
                                                                     <div class="pic"><img
-                                                                                class="irc_mut img-fluid"
-                                                                                src="{{asset('storage/upload-cv.png')}}"
-                                                                                width="100" height="100">
+                                                                            class="irc_mut img-fluid"
+                                                                            src="{{asset('storage/upload-cv.png')}}"
+                                                                            width="100" height="100">
                                                                     </div>
                                                                     <input class="form-control" type="file"
                                                                            id="formFile"
@@ -391,9 +394,9 @@
                             </div>
                             <div class="border-bottom pt-10 pb-10"></div>
                             <div class="banner-hero banner-image-single mt-10 mb-20"><img
-                                        src="{{$job->company->cover !== null ? asset($job->company->cover->path) : asset('storage/cover/default.png')}}"
-                                        alt="jobBox"
-                                        style="height: 400px; width: 100%; object-fit: cover; border-radius: 16px;">
+                                    src="{{$job->company->cover !== null ? asset($job->company->cover->path) : asset('storage/cover/default.png')}}"
+                                    alt="jobBox"
+                                    style="height: 400px; width: 100%; object-fit: cover; border-radius: 16px;">
                             </div>
                             <div class="job-overview">
                                 <h5 class="border-bottom pb-15 mb-30">Tổng quan</h5>
@@ -412,31 +415,38 @@
                                     <div class="col-md-6 d-flex mt-sm-15">
 
                                         <div class="sidebar-text-info ml-10"><span
-                                                    class="text-description joblevel-icon mb-10">Trình độ công việc: </span><strong
-                                                    class="small-heading">{{$job->jobLevel->name}}</strong></div>
+                                                class="text-description joblevel-icon mb-10">Trình độ công việc: </span><strong
+                                                class="small-heading">{{$job->jobLevel->name}}</strong></div>
                                     </div>
                                 </div>
                                 <div class="row mt-25">
                                     <div class="col-md-6 d-flex">
 
                                         <div class="sidebar-text-info ml-10"><span
-                                                    class="text-description salary-icon mb-10">Mức lương: </span><strong
-                                                    class="small-heading">
-                                                <x-money amount="{{$job->salary}}" currency="VND"/>
+                                                class="text-description salary-icon mb-10">Mức lương: </span><strong
+                                                class="small-heading">
+                                                @if(\Illuminate\Support\Facades\Auth::check())
+                                                    <b>
+                                                        <x-money amount="{{$job->salary}}" currency="VND"/>
+
+                                                    </b>
+                                                @else
+                                                    <p style="font-size: 0.8rem">Đăng nhập để xem mức lương</p>
+                                                @endif
                                             </strong></div>
                                     </div>
                                     <div class="col-md-6 d-flex">
 
                                         <div class="sidebar-text-info ml-10"><span
-                                                    class="text-description jobtype-icon mb-10">Hình thức công việc: </span><strong
-                                                    class="small-heading">{{$job->jobType->name}}</strong></div>
+                                                class="text-description jobtype-icon mb-10">Hình thức công việc: </span><strong
+                                                class="small-heading">{{$job->jobType->name}}</strong></div>
                                     </div>
                                 </div>
                                 <div class="row mt-25">
                                     <div class="col-md-12 d-flex">
                                         <div class="sidebar-text-info ml-10"><span
-                                                    class="text-description salary-icon mb-10">Lĩnh vực việc làm: </span><strong
-                                                    class="small-heading">
+                                                class="text-description salary-icon mb-10">Lĩnh vực việc làm: </span><strong
+                                                class="small-heading">
                                                 {{$job->technology->name}}
                                             </strong></div>
                                     </div>
@@ -444,8 +454,8 @@
                                 <div class="row mt-25">
                                     <div class="col-md-12 d-flex mt-sm-15">
                                         <div class="sidebar-text-info ml-10"><span
-                                                    class="text-description jobtype-icon mb-10">Vị trí làm việc: </span><strong
-                                                    class="small-heading">
+                                                class="text-description jobtype-icon mb-10">Vị trí làm việc: </span><strong
+                                                class="small-heading">
                                                 @foreach ($job->city as $city)
                                                     <p class="d-inline-block">{{$city->name}}@if (!$loop->last)
                                                             ,
@@ -474,30 +484,35 @@
                                                 <div class="hover-up d-flex flex-column justify-content-between">
                                                     <div class="card-grid-2-image-left"><span class="flash"></span>
                                                         <div class="image-box">
-                                                            <img src="{{$relateJob->company->image !== null ? asset($relateJob->company->image->path) : asset('storage/images/default.png')}}"
-                                                                 style="width: 52px; border-radius: 10px"
-                                                                 alt="jobBox">
+                                                            <img
+                                                                src="{{$relateJob->company->image !== null ? asset($relateJob->company->image->path) : asset('storage/images/default.png')}}"
+                                                                style="width: 52px; border-radius: 10px"
+                                                                alt="jobBox">
                                                         </div>
                                                         <div class="right-info">
                                                             <span class="name-job">{{$relateJob->company->name}}</span>
-                                                            <span class="location-small">{{$relateJob->company->country->country_name}}</span>
+                                                            <span
+                                                                class="location-small">{{$relateJob->company->country->country_name}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <div class="card-block-info d-flex flex-column justify-content-between">
+                                                        <div
+                                                            class="card-block-info d-flex flex-column justify-content-between">
                                                             <div>
                                                                 <h6 class="ml-4">{{$relateJob->title}}</h6>
                                                                 <div class="mt-1 ml-2"><span
-                                                                            class="card-briefcase">{{$relateJob->jobType->name}}</span>
+                                                                        class="card-briefcase">{{$relateJob->jobType->name}}</span>
                                                                 </div>
-                                                                <div class="font-sm color-text-paragraph mt-15 px-4 py-2"
-                                                                     style="max-height: 150px; width: 100%"
+                                                                <div
+                                                                    class="font-sm color-text-paragraph mt-15 px-4 py-2"
+                                                                    style="max-height: 150px; width: 100%"
                                                                 >
                                                                     {!! Str::limit($relateJob->job_desc, 250)  !!}
                                                                 </div>
                                                                 <div class="mt-30 mx-4" style="height: 100px">
                                                                     @foreach($relateJob->skill as $skill)
-                                                                        <span class="btn btn-grey-small mr-1">{{$skill->name}}</span>
+                                                                        <span
+                                                                            class="btn btn-grey-small mr-1">{{$skill->name}}</span>
                                                                     @endforeach
                                                                 </div>
                                                             </div>
@@ -507,14 +522,22 @@
                                                             <div class="row d-flex align-items-center mb-3">
                                                                 <div class="col-lg-7 col-7 ">
                                                                     <h6 class="card-text-price m-0 pl-4">
-                                                                        <x-money amount="{{$relateJob->salary}}"
-                                                                                 currency="VND"/>
+                                                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                                                            <b>
+                                                                                <x-money amount="{{$job->salary}}"
+                                                                                         currency="VND"/>
+
+                                                                            </b>
+                                                                        @else
+                                                                            <p style="font-size: 0.8rem">Đăng nhập để
+                                                                                xem mức lương</p>
+                                                                        @endif
                                                                     </h6>
                                                                 </div>
                                                                 <div class="col-lg-5 col-5 text-center">
                                                                     <div class="btn btn-apply-now"
                                                                          data-bs-toggle="modal"
-                                                                         data-bs-target="#ModalApplyJobForm">Apply now
+                                                                         data-bs-target="#ModalApplyJobForm">Ứng tuyển ngay
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -540,10 +563,10 @@
                                         >
                                     </figure>
                                     <div class="sidebar-info d-inline-block" style="padding-left: 0 !important;"><span
-                                                class="sidebar-company">{{$job->company->name}}</span><span
-                                                class="card-location">{{$job->company->country->country_name}}</span><a
-                                                class="link-underline mt-15"
-                                                href="{{route('jobs', ['filter[name]' => $job->company->name])}}">{{$jobOfCompany}}
+                                            class="sidebar-company">{{$job->company->name}}</span><span
+                                            class="card-location">{{$job->company->country->country_name}}</span><a
+                                            class="link-underline mt-15"
+                                            href="{{route('jobs', ['filter[name]' => $job->company->name])}}">{{$jobOfCompany}}
                                             công
                                             việc khác đang tuyển</a>
                                     </div>
@@ -577,9 +600,9 @@
                                                      style="visibility: hidden; animation-name: none;">
                                                     <div class="image">
                                                         <img
-                                                                src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
-                                                                alt="jobBox"
-                                                                style="width: 52px; border-radius: 10px; height: auto">
+                                                            src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
+                                                            alt="jobBox"
+                                                            style="width: 52px; border-radius: 10px; height: auto">
                                                     </div>
                                                     <div class="info-text">
                                                         <h5 class="font-md font-bold color-brand-1">{{$job->title}}</h5>
@@ -587,7 +610,16 @@
                                                             <span class="card-briefcase pl-0"
                                                                   style="background: none !important;">{{$job->jobType->name}}</span></span>
                                                             <h6 class="card-price">
-                                                                <x-money amount="{{$job->salary}}" currency="VND"/>
+                                                                @if(\Illuminate\Support\Facades\Auth::check())
+                                                                    <b>
+                                                                        <x-money amount="{{$job->salary}}"
+                                                                                 currency="VND"/>
+
+                                                                    </b>
+                                                                @else
+                                                                    <p style="font-size: 0.8rem">Đăng nhập để xem mức
+                                                                        lương</p>
+                                                                @endif
                                                             </h6>
                                                         </div>
                                                         <div>

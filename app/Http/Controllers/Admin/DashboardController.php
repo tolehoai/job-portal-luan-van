@@ -26,23 +26,23 @@ class DashboardController extends Controller
         //get statistic information: company. job, user, skill, technology, city
         $statistic = $this->statisticService->getAdminStatistic();
 
-        //find top 5 company the highest number of job
-        $topCompany = $this->statisticService->getTopCompany();
-        //find top 5 technology the highest number of job
-        $topTechnology = $this->statisticService->getTopTechnology();
-        //find top 5 skill the highest number of job
-        $topSkill = $this->statisticService->getTopSkill();
-        //find top 5 city highest number of job
-        $topCity = $this->statisticService->getTopCity();
-        //find top 5 company the highest number rating
+        //find the top 5 companies with the highest  number of jobs
+        $topCompanies = $this->statisticService->getTopCompany();
+        //find the top 5 technologies with the highest number of job
+        $topTechnologies = $this->statisticService->getTopTechnology();
+        //find the top 5 skills with the highest number of job
+        $topSkills = $this->statisticService->getTopSkill();
+        //find the top 5 cities with the highest number of job
+        $topCities = $this->statisticService->getTopCity();
+        //find the top 5 companies with the highest number rating
         $topCompanyRating = $this->statisticService->getTopCompanyRating();
 
-        return view('pages/admin/index',[
+        return view('pages/admin/index', [
             'statistic' => $statistic,
-            'topCompany' => $topCompany,
-            'topTechnology' => $topTechnology,
-            'topSkill' => $topSkill,
-            'topCity' => $topCity,
+            'topCompany' => $topCompanies,
+            'topTechnology' => $topTechnologies,
+            'topSkill' => $topSkills,
+            'topCity' => $topCities,
             'topCompanyRating' => $topCompanyRating,
         ]);
     }

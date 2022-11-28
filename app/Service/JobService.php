@@ -121,4 +121,21 @@ class JobService
     {
         Mail::to($user->email)->queue(new IntroduceMail($job, $user));
     }
+
+    public function getJobListOfCandidateInCompany($companyId, $candidateId)
+    {
+//       find job_user with company_id and user_id with user detail and job detail and pivot table
+        $jobUser = Job::whereHas('user', function ($query) use ($companyId, $candidateId) {
+            $query->where('company_id', $companyId)->where('user_id', $candidateId);
+        })->with(['user' => function ($query) use ($candidateId) {
+            $query->where('user_id', $candidateId);
+        }])->get();
+
+
+//        $jobUser = Job::whereHas('user', function ($query) use ($companyId, $candidateId) {
+//            $query->where('company_id', $companyId)->where('user_id', $candidateId);
+//        })->get();
+        return $jobUser;
+
+    }
 }

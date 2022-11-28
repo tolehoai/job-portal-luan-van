@@ -166,12 +166,7 @@
                                             <div class="col">
                                                 <h5 class="card-title">Top 5 công ty được đánh giá cao nhất</h5>
                                             </div>
-                                            <div class="col-auto">
-                                                <a href="invoices.html"
-                                                   class="btn-right btn btn-sm btn-outline-primary">
-                                                    View All
-                                                </a>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -179,11 +174,12 @@
                                             <table class="table table-stripped table-hover">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <th>Customer</th>
-                                                    <th>Amount</th>
-                                                    <th>Due Date</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right">Action</th>
+                                                    <th></th>
+                                                    <th>Công ty</th>
+                                                    <th>Email</th>
+                                                    <th>Số lượng nhân viên</th>
+                                                    <th>Đánh giá</th>
+
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -198,33 +194,11 @@
                                                                     alt="User Image">
                                                             </h2>
                                                         </td>
-                                                        <td>$118</td>
-                                                        <td>23 Nov 2020</td>
-                                                        <td><span class="badge bg-success-light">Paid</span></td>
-                                                        <td class="text-right">
-                                                            <div class="dropdown dropdown-action">
-                                                                <a href="#" class="action-icon dropdown-toggle"
-                                                                   data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                        class="fas fa-ellipsis-h"></i></a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="edit-invoice.html"><i
-                                                                            class="far fa-edit me-2"></i>Edit</a>
-                                                                    <a class="dropdown-item" href="view-invoice.html"><i
-                                                                            class="far fa-eye me-2"></i>View</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                            class="far fa-trash-alt me-2"></i>Delete</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                            class="far fa-check-circle me-2"></i>Mark as
-                                                                        sent</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                            class="far fa-paper-plane me-2"></i>Send
-                                                                        Invoice</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                            class="far fa-copy me-2"></i>Clone
-                                                                        Invoice</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                        <td>{{$companyRating->name}}</td>
+                                                        <td>{{$companyRating->email}}</td>
+                                                        <td>{{$companyRating->number_of_personal}}</td>
+                                                        <td>{{$companyRating->rating_score}}</td>
+
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
@@ -239,12 +213,6 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title">Top 5 công ty tuyển dụng nhiều nhân sự nhất</h5>
-                                            </div>
-                                            <div class="col-auto">
-                                                <a href="estimates.html"
-                                                   class="btn-right btn btn-sm btn-outline-primary">
-                                                    View All
-                                                </a>
                                             </div>
                                         </div>
                                     </div>

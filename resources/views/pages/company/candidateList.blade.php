@@ -27,9 +27,10 @@
                                         <th>Ảnh đại diện</th>
                                         <th>Họ và tên</th>
                                         <th>Email</th>
+                                        <th>Địa chỉ</th>
                                         <th>Số điện thoại</th>
                                         <th>CV</th>
-
+                                        <th>Lịch sử ứng tuyển</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -42,10 +43,16 @@
                                             </td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
+                                            <td>{{$user->city->name}}</td>
                                             <td>{{$user->phone}}</td>
                                             <td>
                                                 <a href="{{route('showOnlyCv', [$user->id])}}">Xem CV</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{route('company.showCandidateHistory',[\Illuminate\Support\Facades\Auth::id(), $user->id])}}">Xem
+                                                    lịch sử ứng tuyển</a></td>
                                         </tr>
+
                                     @endforeach
                                     </tbody>
                                 </table>

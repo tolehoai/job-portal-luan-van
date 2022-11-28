@@ -51,10 +51,13 @@ class JobController extends Controller
 
     public function showListJob(Request $request)
     {
-        $companySearchName = $request->get('filter') ? $request->get('filter')['name'] : null;
+
         if ($request->filter) {
             if (isset($request->filter['job_type_id'])) {
                 $companySearchJobType = $request->get('filter')['job_type_id'];
+            }
+            if (isset($request->filter['name'])) {
+                $companySearchName = $request->get('filter')['name'];
             }
             if (isset($request->filter['city'])) {
                 $companySearchCity = $request->get('filter')['city'];
@@ -91,7 +94,7 @@ class JobController extends Controller
             'cities' => City::get(),
             'jobTypes' => JobType::get(),
             'technologies' => Technology::get(),
-            'companySearchName' => $companySearchName,
+            'companySearchName' => $companySearchName ?? '',
             'companySearchJobType' => $companySearchJobType ?? [],
             'companySearchCity' => $companySearchCity ?? null,
             'companySearchTechnology' => $companySearchTechnology ?? null,

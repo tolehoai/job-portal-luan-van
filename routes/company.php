@@ -49,4 +49,5 @@ Route::middleware('company.auth')->group(function () {
         ->name('company.candidate');
     //Send invitation mail
     Route::post('/sendInvitationMail/{jobId}/{candidateID}', [\App\Http\Controllers\Company\JobController::class, 'sendInvitationMail'])->name('company.sendInvitationMail');
+    Route::get('/showCandidateHistory/{companyId}/{candidateID}', [\App\Http\Controllers\Company\JobController::class, 'showCandidateHistory'])->name('company.showCandidateHistory');
 });

@@ -202,13 +202,20 @@ class CompanyController extends Controller
         //get company rating infomation
         $companyRating = $this->companyService->getRatingInfomation($companyId);
 
+
         $latestJob = Job::where('company_id', $companyId)->orderBy('created_at', 'desc')->take(5)->get();
+
+        $jobs = Job::where([
+            ['company_id', $companyId]
+        ]);
+
         return view('pages/user/companyDetail', [
             'company' => $company,
             'latestJob' => $latestJob,
             'companyRatingScore' => $companyRating['score'],
             'companyRatingTotal' => $companyRating['total'],
-            'companyRating'=> $companyRating['rating']
+            'companyRating' => $companyRating['rating'],
+            'jobOfCompany' => $jobs->count()
         ]);
     }
 

@@ -763,9 +763,14 @@
                                                             class="genric-btn primary circle arrow mb-2"
                                                             style="background: #8b92dd">{{$job->jobLevel->name}}</button>
                                                 </div>
-                                                <b>
-                                                    <x-money amount="{{$job->salary}}" currency="VND"/>
-                                                </b>
+                                                @if(\Illuminate\Support\Facades\Auth::check())
+                                                    <b>
+                                                        <x-money amount="{{$job->salary}}" currency="VND"/>
+
+                                                    </b>
+                                                @else
+                                                    <p style="font-size: 0.8rem">Đăng nhập để xem mức lương</p>
+                                                @endif
                                                 <div>{{$job->jobType->name}}</div>
                                             </div>
                                         </div>
