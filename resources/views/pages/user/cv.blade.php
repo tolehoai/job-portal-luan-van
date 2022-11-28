@@ -139,7 +139,7 @@
         </p>
         @if($filePath != null)
             <div class="row justify-content-center">
-                <iframe src="{{asset($filePath)}}" width="50%" height="600">
+                <iframe src="{{asset($filePath)}}" width="100%" height="850px">
                 </iframe>
             </div>
         @else

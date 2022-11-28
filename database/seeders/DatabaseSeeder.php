@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('admin'),
+                'created_at' => Carbon::now(),
             ]
         ]);
 
@@ -42,7 +43,8 @@ class DatabaseSeeder extends Seeder
             $countryName = $faker->country;
             DB::table('countries')->insert([
                 'country_name' => $countryName,
-                'country_name_slug' => Str::slug($countryName)
+                'country_name_slug' => Str::slug($countryName),
+                'created_at' => Carbon::now(),
             ]);
         }
         $cityListOfVietNam = [
@@ -114,7 +116,8 @@ class DatabaseSeeder extends Seeder
             $cityName = $cityListOfVietNam[$i];
             DB::table('cities')->insert([
                 'name' => $cityName,
-                'slug' => Str::slug($cityName)
+                'slug' => Str::slug($cityName),
+                'created_at' => Carbon::now(),
             ]);
         }
 
@@ -124,7 +127,8 @@ class DatabaseSeeder extends Seeder
             $jobTypeName = $jobTypeList[$i];
             DB::table('job_types')->insert([
                 'name' => $jobTypeName,
-                'slug' => Str::slug($jobTypeName)
+                'slug' => Str::slug($jobTypeName),
+                'created_at' => Carbon::now(),
             ]);
         }
 
@@ -134,7 +138,8 @@ class DatabaseSeeder extends Seeder
             $jobLevelName = $jobLevelList[$i];
             DB::table('job_levels')->insert([
                 'name' => $jobLevelName,
-                'slug' => Str::slug($jobLevelName)
+                'slug' => Str::slug($jobLevelName),
+                'created_at' => Carbon::now(),
             ]);
         }
 
@@ -146,7 +151,8 @@ class DatabaseSeeder extends Seeder
             $skill = $skills[$i];
             DB::table('skills')->insert([
                 'name' => $skill,
-                'slug' => Str::slug($skill)
+                'slug' => Str::slug($skill),
+                'created_at' => Carbon::now(),
             ]);
         }
 
@@ -156,7 +162,8 @@ class DatabaseSeeder extends Seeder
             $technology = $technologies[$i];
             DB::table('technology')->insert([
                 'name' => $technology,
-                'slug' => Str::slug($technology)
+                'slug' => Str::slug($technology),
+                'created_at' => Carbon::now(),
             ]);
         }
 
@@ -172,6 +179,8 @@ class DatabaseSeeder extends Seeder
                 'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
+                'created_at' => Carbon::now(),
+
             ],
             [
                 'name' => "Fpt Software",
@@ -184,6 +193,7 @@ class DatabaseSeeder extends Seeder
                 'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
+                'created_at' => Carbon::now(),
             ],
             [
                 'name' => "Biwoco",
@@ -196,6 +206,7 @@ class DatabaseSeeder extends Seeder
                 'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
+                'created_at' => Carbon::now(),
             ],
             [
                 'name' => "TMA Solution",
@@ -208,6 +219,7 @@ class DatabaseSeeder extends Seeder
                 'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
+                'created_at' => Carbon::now(),
             ],
             [
                 'name' => "NAB Innovation Centre Vietnam",
@@ -220,6 +232,7 @@ class DatabaseSeeder extends Seeder
                 'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
+                'created_at' => Carbon::now(),
             ],
             [
                 'name' => "Travala",
@@ -232,6 +245,7 @@ class DatabaseSeeder extends Seeder
                 'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
+                'created_at' => Carbon::now(),
             ],
             [
                 'name' => "Zalo",
@@ -244,6 +258,7 @@ class DatabaseSeeder extends Seeder
                 'start_work_time' => Carbon::createFromTime(9, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'end_work_time' => Carbon::createFromTime(18, 0, 0, 'Asia/Ho_Chi_Minh'),
                 'number_of_personal' => $faker->numberBetween(50, 1000),
+                'created_at' => Carbon::now(),
             ],
 
         ];
@@ -1115,69 +1130,81 @@ class DatabaseSeeder extends Seeder
             $jobTitle = $jobTitles[$i]['name'];
             DB::table('titles')->insert([
                 'name' => $jobTitle,
-                'slug' => Str::slug($jobTitle)
+                'slug' => Str::slug($jobTitle),
+                'created_at' => Carbon::now(),
             ]);
         }
 
-        for ($i = 0; $i < 100; $i++) {
-            DB::table('job')->insert([
-                'company_id' => $faker->numberBetween(1, 7),
-                'title' => $faker->jobTitle,
-                'salary' => $faker->numberBetween(5000000, 150000000),
-                'is_active' => 1,
-                'job_desc' => $faker->text(1000),
-                'job_requirements' => $faker->text(1000),
-                'job_type_id' => $faker->numberBetween(1, 4),
-                'job_level_id' => $faker->numberBetween(1, 5),
-                'technology_id' => $faker->numberBetween(1, 4),
-            ]);
-        }
+//        for ($i = 0; $i < 100; $i++) {
+//            DB::table('job')->insert([
+//                'company_id' => $faker->numberBetween(1, 7),
+//                'title' => $faker->jobTitle,
+//                'salary' => $faker->numberBetween(5000000, 150000000),
+//                'is_active' => 1,
+//                'job_desc' => $faker->text(1000),
+//                'job_requirements' => $faker->text(1000),
+//                'job_type_id' => $faker->numberBetween(1, 4),
+//                'job_level_id' => $faker->numberBetween(1, 5),
+//                'technology_id' => $faker->numberBetween(1, 4),
+//                'created_at' => Carbon::now(),
+//            ]);
+//        }
 
 
-        for ($i = 0; $i < 100; $i++) {
-            DB::table('job_skill')->insert([
-                'job_id' => $faker->numberBetween(1, 100),
-                'skill_id' => $faker->numberBetween(1, 4),
-            ]);
-            DB::table('job_skill')->insert([
-                'job_id' => $faker->numberBetween(1, 100),
-                'skill_id' => $faker->numberBetween(1, 4),
-            ]);
-            DB::table('job_skill')->insert([
-                'job_id' => $faker->numberBetween(1, 100),
-                'skill_id' => $faker->numberBetween(1, 4),
-            ]);
-            DB::table('job_skill')->insert([
-                'job_id' => $faker->numberBetween(1, 100),
-                'skill_id' => $faker->numberBetween(1, 4),
-            ]);
-        }
+//        for ($i = 0; $i < 100; $i++) {
+//            DB::table('job_skill')->insert([
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'skill_id' => $faker->numberBetween(1, 4),
+//                'created_at' => Carbon::now(),
+//            ]);
+//            DB::table('job_skill')->insert([
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'skill_id' => $faker->numberBetween(1, 4),
+//                'created_at' => Carbon::now(),
+//            ]);
+//            DB::table('job_skill')->insert([
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'skill_id' => $faker->numberBetween(1, 4),
+//                'created_at' => Carbon::now(),
+//            ]);
+//            DB::table('job_skill')->insert([
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'skill_id' => $faker->numberBetween(1, 4),
+//                'created_at' => Carbon::now(),
+//            ]);
+//        }
 
-        for ($i = 0; $i < 100; $i++) {
-            DB::table('city_job')->insert([
-                'city_id' => $faker->numberBetween(1, 63),
-                'job_id' => $faker->numberBetween(1, 100),
-            ]);
-            DB::table('city_job')->insert([
-                'city_id' => $faker->numberBetween(1, 63),
-                'job_id' => $faker->numberBetween(1, 100),
-            ]);
-            DB::table('city_job')->insert([
-                'city_id' => $faker->numberBetween(1, 63),
-                'job_id' => $faker->numberBetween(1, 100),
-            ]);
-            DB::table('city_job')->insert([
-                'city_id' => $faker->numberBetween(1, 63),
-                'job_id' => $faker->numberBetween(1, 100),
-            ]);
+//        for ($i = 0; $i < 100; $i++) {
+//            DB::table('city_job')->insert([
+//                'city_id' => $faker->numberBetween(1, 63),
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'created_at' => Carbon::now(),
+//            ]);
+//            DB::table('city_job')->insert([
+//                'city_id' => $faker->numberBetween(1, 63),
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'created_at' => Carbon::now(),
+//            ]);
+//            DB::table('city_job')->insert([
+//                'city_id' => $faker->numberBetween(1, 63),
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'created_at' => Carbon::now(),
+//            ]);
+//            DB::table('city_job')->insert([
+//                'city_id' => $faker->numberBetween(1, 63),
+//                'job_id' => $faker->numberBetween(1, 100),
+//                'created_at' => Carbon::now(),
+//            ]);
+//
+//        }
 
-        }
-
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 1; $i < 20; $i++) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => 'user' . $i . '@gmail.com',
                 'password' => bcrypt('123456'),
+                'phone' => $faker->phoneNumber,
+                'created_at' => Carbon::now(),
             ]);
         }
     }

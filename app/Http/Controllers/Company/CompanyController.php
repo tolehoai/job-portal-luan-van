@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Service\CompanyService;
 use App\Service\RatingService;
+use App\Service\StatisticService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -21,18 +22,37 @@ class CompanyController extends Controller
 {
     private CompanyService $companyService;
     private RatingService $ratingService;
+    private StatisticService $statisticService;
 
 
-    public function __construct(CompanyService $companyService, RatingService $ratingService)
+    public function __construct(CompanyService $companyService, RatingService $ratingService, StatisticService $statisticService)
     {
         $this->companyService = $companyService;
         $this->ratingService = $ratingService;
+        $this->statisticService = $statisticService;
     }
 
     public function index()
     {
+        //get candidate statistic information: company. job, user, skill, technology, city
+        $jobStatistic = $this->statisticService->getJobStatisticByDate(Auth::id());
+        $candidateStatistic = $this->statisticService->getCandidateStatisticByStatus(Auth::id());
+        $skillStatistic = $this->statisticService->getSkillStatisticByCompany(Auth::id());
+
+        $jobChartData = $this->statisticService->prepareDataForChart($jobStatistic);
+        $candidateChartData = $this->statisticService->prepareDataForChart($candidateStatistic);
+        $skillChartData = $this->statisticService->prepareDataForChart($skillStatistic);
+
+        //get company statistic information
+        $companyStatistic = $this->statisticService->getCompanyStatistic(Auth::id());
+
         return view('company/dashboard/index', [
-            'company' => Auth::user()
+            'company' => Auth::user(),
+            'jobChartData' => $jobChartData,
+            'candidateChartData' => $candidateChartData,
+            'skillChartData' => $skillChartData,
+            'companyStatistic' => $companyStatistic,
+
         ]);
     }
 

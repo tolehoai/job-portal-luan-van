@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('company_id');
             $table->string('title');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->double('salary');
             $table->longText('job_desc');
             $table->longText('job_requirements');

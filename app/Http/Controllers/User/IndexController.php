@@ -11,7 +11,8 @@ class IndexController
 {
     public function index(Request $request)
     {
-        $jobs = Job::get()->take(5);
+        //get 5 latest job sort by id
+        $jobs = Job::orderBy('id', 'desc')->take(5)->get();
         $cities = City::get();
 
         return view('pages/user/index', [

@@ -136,6 +136,20 @@ class JobService
 //            $query->where('company_id', $companyId)->where('user_id', $candidateId);
 //        })->get();
         return $jobUser;
+    }
 
+    //get skill of job and merge this skill in to array and short this skill with remove duplicate skill id
+
+    public function getSkillOfJob($jobId)
+    {
+        $job = Job::find($jobId);
+        $skills = $job->skill()->get();
+        $skillArray = [];
+        foreach ($skills as $skill) {
+            array_push($skillArray, $skill->id);
+        }
+        sort($skillArray);
+        $skillArray = array_unique($skillArray);
+        return $skillArray;
     }
 }

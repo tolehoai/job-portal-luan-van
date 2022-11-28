@@ -69,35 +69,45 @@ class StatisticService
         return $topCompany;
     }
 
-    //find top 5 technology the highest number of job
+    //get top 5 technologies with the highest number of job count by technology name and return to object with status and total
     public function getTopTechnology()
     {
-        $topTechnology = Technology::withCount('jobs')
-            ->orderBy('jobs_count', 'desc')
-            ->take(5)
+        $topTechnology = DB::table('technology')
+            ->join('job', 'job.technology_id', '=', 'technology.id')
+            ->select('technology.name as status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->orderBy('total', 'desc')
             ->get();
         return $topTechnology;
     }
 
-    //find top 5 skill the highest number of job
+
+    //get skill statistic with skill name and total number of job
     public function getTopSkill()
     {
-        $topSkill = Skill::withCount('jobs')
-            ->orderBy('jobs_count', 'desc')
-            ->take(5)
+        $topSkill = DB::table('job_skill')
+            ->join('skills', 'job_skill.skill_id', '=', 'skills.id')
+            ->select('skills.name as status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->orderBy('total', 'desc')
             ->get();
         return $topSkill;
     }
 
-    //find top 5 city highest number of job
+
+//find top 10 city with the highest number of job and return by oject of city name and total
     public function getTopCity()
     {
-        $topCity = City::withCount('job')
-            ->orderBy('job_count', 'desc')
-            ->take(5)
+        $topCity = DB::table('cities')
+            ->join('city_job', 'city_job.city_id', '=', 'cities.id')
+            ->select('cities.name as status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->orderBy('total', 'desc')
+            ->take(10)
             ->get();
         return $topCity;
     }
+
 
     //find top 5 company the highest rating_score
     public function getTopCompanyRating()
@@ -110,4 +120,181 @@ class StatisticService
 
         return $topCompanyRating;
     }
+
+    //get total user in a day group by day for 7 day ago
+//    public function getTotalUserByDate()
+//    {
+//        $totalUser = User::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+//            ->where('created_at', '>=', now()->subDays(7))
+//            ->groupBy('date')
+//            ->get();
+//        return $totalUser;
+//    }
+//    public function getTotalUserByDate()
+//    {
+//        $totalUserByDate = User::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+//            ->groupBy('date')
+//            ->get()
+//            ->toArray();
+//        return $totalUserByDate;
+//    }
+
+//get user statistic(date, totalUser) by created_at 7 day around
+    public function getTotalUserByDate()
+    {
+        $totalUserByDate = User::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->get()
+            ->toArray();
+        return $totalUserByDate;
+    }
+
+    //get job statistic(date, totalJob) by created_at 7 day around
+    public function getTotalJobByDate()
+    {
+        $totalJobByDate = Job::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->get()
+            ->toArray();
+        return $totalJobByDate;
+    }
+
+    //get company statistic(date, totalCompany) by created_at 7 day around
+    public function getTotalCompanyByDate()
+    {
+        $totalCompanyByDate = Company::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->get()
+            ->toArray();
+        return $totalCompanyByDate;
+    }
+
+    //get job statistic(date, totalJob) by created_at 7 day around
+    public function getTotalJobUserByDate()
+    {
+        $totalJobUserByDate = DB::table('job_user')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->get()
+            ->toArray();
+        return $totalJobUserByDate;
+    }
+
+    //get total visit page by date
+    public function getTotalUser7DayAround()
+    {
+        $user7day = DB::table('users')
+            ->select(DB::raw('DATE(created_at) as status'), DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('status')
+            ->get()
+            ->toArray();
+
+        return $user7day;
+    }
+
+
+    public function getCompanyStatistic(string $companyId)
+    {
+        //get total job of this company
+        $totalJob = Job::where('company_id', $companyId)->count();
+        //get total candidate of this company
+        $totalCandidate =  $totalJobPending = DB::table('job_user')
+            ->where('company_id', $companyId)
+            ->get()
+            ->count();
+        //get total job of this company with status 'Chờ xử lý'
+        $totalJobPending = DB::table('job_user')
+            ->where('company_id', $companyId)
+            ->where('status', 'Chờ xử lý')
+            ->get()
+            ->count();
+        //get total job of this company with status 'Đang xử lý'
+        $totalJobProcessing = DB::table('job_user')
+            ->where('company_id', $companyId)
+            ->where('status', 'Đang xử lý')
+            ->get()
+            ->count();
+        //get total job of this company with status 'Chờ phản hồi'
+        $totalJobWaitForFeedback = DB::table('job_user')
+            ->where('company_id', $companyId)
+            ->where('status', 'Chờ phản hồi')
+            ->get()
+            ->count();
+        //get total job of this company with status 'Chấp nhận offer'
+        $totalJobAcceptOffer = DB::table('job_user')
+            ->where('company_id', $companyId)
+            ->where('status', 'Chấp nhận offer')
+            ->get()
+            ->count();
+        //get total job of this company with status 'Từ chối offer'
+        $totalJobRejectOffer = DB::table('job_user')
+            ->where('company_id', $companyId)
+            ->where('status', 'Từ chối offer')
+            ->get()
+            ->count();
+        //get total job of this company with status 'Không phù hợp'
+        $totalJobNotSuitable = DB::table('job_user')
+            ->where('company_id', $companyId)
+            ->where('status', 'Không phù hợp')
+            ->get()
+            ->count();
+
+        return [
+            'totalJob' => $totalJob,
+            'totalCandidate' => $totalCandidate,
+            'totalJobPending' => $totalJobPending,
+            'totalJobProcessing' => $totalJobProcessing,
+            'totalJobWaitForFeedback' => $totalJobWaitForFeedback,
+            'totalJobAcceptOffer' => $totalJobAcceptOffer,
+            'totalJobRejectOffer' => $totalJobRejectOffer,
+            'totalJobNotSuitable' => $totalJobNotSuitable,
+        ];
+    }
+
+    //get statistic of job in this company by 7 day around and return object of date and total
+    public function getJobStatisticByDate($id)
+    {
+        $jobStatisticByDate = DB::table('job')
+            ->select(DB::raw('DATE(created_at) as status'), DB::raw('count(*) as total'))
+            ->where('company_id', $id)
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('status')
+            ->get()
+            ->toArray();
+        return $jobStatisticByDate;
+    }
+
+
+    //get statistic of status of candidate in this company and return object status and total
+    public function getCandidateStatisticByStatus($id)
+    {
+        $candidateStatisticByStatus = DB::table('job_user')
+            ->select('status', DB::raw('count(*) as total'))
+            ->where('company_id', $id)
+            ->groupBy('status')
+            ->get()
+            ->toArray();
+        return $candidateStatisticByStatus;
+    }
+
+    //get statistic of skill of this company and return object technology and total
+    public function getSkillStatisticByCompany($id)
+    {
+        $technologyStatistic = DB::table('job')
+            ->join('job_skill', 'job_skill.job_id', '=', 'job.id')
+            ->join('skills', 'skills.id', '=', 'job_skill.skill_id')
+            ->select('skills.name as status', DB::raw('count(*) as total'))
+            ->where('job.company_id', $id)
+            ->groupBy('status')
+            ->get()
+            ->toArray();
+        return $technologyStatistic;
+    }
+
+
 }

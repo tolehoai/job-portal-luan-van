@@ -11,6 +11,7 @@ use App\Models\Skill;
 use App\Models\Title;
 use App\Models\User;
 use App\Service\CityService;
+use App\Service\JobService;
 use App\Service\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +20,12 @@ class UserController extends Controller
 {
 
     private UserService $userService;
+    private JobService $jobService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, JobService $jobService)
     {
         $this->userService = $userService;
+        $this->jobService = $jobService;
     }
 
     public function index()
@@ -164,6 +167,7 @@ class UserController extends Controller
             'status' => $status
         ]);
     }
+
 
     //delete user
     public function deleteUser($id)

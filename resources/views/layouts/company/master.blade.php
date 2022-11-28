@@ -84,6 +84,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script src="{{ asset('admin_resource/vendors/mdtimepicker/mdtimepicker.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 {{--Scripts link to file or js custom--}}
 

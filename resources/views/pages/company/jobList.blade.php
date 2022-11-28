@@ -20,6 +20,11 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
+                            @if($jobs->count()==0)
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Không có công việc nào!</strong>
+                                </div>
+                            @endif
                             @foreach ($jobs as $job)
                                 <div class="job-item p-4 mb-4 card">
                                     <div class="row g-4 d-flex align-items-center card-body p-0">

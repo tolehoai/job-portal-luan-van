@@ -37,13 +37,27 @@ class DashboardController extends Controller
         //find the top 5 companies with the highest number rating
         $topCompanyRating = $this->statisticService->getTopCompanyRating();
 
+        //get total user by created_at
+        $userStatistic = $this->statisticService->getTotalUser7DayAround();
+        //map $userStatistic to chart data
+        $userChartData = $this->statisticService->prepareDataForChart($userStatistic);
+        $technologyChartData = $this->statisticService->prepareDataForChart($topTechnologies);
+        $skillChartData = $this->statisticService->prepareDataForChart($topSkills);
+        $cityChartData = $this->statisticService->prepareDataForChart($topCities);
+
+        $technologyChartData = $this->statisticService->prepareDataForChart($topTechnologies);
         return view('pages/admin/index', [
             'statistic' => $statistic,
-            'topCompany' => $topCompanies,
+            'topCompanies' => $topCompanies,
             'topTechnology' => $topTechnologies,
             'topSkill' => $topSkills,
             'topCity' => $topCities,
             'topCompanyRating' => $topCompanyRating,
+            'userStatistic' => $userStatistic,
+            'userChartData' => $userChartData,
+            'technologyChartData' => $technologyChartData,
+            'skillChartData' => $skillChartData,
+            'cityChartData' => $cityChartData,
         ]);
     }
 

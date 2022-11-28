@@ -56,8 +56,8 @@
                                             <select class="form-control" id="job_level_id" name="job_level_id">
                                                 @foreach ($jobLevels as $jobLevel)
                                                     <option
-                                                            value="{{old('job_level_id',$jobLevel['id'])}}"
-                                                            @if($job->job_level_id == $jobLevel['id']) selected @endif
+                                                        value="{{old('job_level_id',$jobLevel['id'])}}"
+                                                        @if($job->job_level_id == $jobLevel['id']) selected @endif
                                                     >
                                                         {{$jobLevel['name']}}
                                                     </option>
@@ -73,8 +73,8 @@
                                             <select class="form-control" id="job_type_id" name="job_type_id">
                                                 @foreach ($jobTypes as $jobType)
                                                     <option
-                                                            value="{{old('job_type_id',$jobType['id'])}}"
-                                                            @if($job->job_type_id == $jobType['id']) selected @endif
+                                                        value="{{old('job_type_id',$jobType['id'])}}"
+                                                        @if($job->job_type_id == $jobType['id']) selected @endif
                                                     >
                                                         {{$jobType['name']}}
                                                     </option>
@@ -90,14 +90,14 @@
                                             <label for="technology_id">Lĩnh vực công việc</label>
                                             <fieldset class="form-group">
                                                 <select
-                                                        class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
-                                                        id="technology_id"
-                                                        name="technology_id"
+                                                    class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
+                                                    id="technology_id"
+                                                    name="technology_id"
                                                 >
                                                     @foreach ($technologies as $technology)
                                                         <option
-                                                                value="{{old('technology_id',$technology['id'])}}"
-                                                                @if($job->technology_id == $technology['id']) selected @endif
+                                                            value="{{old('technology_id',$technology['id'])}}"
+                                                            @if($job->technology_id == $technology['id']) selected @endif
                                                         >
                                                             {{$technology['name']}}
                                                         </option>
@@ -113,17 +113,15 @@
                                             <label for="skillSelect">Kỹ năng công việc</label>
                                             <fieldset class="form-group">
                                                 <select
-                                                        class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
-                                                        id="skillSelect"
-                                                        name="skillSelect[]"
-                                                        multiple="multiple"
+                                                    class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
+                                                    id="skillSelect"
+                                                    name="skillSelect[]"
+                                                    multiple="multiple"
                                                 >
                                                     @foreach ($skills as $skill)
                                                         <option
-                                                                value="{{old('technology_id',$technology['id'])}}"
-
-                                                                value="{{$skill['id']}}"
-                                                                @if(in_array($skill['id'], $job->skill->pluck('id')->toArray())) selected @endif
+                                                            value="{{$skill['id']}}"
+                                                            @if(in_array($skill['id'], $job->skill->pluck('id')->toArray())) selected @endif
                                                         >
                                                             {{$skill['name']}}
                                                         </option>
@@ -138,15 +136,15 @@
                                     <label for="jobSalary">Văn phòng</label>
                                     <fieldset class="form-group">
                                         <select
-                                                class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
-                                                id="officeSelect"
-                                                name="officeSelect[]"
-                                                multiple="multiple"
+                                            class="form-control form-select {{ $errors->has('officeSelect') ? 'is-invalid' : '' }}"
+                                            id="officeSelect"
+                                            name="officeSelect[]"
+                                            multiple="multiple"
                                         >
                                             @foreach ($offices as $office)
                                                 <option
-                                                        value="{{$office['id']}}"
-                                                        @if(in_array($office['id'], $job->city->pluck('id')->toArray())) selected @endif
+                                                    value="{{$office['id']}}"
+                                                    @if(in_array($office['id'], $job->city->pluck('id')->toArray())) selected @endif
                                                 >
                                                     {{$office['name']}}
                                                 </option>
@@ -158,25 +156,25 @@
                                 <div class="form-group">
                                     <label class="form-label">Mô tả công việc</label>
                                     <textarea
-                                            class="form-control {{ $errors->has('job_desc') ? 'is-invalid' : '' }}"
-                                            id="job_desc"
-                                            name="job_desc"
-                                            rows="3"
+                                        class="form-control {{ $errors->has('job_desc') ? 'is-invalid' : '' }}"
+                                        id="job_desc"
+                                        name="job_desc"
+                                        rows="3"
                                     >{{$job->job_desc}}</textarea>
                                     <span class="text-danger">{{ $errors->first('job_desc') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Yêu cầu công việc</label>
                                     <textarea
-                                            class="form-control {{ $errors->has('job_requirement ') ? 'is-invalid' : '' }}"
-                                            id="job_requirement"
-                                            name="job_requirement"
-                                            rows="3"
+                                        class="form-control {{ $errors->has('job_requirement ') ? 'is-invalid' : '' }}"
+                                        id="job_requirement"
+                                        name="job_requirement"
+                                        rows="3"
                                     >{{$job->job_requirements}}</textarea>
                                     <span class="text-danger">{{ $errors->first('job_requirement') }}</span>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <button type="submit" class="btn btn-primary mr-2">Thay đổi</button>
+                                <button class="btn btn-light">Huỷ bỏ</button>
                             </form>
                         </div>
                     </div>
@@ -189,7 +187,7 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                            class="far fa-heart text-danger"></i></span>
+                        class="far fa-heart text-danger"></i></span>
             </div>
         </footer>
         <!-- partial -->
