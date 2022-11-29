@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Admin')
+@section('title', 'Thêm mới công nghệ')
 
 @section('style-libraries')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">

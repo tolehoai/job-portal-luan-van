@@ -1,4 +1,4 @@
-@extends('layouts.user.master') @section('title', 'Admin') @section('style-libraries') @stop @section('styles')
+@extends('layouts.user.master') @section('title', $job->title) @section('style-libraries') @stop @section('styles')
     {{--custom css item suggest search--}}
     <style>
         .box-border-single {
@@ -300,7 +300,7 @@
                                                         trang web của chúng tôi
                                                     </p>
                                                 </div>
-                                                <div class="col-8 mx-auto">
+                                                <div class="col-12 mx-auto">
                                                     <div
                                                         class="radio-group row justify-content-between px-3 text-center a d-flex">
                                                         <div
@@ -537,7 +537,8 @@
                                                                 <div class="col-lg-5 col-5 text-center">
                                                                     <div class="btn btn-apply-now"
                                                                          data-bs-toggle="modal"
-                                                                         data-bs-target="#ModalApplyJobForm">Ứng tuyển ngay
+                                                                         data-bs-target="#ModalApplyJobForm">Ứng tuyển
+                                                                        ngay
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -676,6 +677,23 @@
                 $('.radio').removeClass('selected');
                 $(this).addClass('selected');
             });
+            // when form with id applyJobForm submit check format of file with id formFile is document, it not show alert
+            $('#applyJobForm').submit(function () {
+                let file = $('#formFile').val();
+                let exts = ['doc', 'docx', 'pdf'];
+                if (file) {
+                    let get_ext = file.split('.');
+                    get_ext = get_ext.reverse();
+                    if ($.inArray(get_ext[0].toLowerCase(), exts) > -1) {
+                        return true;
+                    } else {
+                        alert('Chỉ chấp nhận file định dạng doc, docx, pdf');
+                        return false;
+                    }
+                }
+            });
+
+
         });
     </script>
 

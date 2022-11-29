@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Admin')
+@section('title', 'Chi tiết người dùng')
 
 @section('style-libraries')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
@@ -49,7 +49,7 @@
                                                             <h5 class="text-white text-center">{{$user->name}}</h5>
                                                             <h6 class="text-white text-center"
                                                                 style="font-size: 0.9rem !important;">@if($user->title)
-                                                                    ?{{$user->title->name}}
+                                                                    {{$user->title->name}}
                                                                 @endif</h6>
                                                         </div>
                                                     </div>
@@ -158,42 +158,43 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
+
             </section>
-            <!-- Table head options end -->
+
         </div>
-    </div>
-@stop
+        @stop
 
-@section('scripts')
+        @section('scripts')
 
-    {{--quick defined--}}
-    <script>
-        $(function () {
-            $(document).ready(function () {
+            {{--quick defined--}}
+            <script>
+                $(function () {
+                    $(document).ready(function () {
 
-                $(".deleteUserBtn").click(function (e) {
-                    e.preventDefault();
-                    // let form = $(e.target);
-                    let formData = $(e.target).closest('.deleteUserForm');
-                    Swal.fire({
-                        title: 'Xác nhận xóa?',
-                        text: "Bạn có chắc chắn muốn xóa người dùng này",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Xác nhận',
-                        cancelButtonText: 'Hủy',
-                        showCloseButton: true
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            formData.submit();
-                        }
-                    })
-                })
-            });
+                        $(".deleteUserBtn").click(function (e) {
+                            e.preventDefault();
+                            // let form = $(e.target);
+                            let formData = $(e.target).closest('.deleteUserForm');
+                            Swal.fire({
+                                title: 'Xác nhận xóa?',
+                                text: "Bạn có chắc chắn muốn xóa người dùng này",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Xác nhận',
+                                cancelButtonText: 'Hủy',
+                                showCloseButton: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    formData.submit();
+                                }
+                            })
+                        })
+                    });
 
-        });
-    </script>
+                });
+            </script>
 @stop

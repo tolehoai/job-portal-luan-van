@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Admin')
+@section('title', 'Chỉnh sửa thành phố')
 
 @section('style-libraries')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
@@ -18,7 +18,7 @@
 
 
 @section('content')
-    <!-- this is content -->
+    <!-- this is content -->`
     <div id="main">
         <div class="page-heading p-3">
             <div class="page-title">

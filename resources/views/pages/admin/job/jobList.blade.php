@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Admin')
+@section('title', 'Danh sách công việc')
 
 @section('style-libraries')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
@@ -709,16 +709,6 @@
             </div>
         </div>
         {!! $jobs->withQueryString()->links() !!}
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                        class="far fa-heart text-danger"></i></span>
-            </div>
-        </footer>
-        <!-- partial -->
     </div>
 @stop
 

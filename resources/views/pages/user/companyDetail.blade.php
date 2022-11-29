@@ -1,4 +1,7 @@
-@extends('layouts.user.master') @section('title', 'Admin') @section('style-libraries') @stop @section('styles')
+@extends('layouts.user.master')
+@section('title', $company->name)
+@section('style-libraries')
+@stop @section('styles')
     {{--custom css item suggest search--}}
     <style>
         .box-border-single {
@@ -316,46 +319,47 @@
                             <div class="box-related-job content-page">
                                 <h5 class="mb-3">Công việc mới nhất</h5>
                                 <div class="box-list-jobs display-list">
-                                    @foreach($latestJob as $job)
-
-                                        <a href="{{route('job.detail', $job->id)}}"
-                                           class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
-                                            <div class="card-grid-2 my-1" style="height: 100%">
-                                                <div class="hover-up d-flex flex-column justify-content-between">
-                                                    <div class="card-grid-2-image-left"><span class="flash"></span>
-                                                        <div class="image-box">
-                                                            <img
-                                                                src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
-                                                                style="width: 52px; border-radius: 10px" alt="jobBox">
+                                    @if($latestJob->count()>0)
+                                        @foreach($latestJob as $job)
+                                            <a href="{{route('job.detail', $job->id)}}"
+                                               class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+                                                <div class="card-grid-2 my-1" style="height: 100%">
+                                                    <div class="hover-up d-flex flex-column justify-content-between">
+                                                        <div class="card-grid-2-image-left"><span class="flash"></span>
+                                                            <div class="image-box">
+                                                                <img
+                                                                    src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                                                                    style="width: 52px; border-radius: 10px"
+                                                                    alt="jobBox">
+                                                            </div>
+                                                            <div class="right-info">
+                                                                <span class="name-job">{{$job->title}}</span>
+                                                                <span class="">{{$job->jobType->name}}</span>
+                                                            </div>
                                                         </div>
-                                                        <div class="right-info">
-                                                            <span class="name-job">{{$job->title}}</span>
-                                                            <span class="">{{$job->jobType->name}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex flex-column">
-                                                        <div class="card-2-bottom mt-30">
-                                                            <div class="row d-flex align-items-center mb-3">
-                                                                <div class="col-lg-7 col-7 ">
-                                                                    <h6 class="card-text-price m-0 pl-4">
-                                                                        <x-money amount="{{$job->salary}}"
-                                                                                 currency="VND"/>
-                                                                    </h6>
-                                                                </div>
-                                                                <div class="col-lg-5 col-5 text-right">
-                                                                    <div class="btn btn-apply-now mr-3"
-                                                                         data-bs-toggle="modal"
-                                                                         data-bs-target="#ModalApplyJobForm">Xem chi
-                                                                        tiết
+                                                        <div class="d-flex flex-column">
+                                                            <div class="card-2-bottom mt-30">
+                                                                <div class="row d-flex align-items-center mb-3">
+                                                                    <div class="col-lg-7 col-7 ">
+                                                                        <h6 class="card-text-price m-0 pl-4">
+                                                                            <x-money amount="{{$job->salary}}"
+                                                                                     currency="VND"/>
+                                                                        </h6>
+                                                                    </div>
+                                                                    <div class="col-lg-5 col-5 text-right">
+                                                                        <div class="btn btn-apply-now mr-3"
+                                                                             data-bs-toggle="modal"
+                                                                             data-bs-target="#ModalApplyJobForm">Xem chi
+                                                                            tiết
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
+                                            </a>
+                                        @endforeach
                                 </div>
                             </div>
                         </div>
@@ -369,7 +373,8 @@
                                                  src="{{$job->company->image !== null ? asset($job->company->image->path) : asset('storage/images/default.png')}}"
                                             >
                                         </figure>
-                                        <div class="sidebar-info d-inline-block" style="padding-left: 0 !important;"><span
+                                        <div class="sidebar-info d-inline-block"
+                                             style="padding-left: 0 !important;"><span
                                                 class="sidebar-company">{{$job->company->name}}</span><span
                                                 class="card-location">{{$job->company->country->country_name}}</span><a
                                                 class="link-underline mt-15"
@@ -457,6 +462,9 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    @else
+                                        <h3>Chưa có dữ liệu công việc</h3>
+                                    @endif
 
                                 </div>
                             </div>
@@ -518,7 +526,8 @@
                                 </div>
                                 <div class="form-group w-100 d-flex align-items-center flex-column pt-3">
                                     <label for="comment">Bình luận</label>
-                                    <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+                                    <textarea class="form-control" name="comment" id="comment" rows="3"
+                                              required></textarea>
                                 </div>
                                 <input type="hidden" name="rating" id="rating">
                                 @csrf
@@ -534,6 +543,16 @@
 @stop @section('scripts')
     <script>
         $(document).ready(function () {
+
+            //check if form with id ratingForm submit but input with id rating is empty show error message
+            $('#ratingForm').submit(function (e) {
+                if ($('#rating').val() === '') {
+                    e.preventDefault();
+                    alert('Bạn chưa chọn số sao đánh giá');
+                }
+            });
+
+
             $('.radio-group .radio').click(function () {
                 let checkbox = $("#useWebCV");
                 if (checkbox.is(':checked')) {

@@ -1,5 +1,5 @@
 @extends('layouts.user.masterNoHeader')
-@section('title', 'CV') @section('style-libraries')
+@section('title', 'CV - '.$user->name) @section('style-libraries')
 @stop @section('styles')
     {{--custom css item suggest search--}}
     <style>

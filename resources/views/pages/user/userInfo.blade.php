@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
-@extends('layouts.user.master') @section('title', 'Người dùng') @section('style-libraries') @stop @section('styles')
+@extends('layouts.user.master') @section('title', 'Thông tin cá nhân') @section('style-libraries') @stop @section('styles')
     {{--custom css item suggest search--}}
     <style>
         .emp-profile {
@@ -297,7 +297,13 @@
                                             <label for="company_name">Tên công ty</label>
                                             <input type="text" class="form-control" id="company_name"
                                                    name="company_name"
-                                                   placeholder="Nhập tên công ty">
+                                                   placeholder="Nhập tên công ty"
+                                                   required
+                                            >
+                                            @if($errors->has('company_name'))
+                                                <p class="text-danger">{{$errors->first('company_name')}}</p>
+                                            @endif
+
                                         </div>
                                         <div class="form-group">
                                             <div class="mt-10">
@@ -309,6 +315,7 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="form-check form-group">
                                             <input type="checkbox" class="form-check-input primary-checkbox"
                                                    id="is_current_job" name="is_current_job" value="1"
@@ -324,8 +331,12 @@
                                                             <div id="datepicker-popup"
                                                                  class="input-group date datepicker">
                                                                 <input type="text" class="form-control" id="start_date"
-                                                                       name="start_date" placeholder="Ngày bắt đầu">
-                                                                </span>
+                                                                       name="start_date" placeholder="Ngày bắt đầu"
+                                                                       required
+                                                                >
+                                                                @if($errors->has('start_date'))
+                                                                    <p class="text-danger">{{$errors->first('start_date')}}</p>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
@@ -337,8 +348,12 @@
                                                             <div id="datepicker-popup"
                                                                  class="input-group date datepicker">
                                                                 <input type="text" class="form-control" id="end_date"
-                                                                       name="end_date" placeholder="Ngày kết thúc">
-                                                                </span>
+                                                                       name="end_date" placeholder="Ngày kết thúc"
+                                                                >
+                                                                @if($errors->has('end_date'))
+                                                                    <p class="text-danger">{{$errors->first('end_date')}}</p>
+                                                                @endif
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -347,7 +362,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="desc">Mô tả công việc</label>
-                                            <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+                                            <textarea class="form-control" id="desc" name="desc" rows="3"
+                                                      required
+                                            ></textarea>
+                                            @if($errors->has('desc'))
+                                                <p class="text-danger">{{$errors->first('desc')}}</p>
+                                            @endif
                                         </div>
                                         <div class="float-right pt-1">
                                             <button type="submit" class="genric-btn primary">Gửi</button>
@@ -394,7 +414,9 @@
                                                 <input type="text" class="form-control" id="company_name"
                                                        name="company_name"
                                                        value="{{$experience->company_name}}"
-                                                       placeholder="Nhập tên công ty">
+                                                       placeholder="Nhập tên công ty"
+                                                       required
+                                                >
                                             </div>
                                             <div class="form-group form-group-select">
                                                 <div class="mt-10">
@@ -429,7 +451,9 @@
                                                                            class="start_date_edit"
                                                                            name="start_date" id="startDatetimeEdit"
                                                                            placeholder="Ngày bắt đầu"
-                                                                           value="{{$experience->start_date}}">
+                                                                           value="{{$experience->start_date}}"
+                                                                           required
+                                                                    >
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -445,7 +469,8 @@
                                                                            class="end_date_edit"
                                                                            name="end_date" id="endDatetimeEdit"
                                                                            placeholder="Ngày kết thúc"
-                                                                           value="{{$experience->end_date}}">
+                                                                           value="{{$experience->end_date}}"
+                                                                    >
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -456,7 +481,7 @@
                                             <div class="form-group">
                                                 <label for="desc">Mô tả công việc</label>
                                                 <textarea class="form-control" id="desc" name="desc"
-                                                          rows="3">{{$experience->desc}}</textarea>
+                                                          rows="3" required>{{$experience->desc}}</textarea>
                                             </div>
                                             <div class="float-right pt-1">
                                                 <button type="submit" class="genric-btn primary">Gửi</button>
@@ -495,17 +520,23 @@
                                         <label for="university_name">Tên trường</label>
                                         <input type="text" class="form-control" id="university_name"
                                                name="university_name"
-                                               placeholder="Nhập tên trường">
+                                               placeholder="Nhập tên trường"
+                                               required
+                                        >
                                     </div>
                                     <div class="form-group">
                                         <label for="major">Ngành học</label>
                                         <input type="text" class="form-control" id="major" name="major"
-                                               placeholder="Nhập tên ngành học">
+                                               placeholder="Nhập tên ngành học"
+                                               required
+                                        >
                                     </div>
                                     <div class="form-group">
                                         <label for="gpa">Điểm GPA</label>
                                         <input type="text" class="form-control" id="gpa" name="gpa"
-                                               placeholder="Nhập số điểm GPA">
+                                               placeholder="Nhập số điểm GPA"
+                                               required
+                                        >
                                     </div>
                                     <div class="form-check form-group">
                                         <input type="checkbox" class="form-check-input primary-checkbox"
@@ -523,7 +554,9 @@
                                                         <div id="datepicker-popup" class="input-group date datepicker">
                                                             <input type="text" class="form-control"
                                                                    id="education_start_date" name="start_date"
-                                                                   placeholder="Ngày bắt đầu">
+                                                                   placeholder="Ngày bắt đầu"
+                                                                   required
+                                                            >
                                                             </span>
                                                         </div>
                                                     </div>
@@ -545,7 +578,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="desc">Mô tả học vấn</label>
-                                        <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+                                        <textarea class="form-control" id="desc" name="desc" rows="3" required
+                                        ></textarea>
                                         <small class="form-text text-muted">Gợi ý: Mô tả ngành học và kiến thức</small>
                                     </div>
                                     <div class="float-right pt-1">
@@ -591,17 +625,23 @@
                                                 <input type="text" class="form-control" id="university_name"
                                                        name="university_name"
                                                        placeholder="Nhập tên trường"
-                                                       value="{{$education->university_name}}">
+                                                       value="{{$education->university_name}}"
+                                                       required
+                                                >
                                             </div>
                                             <div class="form-group">
                                                 <label for="major">Ngành học</label>
                                                 <input type="text" class="form-control" id="major" name="major"
-                                                       placeholder="Nhập tên ngành học" value="{{$education->major}}">
+                                                       placeholder="Nhập tên ngành học" value="{{$education->major}}"
+                                                       required
+                                                >
                                             </div>
                                             <div class="form-group">
                                                 <label for="gpa">Điểm GPA</label>
                                                 <input type="text" class="form-control" id="gpa" name="gpa"
-                                                       placeholder="Nhập số điểm GPA" value="{{$education->gpa}}">
+                                                       placeholder="Nhập số điểm GPA" value="{{$education->gpa}}"
+                                                       required
+                                                >
                                             </div>
                                             <div class="form-check form-group">
                                                 <input type="checkbox" class="form-check-input primary-checkbox"
@@ -623,7 +663,9 @@
                                                                            class="start_date_edit"
                                                                            name="start_date" id="startDatetimeEdit"
                                                                            placeholder="Ngày bắt đầu"
-                                                                           value="{{$education->start_date}}">
+                                                                           value="{{$education->start_date}}"
+                                                                           required
+                                                                    >
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -650,7 +692,8 @@
                                             <div class="form-group">
                                                 <label for="desc">Mô tả học vấn</label>
                                                 <textarea class="form-control" id="desc" name="desc"
-                                                          rows="3">{{$education->desc}}</textarea>
+                                                          rows="3" required
+                                                >{{$education->desc}}</textarea>
                                                 <small class="form-text text-muted">Gợi ý: Mô tả ngành học và kiến
                                                     thức</small>
                                             </div>
@@ -820,6 +863,11 @@
                                        onblur=" this.placeholder='Nhập vào họ và tên' "
                                        required="" class=" single-input "
                                        value=" {{$user->name}}">
+                                @if($errors->has('name'))
+                                    <div class="alert alert-danger">
+                                        {{$errors->first('name')}}
+                                    </div>
+                                @endif
                             </div>
                             <div class="mt-10">
                                 <label for="title_id">Chọn thành phố</label>
@@ -845,10 +893,17 @@
                                        onfocus="this.placeholder = ''"
                                        onblur="this.placeholder = 'Nhập vào số điện thoại'" required=""
                                        class="single-input" value="{{$user->phone}}">
+                                @if($errors->has('phone'))
+                                    <div class="alert alert-danger">
+                                        {{$errors->first('phone')}}
+                                    </div>
+                                @endif
+
                             </div>
                             <div class="mt-10">
                                 <label for="formFile" class="form-label">Ảnh đại diện</label>
-                                <input class="form-control" type="file" id="formFile" name="avatar">
+                                <input class="form-control" placeholder="Chọn ảnh đại diện" type="file" id="formFile"
+                                       name="avatar">
                             </div>
                         </div>
                     </div>
@@ -973,6 +1028,8 @@
 
             if ($("#start_date").length) {
                 $('#start_date').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
                     format: 'dd-mm-yyyy',
                     timeFormat: 'HH:mm:ss',
                     onShow: function () {
@@ -988,6 +1045,8 @@
                 $('#end_date').datepicker({
                     format: 'dd-mm-yyyy',
                     timeFormat: 'HH:mm:ss',
+                    changeMonth: true,
+                    changeYear: true,
                     onShow: function () {
                         this.setOptions({
                             maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1001,6 +1060,8 @@
                 $('#education_start_date').datepicker({
                     format: 'dd-mm-yyyy',
                     timeFormat: 'HH:mm:ss',
+                    changeMonth: true,
+                    changeYear: true,
                     onShow: function () {
                         this.setOptions({
                             maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1014,6 +1075,8 @@
                 $('#education_end_date').datepicker({
                     format: 'dd-mm-yyyy',
                     timeFormat: 'HH:mm:ss',
+                    changeMonth: true,
+                    changeYear: true,
                     onShow: function () {
                         this.setOptions({
                             maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1027,6 +1090,8 @@
             $('.start_date_edit').datepicker({
                 format: 'dd-mm-yyyy',
                 timeFormat: 'HH:mm:ss',
+                changeMonth: true,
+                changeYear: true,
                 onShow: function () {
                     this.setOptions({
                         maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1039,6 +1104,8 @@
             $('.end_date_edit').datepicker({
                 format: 'dd-mm-yyyy',
                 timeFormat: 'HH:mm:ss',
+                changeMonth: true,
+                changeYear: true,
                 onShow: function () {
                     this.setOptions({
                         maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1073,6 +1140,8 @@
             startDatetimeEdit.datepicker({
                 format: 'dd-mm-yyyy',
                 timeFormat: 'HH:mm:ss',
+                changeMonth: true,
+                changeYear: true,
                 onShow: function () {
                     this.setOptions({
                         maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1083,6 +1152,8 @@
             endDatetimeEdit.datepicker({
                 format: 'dd-mm-yyyy',
                 timeFormat: 'HH:mm:ss',
+                changeMonth: true,
+                changeYear: true,
                 onShow: function () {
                     this.setOptions({
                         maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1106,6 +1177,8 @@
             startDatetimeEdit.datepicker({
                 format: 'dd-mm-yyyy',
                 timeFormat: 'HH:mm:ss',
+                changeMonth: true,
+                changeYear: true,
                 onShow: function () {
                     this.setOptions({
                         maxDate: $('#tdate').val() ? $('#tdate').val() : false,
@@ -1116,6 +1189,8 @@
             endDatetimeEdit.datepicker({
                 format: 'dd-mm-yyyy',
                 timeFormat: 'HH:mm:ss',
+                changeMonth: true,
+                changeYear: true,
                 onShow: function () {
                     this.setOptions({
                         maxDate: $('#tdate').val() ? $('#tdate').val() : false,

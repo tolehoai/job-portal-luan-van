@@ -103,6 +103,19 @@ class CompanyController extends Controller
 
     public function ratingCompany(Request $request, $companyId)
     {
+        //validation
+        $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+            'comment' => 'required|string|max:255'
+        ]);
+        //show message Vietnamese
+        $messages = [
+            'rating.required' => 'Vui lòng nhập số sao',
+            'rating.numeric' => 'Số sao phải là số',
+            'rating.min' => 'Số sao phải từ 1 đến 5',
+            'rating.max' => 'Số sao phải từ 1 đến 5'
+        ];
+
         $rating = $this->ratingService->rating($request, $companyId);
         if (!$rating) {
             return redirect()->route('company.detail', $companyId)->with('failed', 'Thất bại! Có lỗi khi đánh giá công ty')

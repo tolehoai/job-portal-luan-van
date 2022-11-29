@@ -1,4 +1,4 @@
-@extends('layouts.user.master') @section('title', 'Người dùng') @section('style-libraries') @stop @section('styles')
+@extends('layouts.user.master') @section('title', 'Công việc đã ứng tuyển') @section('style-libraries') @stop @section('styles')
     {{--custom css item suggest search--}}
     <style>
         .emp-profile {
@@ -183,8 +183,8 @@
                                     </h3>
                                     <div class="row display-list">
                                         @foreach($jobs as $job)
-                                            <a href="{{route('job.detail', $job->id)}}">
-                                                <div class="col-xl-12 col-12">
+                                            <a href="{{route('job.detail', $job->id)}}" class="col-xl-12 col-12">
+                                                <div>
                                                     <div class="card-grid-2 hover-up">
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-6 col-sm-12">

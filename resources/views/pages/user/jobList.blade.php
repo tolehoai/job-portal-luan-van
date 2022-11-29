@@ -1,4 +1,4 @@
-@extends('layouts.user.master') @section('title', 'Admin') @section('style-libraries') @stop @section('styles')
+@extends('layouts.user.master') @section('title', 'Tìm kiếm công việc') @section('style-libraries') @stop @section('styles')
     {{--custom css item suggest search--}}
     <style>
         .banner-hero.banner-single {
@@ -643,7 +643,7 @@
                                     </select>
                                 </div>
                                 <div class="small-section-tittle2 pt-80">
-                                    <h4>Công nghệ</h4>
+                                    <h4>Loại công việc</h4>
                                 </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
@@ -652,7 +652,7 @@
                                                 @if(!$companySearchTechnology)
                                                     selected
                                             @endif
-                                        >Chọn công nghệ
+                                        >Chọn loại công việc
                                         </option>
                                         @foreach($technologies as $technology)
                                             <option value="{{$technology->id}}"

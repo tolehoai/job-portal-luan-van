@@ -23,18 +23,18 @@
     <link rel="stylesheet" href="{{ asset('user_resource/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/nice-select.css') }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('user_resource/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('user_resource/css/style_1.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('user_resource/css/style_1.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('user_resource/css/style_2.css') }}">
     <link rel="stylesheet" href="{{ asset('user_resource/css/jquery-ui.css') }}">
+
     <link rel="stylesheet" href="{{ asset('user_resource/css/star-rating-svg.css') }}">
-    <link href="http://wp.alithemes.com/html/jobbox/demos/assets/css/style.css?version=4.0" rel="stylesheet">
+{{--    <link href="http://wp.alithemes.com/html/jobbox/demos/assets/css/style.css?version=4.0" rel="stylesheet">--}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
           integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
-          rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet"/>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet"/>
     @yield('style-libraries')
@@ -115,7 +115,8 @@
 <script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/isotope.js"></script>
 <script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/scrollup.js"></script>
 <script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/plugins/swiper-bundle.min.js"></script>
-<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/main.js?v=4.0"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{{--<script src="http://wp.alithemes.com/html/jobbox/demos/assets/js/main.js?v=4.0"></script>--}}
 {{--Scripts link to file or js custom--}}
 <script>
     $(document).ready(function () {

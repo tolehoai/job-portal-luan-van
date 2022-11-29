@@ -209,6 +209,7 @@ class CompanyController extends Controller
             ['company_id', $companyId]
         ]);
 
+
         return view('pages/user/companyDetail', [
             'company' => $company,
             'latestJob' => $latestJob,

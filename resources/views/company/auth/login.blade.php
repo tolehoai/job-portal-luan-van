@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+@section('title', 'Nhà tuyển dụng đăng nhập')
 
 @section('content')
     <div class="container">

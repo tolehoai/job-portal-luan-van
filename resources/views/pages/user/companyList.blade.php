@@ -1,4 +1,4 @@
-@extends('layouts.user.master') @section('title', 'Admin') @section('style-libraries') @stop @section('styles')
+@extends('layouts.user.master') @section('title', 'Danh sách công ty') @section('style-libraries') @stop @section('styles')
     {{--custom css item suggest search--}}
     <style>
         .our-services .single-services {

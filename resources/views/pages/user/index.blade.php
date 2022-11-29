@@ -1,6 +1,6 @@
 @extends('layouts.user.master')
 
-@section('title', 'Admin')
+@section('title', 'Trang chủ - IT-Job')
 
 @section('style-libraries')
 
@@ -605,8 +605,8 @@
                                     <span class="flaticon-tour"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">Human Resources (HR)</a></h5>
-                                    <span>(653)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=25">Human Resources (HR)</a></h5>
+                                    <span>(Nhân sự)</span>
                                 </div>
                             </div>
                         </div>
@@ -616,8 +616,8 @@
                                     <span class="flaticon-cms"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">Design & Development</a></h5>
-                                    <span>(658)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=19">UI & UX</a></h5>
+                                    <span>(Thiết kế giao diện)</span>
                                 </div>
                             </div>
                         </div>
@@ -627,8 +627,8 @@
                                     <span class="flaticon-report"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">Data Analyst & Data Science</a></h5>
-                                    <span>(658)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=9">Data Analyst & Data Science</a></h5>
+                                    <span>(Dữ liệu)</span>
                                 </div>
                             </div>
                         </div>
@@ -638,8 +638,8 @@
                                     <span class="flaticon-app"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">Mobile Application</a></h5>
-                                    <span>(658)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=5">Mobile Application</a></h5>
+                                    <span>(Di động)</span>
                                 </div>
                             </div>
                         </div>
@@ -649,8 +649,8 @@
                                     <span class="flaticon-helmet"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">DevOps</a></h5>
-                                    <span>(658)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=4">DevOps</a></h5>
+                                    <span>(Hạ tầng)</span>
                                 </div>
                             </div>
                         </div>
@@ -660,8 +660,8 @@
                                     <span class="flaticon-high-tech"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">Artificial Intelligence (AI)</a></h5>
-                                    <span>(658)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=10">Artificial Intelligence (AI)</a></h5>
+                                    <span>(Trí tuệ nhân tạo)</span>
                                 </div>
                             </div>
                         </div>
@@ -671,8 +671,8 @@
                                     <span class="flaticon-real-estate"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">IoT & BigData</a></h5>
-                                    <span>(658)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=16">BigData</a></h5>
+                                    <span>(Dữ liệu lớn)</span>
                                 </div>
                             </div>
                         </div>
@@ -682,8 +682,8 @@
                                     <span class="flaticon-content"></span>
                                 </div>
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">Tester</a></h5>
-                                    <span>(658)</span>
+                                    <h5><a href="http://127.0.0.1:8000/jobs?filter[technology_id]=28">Tester</a></h5>
+                                    <span>(Kiểm thử)</span>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 @extends('layouts.company.master')
-@section('title', 'Admin')
+@section('title', 'Chi tiết công việc')
 @section('style-libraries')
 @stop
 @section('styles')

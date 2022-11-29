@@ -1,5 +1,5 @@
 @extends('layouts.company.master')
-@section('title', 'Admin')
+@section('title', 'Thông tin công ty - '. $company->name)
 @section('style-libraries')
 @stop
 @section('styles')
@@ -39,16 +39,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="banner-hero banner-image-single"><img
-                                        src="{{$company->cover !== null ? asset($company->cover->path) : asset('storage/cover/default.png')}}"
-                                        alt="jobBox"
-                                        style="height: 400px; width: 100%; object-fit: cover; border-radius: 16px;">
+                                    src="{{$company->cover !== null ? asset($company->cover->path) : asset('storage/cover/default.png')}}"
+                                    alt="jobBox"
+                                    style="height: 400px; width: 100%; object-fit: cover; border-radius: 16px;">
                             </div>
                             <div class="company-info d-flex align-items-end">
                                 <div class="company-info-logo pr-3">
                                     <img
-                                            src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
-                                            alt="profile" class="img-lg rounded mb-3"
-                                            style="width: 92px"
+                                        src="{{$company->image !== null ? asset($company->image->path) : asset('storage/images/default.png')}}"
+                                        alt="profile" class="img-lg rounded mb-3"
+                                        style="width: 92px"
                                     >
                                 </div>
                                 <div class="company-info-content">
@@ -138,7 +138,7 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                            class="far fa-heart text-danger"></i></span>
+                        class="far fa-heart text-danger"></i></span>
             </div>
         </footer>
         <!-- partial -->

@@ -42,6 +42,25 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        //validation request
+        $request->validate([
+            'name' => 'required',
+            'city_id' => 'required|email',
+            'title_id' => 'required|numeric',
+            'phone' => 'required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        //message error Vietnamese
+        $messages = [
+            'name.required' => 'Tên không được để trống',
+            'city_id.required' => 'Thành phố không được để trống',
+            'title_id.required' => 'Chức vụ không được để trống',
+            'phone.required' => 'Số điện thoại không được để trống',
+            'avatar.image' => 'Ảnh không đúng định dạng',
+            'avatar.mimes' => 'Ảnh không đúng định dạng',
+            'avatar.max' => 'Ảnh không được quá 2MB',
+        ];
+
         $user = $this->userService->update($request);
         if (!$user) {
             return redirect()->route('user')
@@ -160,7 +179,6 @@ class UserController extends Controller
             //Find job of this user where status in pivot table are not equa Chờ xử lý
             $jobs = $user->job()->wherePivot('status', '!=', 'Chờ xử lý')->paginate(5);
         }
-
         return view('pages/user/userJob', [
             'jobs' => $jobs,
             'user' => Auth::user(),
