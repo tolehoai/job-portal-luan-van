@@ -294,6 +294,48 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title">Thống kê mức lương dựa theo số năm kinh nghiệm
+                                                    của từng vị trí</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                @foreach($experienceYear as $index=>$year)
+                                                    <th scope="col" style="color: {{$salaryExperienceYearColor[$index]}}">{{$year->name}}</th>
+                                                @endforeach
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($salaryStatistic as $key => $salary)
+                                                <tr>
+                                                    <th scope="row">{{$key}}</th>
+
+                                                    @foreach($salary as $index=>$item)
+                                                        <td>
+                                                            @if($item->total==0)
+                                                                <span style="color: {{$salaryExperienceYearColor[$index]}}">Chưa có số liệu</span>
+                                                            @else
+                                                                <span style="color: {{$salaryExperienceYearColor[$index]}}">{{number_format($item->total, 0, ',', '.')}} VNĐ</span>
+                                                            @endif
+                                                        </td>
+                                                    @endforeach
+                                                </tr>
+                                            @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </div>

@@ -18,6 +18,15 @@
             <div class="row">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class="card-body">
                             <form class="forms-sample addJobForm"
                                   name="addJobForm"
@@ -29,7 +38,7 @@
                                 <div class="form-group form-check form-check-info">
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="is_active"
-                                               @if($job->is_active) checked @endif value="1"
+                                               @if($job->is_active) checked @endif  value="1"
                                                value="{{old('is_active', $job->is_active)}}"
                                         >
                                         Công việc còn hiển thị
@@ -42,12 +51,25 @@
                                            placeholder="Nhập vào tên công việc">
                                     <span class="text-danger">{{ $errors->first('title') }}</span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="salary">Mức lương (đơn vị VNĐ)</label>
-                                    <input type="text" class="form-control" id="salary" name="salary"
-                                           value="{{old('salary', $job->salary)}}"
-                                           placeholder="Nhập vào mức lương">
-                                    <span class="text-danger">{{ $errors->first('salary') }}</span>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="salary">Mức lương (đơn vị VNĐ)</label>
+                                        <input type="text" class="form-control" id="salary" name="salary"
+                                               value="{{old('salary', $job->salary)}}"
+                                               placeholder="Nhập vào mức lương">
+                                        <span class="text-danger">{{ $errors->first('salary') }}</span>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="experience_year_id">Số năm kinh nghiệm</label>
+                                        <select class="form-control" id="experience_year_id" name="experience_year_id">
+                                            @foreach($experienceYears as $experienceYear)
+                                                <option value="{{ $experienceYear->id }}"
+                                                        @if($experienceYear->id == $job->experience_year_id) selected @endif
+                                                >{{ $experienceYear->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="text-danger">{{ $errors->first('experience_year_id') }}</span>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -107,7 +129,9 @@
                                             </fieldset>
                                         </div>
                                     </div>
+                                    @foreach ($skills as $skill)
 
+                                    @endforeach
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="skillSelect">Kỹ năng công việc</label>
@@ -119,11 +143,25 @@
                                                     multiple="multiple"
                                                 >
                                                     @foreach ($skills as $skill)
+
                                                         <option
-                                                            value="{{$skill['id']}}"
-                                                            @if(in_array($skill['id'], $job->skill->pluck('id')->toArray())) selected @endif
+                                                            value="{{$skill->id}}"
+                                                            @foreach($job->skill as $jobSkill)
+                                                                @if($jobSkill['id'] == $skill->id)
+                                                                    selected
+                                                            @endif
+                                                            @endforeach
                                                         >
-                                                            {{$skill['name']}}
+                                                            {{$skill->name}}
+                                                        </option>
+
+                                                    @endforeach
+                                                    @foreach($otherSkill as $jobSkill)
+                                                        <option
+                                                            value="{{$jobSkill}}"
+                                                            selected
+                                                        >
+                                                            {{$jobSkill}}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -181,16 +219,7 @@
                 </div>
             </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                        class="far fa-heart text-danger"></i></span>
-            </div>
-        </footer>
-        <!-- partial -->
+
     </div>
 @stop
 @section('scripts')
@@ -203,17 +232,18 @@
             placeholder: "Chọn lĩnh vực công việc"
         });
         $("#skillSelect").select2({
-            placeholder: "Chọn kỹ năng công việc"
+            placeholder: "Chọn kỹ năng công việc",
+            tags: true
         });
 
         //CKEDITOR
         ClassicEditor
-            .create(document.querySelector('#jobDesc'))
+            .create(document.querySelector('#job_desc'))
             .catch(error => {
                 console.error(error);
             });
         ClassicEditor
-            .create(document.querySelector('#jobRequirement'))
+            .create(document.querySelector('#job_requirement'))
             .catch(error => {
                 console.error(error);
             });

@@ -303,6 +303,12 @@
             vertical-align: baseline;
             border-radius: 0.25rem;
         }
+        .badge-skill {
+            background-color: #ebf3ff;
+            color: #002152;
+            width: fit-content !important;
+            block-size: fit-content !important;
+        }
     </style>
 @stop
 @section('content')
@@ -345,7 +351,7 @@
                                             <span class="text-description industry-icon mb-10">Kỹ năng: </span>
                                             <strong class="small-heading">
                                                 @foreach($job->skill as $skill)
-                                                    {{$skill->name}}@if (!$loop->last)
+                                                    {{$skill['name']}}@if (!$loop->last)
                                                         /
                                                     @endif
                                                 @endforeach
@@ -439,7 +445,7 @@
                             <div class="card-body">
                                 <h4>Danh sách ứng viên được gợi ý</h4>
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    <table class="table">
                                         <thead>
                                         <tr>
                                             <th>STT</th>
@@ -471,7 +477,7 @@
                                                 </td>
                                                 <td>
                                                     @foreach($suggestUser->skill as $skill)
-                                                        <span class="badge badge-primary my-1">{{$skill->name}}</span>
+                                                        <span class="badge badge-skill p-1 m-1">{{$skill}}</span>
                                                     @endforeach
                                                 </td>
                                                 <td>

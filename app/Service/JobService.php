@@ -9,6 +9,7 @@ use App\Mail\ThankyouMailForNotSuitable;
 use App\Mail\ThankyouMailForRejectOffer;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,6 @@ class JobService
 
     public function store(Request $request)
     {
-//        dd($request);
         $job = Job::create([
             'title' => $request->get('jobName'),
             'company_id' => Auth::id(),
@@ -38,6 +38,8 @@ class JobService
             'technology_id' => $request->get('technologySelect'),
             'job_desc' => $request->get('jobDesc'),
             'job_requirements' => $request->get('jobRequirement'),
+            'experience_year_id' => $request->get('jobExperienceYear'),
+            'other_skill' => json_encode(array_values($request->get('otherSkill'))),
         ]);
 
         $job->city()->sync($request->officeSelect, false);
@@ -53,7 +55,8 @@ class JobService
     {
         //update base information of company
         $updateData = $request->except('_token');
-        $updateData['is_active'] = $request->get('isActive') ? 1 : 0;
+        $updateData['is_active'] = $request->get('is_active') ? 1 : 0;
+        $updateData['other_skill'] = json_encode(array_values($request->get('otherSkill')));
         $job = Job::find($jobId);
         $job->update($updateData);
         $job->skill()->sync($request->get('skillSelect', false));
@@ -151,5 +154,34 @@ class JobService
         sort($skillArray);
         $skillArray = array_unique($skillArray);
         return $skillArray;
+    }
+    public function getJobInfo($jobId)
+    {
+        $job = Job::find($jobId);
+        //create job skill object of skill name and id
+        $jobSkill = [];
+        foreach ($job->skill()->get() as $skill) {
+            $jobSkill[] = [
+                'id' => $skill->id,
+                'name' => $skill->name
+            ];
+        }
+        //get other_skill of job and convert to array with id and name if other_skill is not null
+        $otherSkill = [];
+        if ($job->other_skill != null) {
+            $otherSkill = json_decode($job->other_skill);
+            foreach ($otherSkill as $key => $skill) {
+                $otherSkill[$key] = [
+                    'id' => $key,
+                    'name' => $skill
+                ];
+            }
+        }
+        //merge job skill and other skill
+        $jobSkill = array_merge($jobSkill, $otherSkill);
+
+        $job->skill = $jobSkill;
+//        dd($user->skill);
+        return $job;
     }
 }

@@ -43,6 +43,13 @@
                                                                 @endif </p>
                                                         @endforeach
                                                 </span>
+                                                    <div>
+                                                        @if($job->is_active == 1)
+                                                            <span class="badge bg-success m-1 p-1 text-white">Đang tuyển</span>
+                                                        @else
+                                                            <span class="badge bg-danger m-1 p-1 text-white">Đã đóng</span>
+                                                        @endif
+                                                    </div>
                                                     <div class="d-flex">
                                                         <div class="badge badge-info badge-pill p-1 m-1">
                                                             <p class="d-inline-block m-0 p-0">
@@ -61,7 +68,9 @@
                                                             <x-money amount="{{$job->salary}}" currency="VND"/>
                                                         </div>
 
+
                                                     </div>
+
                                                 </div>
 
 
@@ -112,28 +121,6 @@
 @section('scripts')
     <script>
         //your js code here
-        $("#officeSelect").select2({
-            placeholder: "Chọn thành phố có văn phòng"
-        });
-        $("#technologySelect").select2({
-            placeholder: "Chọn lĩnh vực công việc"
-        });
-        $("#skillSelect").select2({
-            placeholder: "Chọn kỹ năng công việc"
-        });
-
-        //CKEDITOR
-        ClassicEditor
-            .create(document.querySelector('#jobDesc'))
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#jobRequirement'))
-            .catch(error => {
-                console.error(error);
-            });
-        //End CKEDITOR
 
         // new AutoNumeric('#jobSalary', 'integer');
         $(".deleteJobBtn").click(function (e) {

@@ -30,8 +30,10 @@ class UserController extends Controller
 
     public function index()
     {
+        //get user infomation with skill is merge of user skill and other skill
+        $user = $this->userService->getUserInfo(Auth::user()->id);
         return view('pages/user/userInfo', [
-            'user' => Auth::user(),
+            'user' => $user,
             'skills' => Skill::get(),
             'titles' => Title::get(),
             'experiences' => Auth::user()->experience->sortByDesc('id'),
@@ -42,24 +44,23 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        //validation request
-        $request->validate([
-            'name' => 'required',
-            'city_id' => 'required|email',
-            'title_id' => 'required|numeric',
-            'phone' => 'required',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        //message error Vietnamese
-        $messages = [
-            'name.required' => 'Tên không được để trống',
-            'city_id.required' => 'Thành phố không được để trống',
-            'title_id.required' => 'Chức vụ không được để trống',
-            'phone.required' => 'Số điện thoại không được để trống',
-            'avatar.image' => 'Ảnh không đúng định dạng',
-            'avatar.mimes' => 'Ảnh không đúng định dạng',
-            'avatar.max' => 'Ảnh không được quá 2MB',
-        ];
+//        //validation request
+//        $request->validate([
+//            'name' => 'required',
+//            'city_id' => 'required|email',
+//            'title_id' => 'required|numeric',
+//            'phone' => 'required',
+//        ]);
+//        //message error Vietnamese
+//        $messages = [
+//            'name.required' => 'Tên không được để trống',
+//            'city_id.required' => 'Thành phố không được để trống',
+//            'title_id.required' => 'Chức vụ không được để trống',
+//            'phone.required' => 'Số điện thoại không được để trống',
+//            'avatar.image' => 'Ảnh không đúng định dạng',
+//            'avatar.mimes' => 'Ảnh không đúng định dạng',
+//            'avatar.max' => 'Ảnh không được quá 2MB',
+//        ];
 
         $user = $this->userService->update($request);
         if (!$user) {
@@ -73,7 +74,28 @@ class UserController extends Controller
 
     public function updateSkill(Request $request)
     {
-        $user = $this->userService->updateUserSkill($request);
+        //filter element not number of request to new array
+        $otherSkills = array_filter($request->skills, function ($value) {
+            return !is_numeric($value);
+        });
+       //get element of request->skills is not exit in $otherSkills
+        $skills = array_diff($request->skills, $otherSkills);
+
+        //convert $otherSkills to json and remove index
+        $otherSkills = json_encode(array_values($otherSkills));
+       //get user other skill
+        $userOtherSkill = Auth::user()->other_skill;
+
+        //check user other skill is null
+        if ($userOtherSkill == null) {
+            //update user other skill
+            Auth::user()->update(['other_skill' => $otherSkills]);
+        } else {
+            //update user other skill
+            Auth::user()->update(['other_skill' => $otherSkills]);
+        }
+
+        $user = $this->userService->updateUserSkill($skills);
         if (!$user) {
             return redirect()->route('user')
                 ->with('error', 'Cập nhật thông tin thất bại')

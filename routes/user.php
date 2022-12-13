@@ -29,8 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/editExperience/{experienceId}',
         [\App\Http\Controllers\User\ExperienceController::class, 'editExperience'])
         ->name('user.editExperience');
+    Route::post('/deleteExperience/{experienceId}/{userId}',
+        [\App\Http\Controllers\User\ExperienceController::class, 'deleteExperience'])
+        ->name('user.deleteExperience');
     Route::post('/addEducation/{userId}', [\App\Http\Controllers\User\EducationController::class, 'addEducation'])
         ->name('user.addEducation');
+    Route::post('/addEducation/{educationId}/{userId}', [\App\Http\Controllers\User\EducationController::class, 'deleteEducation'])
+        ->name('user.deleteEducation');
     Route::post('/editEducation/{educationId}',
         [\App\Http\Controllers\User\EducationController::class, 'editEducation'])
         ->name('user.editEducation');

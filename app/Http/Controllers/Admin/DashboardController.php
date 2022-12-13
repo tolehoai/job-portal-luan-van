@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExperienceYear;
 use App\Service\StatisticService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,9 @@ class DashboardController extends Controller
         $topCities = $this->statisticService->getTopCity();
         //find the top 5 companies with the highest number rating
         $topCompanyRating = $this->statisticService->getTopCompanyRating();
-
+        //find salary average of each technology by experience year
+        $salaryStatistic = $this->statisticService->getSalaryStatisticByExperienceYear();
+        $salaryExperienceYearColor = ['#ee6b6e', '#f94449','#f01e2c','#de0a26','#c30010'];
         //get total user by created_at
         $userStatistic = $this->statisticService->getTotalUser7DayAround();
         //map $userStatistic to chart data
@@ -58,6 +61,9 @@ class DashboardController extends Controller
             'technologyChartData' => $technologyChartData,
             'skillChartData' => $skillChartData,
             'cityChartData' => $cityChartData,
+            'salaryStatistic' => $salaryStatistic,
+            'experienceYear'=>ExperienceYear::get(),
+            'salaryExperienceYearColor' => $salaryExperienceYearColor
         ]);
     }
 

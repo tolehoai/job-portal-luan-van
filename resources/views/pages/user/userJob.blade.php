@@ -163,7 +163,6 @@
                                        href="{{route('user.job', 'processed')}}">Đã xử lý</a></li>
                             </ul>
                             <div class="border-bottom pt-10 pb-10"></div>
-                            <div class="mt-20 mb-20"><a class="link-red" href="#">Delete Account</a></div>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-50">
@@ -252,30 +251,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section-box mt-50 mb-20">
-            <div class="container">
-                <div class="box-newsletter">
-                    <div class="row">
-                        <div class="col-xl-3 col-12 text-center d-none d-xl-block"><img
-                                src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/template/newsletter-left.png"
-                                alt="joxBox"></div>
-                        <div class="col-lg-12 col-xl-6 col-12">
-                            <h2 class="text-md-newsletter text-center">New Things Will Always<br> Update Regularly</h2>
-                            <div class="box-form-newsletter mt-40">
-                                <form class="form-newsletter">
-                                    <input class="input-newsletter" type="text" value=""
-                                           placeholder="Enter your email here">
-                                    <button class="btn btn-default font-heading icon-send-letter">Subscribe</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-12 text-center d-none d-xl-block"><img
-                                src="http://wp.alithemes.com/html/jobbox/demos/assets/imgs/template/newsletter-right.png"
-                                alt="joxBox"></div>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Models\City;
 use App\Models\Company;
+use App\Models\ExperienceYear;
 use App\Models\Job;
 use App\Models\Skill;
 use App\Models\Technology;
@@ -295,6 +296,59 @@ class StatisticService
             ->toArray();
         return $technologyStatistic;
     }
+
+
+
+    //get statistic of salary by experience year of each technology and return object technology, experience year and total, if null return null
+
+    public function getSalaryStatisticByExperienceYear()
+    {
+        $salaryStatisticByExperienceYear = DB::table('job')
+            ->join('technology', 'technology.id', '=', 'job.technology_id')
+            ->join('experience_year', 'experience_year.id', '=', 'job.experience_year_id')
+            ->select('technology.name as technology', 'job.experience_year_id as experience_year', 'experience_year.name as name', DB::raw('avg(job.salary) as total'))
+            ->groupBy('technology', 'experience_year', 'name')
+            ->get()
+            ->toArray();
+
+//        //loop in salaryStatisticByExperienceYear and put all array with same technology in one group
+//        $salaryStatisticByExperienceYearGroup = [];
+//        foreach ($salaryStatisticByExperienceYear as $key => $value) {
+//            $salaryStatisticByExperienceYearGroup[$value->technology][] = $value;
+//        }
+        //get all experience year and return array name of experience year
+           $experienceYear = ExperienceYear::all();
+        $experienceYearName = [];
+        foreach ($experienceYear as $key => $value) {
+            $experienceYearName[] = $value->name;
+        }
+        //loop in $salaryStatisticByExperienceYear and put all array with same technology in one group
+        $salaryStatisticByExperienceYearGroup = [];
+        foreach ($salaryStatisticByExperienceYear as $key => $value) {
+            //find value in experienceYearName not exit in $value.name
+            $notExit = array_diff($experienceYearName, [$value->name]);
+            //create object with name and total = 0 of $notExit and order by experience year
+            $notExitObject = [];
+            foreach ($notExit as $key => $valueNotExit) {
+                $notExitObject[] = (object) [
+                    'technology' => $value->technology,
+                    'experience_year' => $key,
+                    'name' => $valueNotExit,
+                    'total' => 0,
+                ];
+            }
+            //merge $notExitObject and $value
+            $salaryStatisticByExperienceYearGroup[$value->technology] = array_merge($notExitObject, [$value]);
+            //sort salaryStatisticByExperienceYearGroup by this name of object follow by order of $experienceYearName
+            usort($salaryStatisticByExperienceYearGroup[$value->technology], function ($a, $b) use ($experienceYearName) {
+                return array_search($a->name, $experienceYearName) - array_search($b->name, $experienceYearName);
+            });
+
+        }
+
+        return $salaryStatisticByExperienceYearGroup;
+    }
+
 
 
 }

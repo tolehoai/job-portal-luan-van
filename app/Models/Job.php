@@ -26,6 +26,8 @@ class Job extends Model
         'job_type_id',
         'job_level_id',
         'technology_id',
+        'experience_year_id',
+        'other_skill'
     ];
 
     protected $hidden = [];
@@ -65,6 +67,11 @@ class Job extends Model
         return $this->belongsToMany(User::class)->withPivot('file_id')->withPivot('status')->withTimestamps();
     }
 
+    public function experienceYear()
+    {
+        return $this->belongsTo(ExperienceYear::class);
+    }
+
     public function scopeSalary($query, $minSalary, $maxSalary)
     {
         if ($maxSalary == 'max') {
@@ -94,6 +101,18 @@ class Job extends Model
         return $query->whereHas('skill', function ($q) use ($skill) {
             $q->where('skill_id', $skill);
         });
+    }
+
+    //scope for job experience_year_id
+    public function scopeExperience($query, $experienceYearId)
+    {
+        return $query->where('experience_year_id', $experienceYearId);
+    }
+
+    //scope for equal technology_id
+    public function scopeTechnology($query, $technologyId)
+    {
+        return $query->where('technology_id', $technologyId);
     }
 
 

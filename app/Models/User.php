@@ -29,6 +29,7 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'other_skill',
         'verify_code'
     ];
 

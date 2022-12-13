@@ -249,7 +249,7 @@
                                 @if(count($user->skill->all())!=0)
                                     @foreach($user->skill as $skill)
                                         <div class="badge badge-skill p-2 m-1">
-                                            {{$skill->name}}
+                                            {{$skill['name'] ?? $skill}}
                                         </div>
                                     @endforeach
                                 @else
@@ -263,7 +263,8 @@
                                         <select id="skill" name="skills[]" multiple="multiple"
                                                 style="width: 100% !important;">
                                             @foreach($user->skill as $skill)
-                                                <option value="{{$skill->id}}" selected>{{$skill->name}}</option>
+                                                <option value="  {{$skill['id'] ?? $skill}}"
+                                                        selected>  {{$skill['name'] ?? $skill}}</option>
                                             @endforeach
                                             @foreach($skills as $skill)
                                                 <option value="{{$skill->id}}">{{$skill->name}}</option>
@@ -399,6 +400,21 @@
                                                 <a class="my-profile__link updateExperienceBtn" style="cursor: pointer">
                                                     + Chỉnh sửa kinh nghiệm
                                                 </a>
+                                                <form method="POST"
+                                                      action="{{route('user.deleteExperience',[$experience->id, Auth::user()->id])}}"
+                                                      name="deleteExperienceForm"
+                                                      class="deleteExperienceForm d-inline-block"
+                                                >
+                                                    @csrf
+                                                    <button
+                                                        class="btn btn-link d-inline-block deleteExperienceBtn m-0 p-0 ml-2 my-profile__link"
+                                                        style="cursor: pointer; background-color: transparent; text-decoration: none; font-size: 0.8rem"
+                                                        type="submit"
+                                                    >
+                                                        - Xoá kinh nghiệm này
+                                                    </button>
+                                                </form>
+
                                             </div>
                                         </div>
                                         {{-- form --}}
@@ -612,6 +628,19 @@
                                                 <a class="my-profile__link updateEducationBtn" style="cursor: pointer">
                                                     + Chỉnh sửa học vấn
                                                 </a>
+                                                <form method="POST"
+                                                      action="{{route('user.deleteEducation',[$education->id, Auth::user()->id])}}"
+                                                      name="deleteEducationForm" class="d-inline-block"
+                                                >
+                                                    @csrf
+                                                    <button
+                                                        class="btn btn-link d-inline-block deleteEducationBtn m-0 p-0 ml-2 my-profile__link"
+                                                        style="cursor: pointer; background-color: transparent; text-decoration: none; font-size: 0.8rem"
+                                                        type="submit"
+                                                    >
+                                                        - Xoá học vấn này
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                         <form method="POST" action="{{route('user.editEducation',$education->id)}}"
@@ -749,8 +778,8 @@
                                         <b class="pt-3 text-white" style="font-size: 0.9rem">KỸ NĂNG</b>
                                         <p class="text-white mx-1 my-0" style="font-size: 0.9rem">
                                         <ul>
-                                            @foreach($user->skill as $skill)
-                                                <li>{{$skill->name}}</li>
+                                            @foreach($user['skill'] as $skill)
+                                                <li>  {{$skill['name'] ?? $skill}}</li>
                                             @endforeach
                                         </ul>
                                         </p>
@@ -842,9 +871,10 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <form action="{{route( 'user.update')}}" method="POST"
                   enctype="multipart/form-data"
+                  id="editUserInfoForm"
             >
                 <div class="modal-content">
                     <div class="modal-header">
@@ -889,9 +919,9 @@
                             </div>
                             <div class="mt-10">
                                 <label for="title_id">Số điện thoại</label>
-                                <input type="text" name="phone" placeholder="Nhập vào số điện thoại"
+                                <input type="text" name="phone" id="phone" placeholder="Nhập vào số điện thoại"
                                        onfocus="this.placeholder = ''"
-                                       onblur="this.placeholder = 'Nhập vào số điện thoại'" required=""
+                                       onblur="this.placeholder = 'Nhập vào số điện thoại'" required=
                                        class="single-input" value="{{$user->phone}}">
                                 @if($errors->has('phone'))
                                     <div class="alert alert-danger">
@@ -976,6 +1006,48 @@
     <script>
         $(document).ready(function () {
 
+            //when form with id editUserInfoForm submit, check form file validation and file size less than 2MB
+            $('#editUserInfoForm').submit(function (e) {
+                //validation input with id phone as Vietnamese phone number
+                var phone = $('#phone').val();
+                var phoneRegex = /(03|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+                if (!phoneRegex.test(phone)) {
+                    alert('Số điện thoại không hợp lệ');
+                    e.preventDefault();
+                }
+                var fileInput = document.getElementById('formFile');
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    alert('Vui lòng chọn file ảnh');
+                    fileInput.value = '';
+                    return false;
+                } else {
+                    if (fileInput.files[0].size > 2097152) {
+                        alert('Kích thước file ảnh phải nhỏ hơn 2MB');
+                        fileInput.value = '';
+                        return false;
+                    }
+                }
+            });
+
+            //when button with id deleteExperienceBtn click, show delete confirm alert
+            $('.deleteExperienceBtn').click(function () {
+                if (confirm('Bạn có chắc chắn muốn xóa kinh nghiệm này?')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+
+            $('.deleteEducationBtn').click(function () {
+                if (confirm('Bạn có chắc chắn muốn xóa học vấn này?')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+
             $(".educationForm").hide();
 
             $("#addEducationText, #btnEditEducation").click(function () {
@@ -1012,7 +1084,8 @@
 
             $('#skill').select2({
                 placeholder: "Chọn kỹ năng",
-                allowClear: true
+                allowClear: true,
+                tags: true,
             });
 
             $('#title').select2({
@@ -1210,6 +1283,8 @@
             $(".editExperienceForm").hide(500);
             $(".working-experience-item").show(500)
         }
+
+
     </script>
 
 @stop

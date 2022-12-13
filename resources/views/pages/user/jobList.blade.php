@@ -528,8 +528,7 @@
                     <div class="font-sm color-text-paragraph-2 mt-10 wow animate__ animate__fadeInUp animated"
                          data-wow-delay=".1s"
                          style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero repellendus magni, <br
-                            class="d-none d-xl-block">atque delectus molestias quis?
+                        Hiển thị kết quả tìm kiếm công việc
                     </div>
 
                     <div class="form-find text-start mt-40 wow animate__ animate__fadeInUp animated"
@@ -639,6 +638,27 @@
                                                         selected
                                                 @endif
                                             >{{$city->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="small-section-tittle2 pt-80">
+                                    <h4>Số năm kinh nghiệm</h4>
+                                </div>
+                                <!-- Select job items start -->
+                                <div class="select-job-items2">
+                                    <select class="form-select" id="experienceFilter" name="filter[experience]">
+                                        <option value=""
+                                                @if(!$companySearchExperience)
+                                                    selected
+                                            @endif
+                                        >Chọn số năm kinh nghiệm
+                                        </option>
+                                        @foreach($experiences as $experience)
+                                            <option value="{{$experience->id}}"
+                                                    @if($companySearchExperience == $experience->id)
+                                                        selected
+                                                @endif
+                                            >{{$experience->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -805,6 +825,7 @@
             });
             $('#salaryFilter').niceSelect();
             $('#sortJob').niceSelect();
+            $('#experienceFilter').niceSelect();
         })
     </script>
 

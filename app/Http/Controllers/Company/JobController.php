@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Company\CreateCompanyRequest;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
+use App\Models\ExperienceYear;
 use App\Models\Job;
 use App\Models\JobLevel;
 use App\Models\JobType;
@@ -43,7 +44,8 @@ class JobController extends Controller
             'jobTypes' => JobType::get()->toArray(),
             'jobLevels' => JobLevel::get()->toArray(),
             'skills' => Skill::get()->toArray(),
-            'technologies' => Technology::get()
+            'technologies' => Technology::get(),
+            'experienceYear'=>ExperienceYear::get()
         ]);
     }
 
@@ -72,10 +74,15 @@ class JobController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            $skills = $user->skill()->get();
+            //get skill of user and get only name
+            $skills = $user->skill->pluck('name')->toArray();
+            //concat skill of user and other skill
+            if($user->other_skill){
+                $skills = array_merge($skills, json_decode($user->other_skill));
+            }
             $result = [];
             foreach ($skills as $skill) {
-                array_push($result, $skill->id);
+                array_push($result, $skill);
             }
             //sort $result
             sort($result);
@@ -87,6 +94,7 @@ class JobController extends Controller
 
     public function checkSuitableSkill($arr1, $arr2)
     {
+
         //intersection of 2 array
         $result = array_intersect($arr1, $arr2);
         //convert result to string
@@ -100,19 +108,22 @@ class JobController extends Controller
     //show job detail
     public function jobDetail($id)
     {
-        $job = Job::find($id);
+        $job = $this->jobService->getJobInfo($id);
         //return 404 page if not found job
         if (!$job) {
             return abort(404);
         }
-        //find user of this job
-        $users = $job->user()->get();
 
         //find skill of this job and merge this skill into one array
         $skills = $job->skill()->get();
         $skill = [];
         foreach ($skills as $item) {
-            $skill[] = $item->id;
+            $skill[] = $item->name;
+        }
+        //get job other_skill by json_decode
+        //merge $skill with job other_skill if job other_skill is not null
+        if ($job->other_skill) {
+            $skill = array_merge($skill, json_decode($job->other_skill));
         }
         //sort skill array
         sort($skill);
@@ -143,8 +154,19 @@ class JobController extends Controller
             }
         }
         //find user by $suitableUsers list
+        $test = User::find(22);
+        //merge skill of $test with other_skill of $test
 
         $suggestUsers = User::whereIn('id', $suitableUsers)->paginate(10);
+        //find user of this job
+        //get userId of this job
+        $users = $job->user()->get();
+        //loop through $users and get user id
+        foreach ($suggestUsers as $user) {
+            $mergeSkill = array_merge($test->skill->pluck('name')->toArray(), json_decode($test->other_skill));
+            $user->skill = $mergeSkill;
+        }
+
 
         return view('pages/company/jobDetail', [
             'company' => Auth::user(),
@@ -170,6 +192,7 @@ class JobController extends Controller
                 'officeSelect' => 'required',
                 'jobDesc' => 'required',
                 'jobRequirement' => 'required',
+                'jobExperienceYear' => 'required',
             ],
             [
                 'jobName.required' => 'Bạn phải nhập tên công ty',
@@ -182,6 +205,7 @@ class JobController extends Controller
                 'officeSelect.required' => 'Bạn phải chọn văn phòng',
                 'jobDesc.required' => 'Bạn phải nhập mô tả công việc',
                 'jobRequirement.required' => 'Bạn phải nhập yêu cầu công việc',
+                'jobExperienceYear.required' => 'Bạn phải chọn kinh nghiệm',
             ]
         );
         if ($validator->fails()) {
@@ -189,6 +213,15 @@ class JobController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        //filter element not number of request to new array
+        $otherSkills = array_filter($request->skillSelect, function ($value) {
+            return !is_numeric($value);
+        });
+        //get element of request->skills is not exit in $otherSkills
+        $skills = array_diff($request->skillSelect, $otherSkills);
+        //add otherSkill to request
+        $request->request->add(['otherSkill' => $otherSkills]);
+
 
         $job = $this->jobService->store($request);
         if ($job) {
@@ -212,6 +245,10 @@ class JobController extends Controller
                     'error' => 'Không tìm thấy công việc'
                 ]);
             }
+            //get job info
+            $job = $this->jobService->getJobInfo($jobId);
+            //get other_skill of this job and json decode if job have other_skill
+            $otherSkill = $job->other_skill ? json_decode($job->other_skill) : [];
             return view('pages/company/editJob', [
                 'company' => Auth::user(),
                 'job' => $job,
@@ -219,7 +256,9 @@ class JobController extends Controller
                 'jobTypes' => JobType::get(),
                 'jobLevels' => JobLevel::get(),
                 'skills' => Skill::get(),
-                'technologies' => Technology::get()
+                'technologies' => Technology::get(),
+                'experienceYears' => ExperienceYear::get(),
+                'otherSkill' => $otherSkill
             ]);
         }
         $validator = Validator::make(
@@ -254,6 +293,16 @@ class JobController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        //filter element not number of request to new array
+        $otherSkills = array_filter($request->skillSelect, function ($value) {
+            return !is_numeric($value);
+        });
+        //get element of request->skills is not exit in $otherSkills
+        $skills = array_diff($request->skillSelect, $otherSkills);
+        //add otherSkill to request
+        $request->request->add(['otherSkill' => $otherSkills]);
+        //replace skillSelect of request by $skills
+        $request->request->set('skillSelect', $skills);
         $job = $this->jobService->update($request, $jobId);
         if (!$job) {
             return redirect()->route('company.jobList')->with('failed', 'Thất bại! Có lỗi khi cập nhật thông tin')
@@ -358,12 +407,7 @@ class JobController extends Controller
                 'error' => 'Không tìm thấy người dùng'
             ]);
         }
-        $jobUser = User::find($candidateId)->job()->where('job_id', '=', $jobId)->first();
-        if (!$jobUser) {
-            return view('errors.404', [
-                'error' => 'Không tìm thấy người dùng trong công việc'
-            ]);
-        }
+
         //get link for this job
         $this->jobService->sendIntroduceMail($job, $user);
         return redirect()->route('company.jobDetail', $jobId)->with('success', 'Thành công! Email đã được gửi')

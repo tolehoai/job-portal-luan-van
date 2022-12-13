@@ -23,6 +23,8 @@ return new class extends Migration {
             $table->integer('job_type_id');
             $table->integer('job_level_id');
             $table->integer('technology_id');
+            $table->integer('experience_year_id')->default(1);
+            $table->longText('other_skill')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

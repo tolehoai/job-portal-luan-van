@@ -22,8 +22,8 @@ class EducationController
         $education = $this->educationService->store($request, $userId);
         if (!$education) {
             return redirect()->route('user')
-                             ->with('error', 'Cập nhật thông tin thất bại')
-                             ->withInput();
+                ->with('error', 'Cập nhật thông tin thất bại')
+                ->withInput();
         }
 
         return redirect()->route('user')->with('success', 'Cập nhật thông tin thành công')->withInput();
@@ -35,8 +35,20 @@ class EducationController
         $education = $this->educationService->update($request, $educationId);
         if (!$education) {
             return redirect()->route('user')
-                             ->with('error', 'Cập nhật thông tin thất bại')
-                             ->withInput();
+                ->with('error', 'Cập nhật thông tin thất bại')
+                ->withInput();
+        }
+
+        return redirect()->route('user')->with('success', 'Cập nhật thông tin thành công')->withInput();
+    }
+
+    public function deleteEducation(string $educationId, string $userId)
+    {
+        $education = $this->educationService->delete($educationId, $userId);
+        if (!$education) {
+            return redirect()->route('user')
+                ->with('error', 'Cập nhật thông tin thất bại')
+                ->withInput();
         }
 
         return redirect()->route('user')->with('success', 'Cập nhật thông tin thành công')->withInput();

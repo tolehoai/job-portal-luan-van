@@ -13,28 +13,28 @@ class EducationService
 {
     public function store(Request $request, string $userId)
     {
-        $storeRequest               = $request->except('_token');
+        $storeRequest = $request->except('_token');
         $storeRequest['start_date'] = Carbon::parse($storeRequest['start_date'])->format('Y-m-d');
-        $storeRequest['end_date']   = $request->get('end_date') ?
+        $storeRequest['end_date'] = $request->get('end_date') ?
             Carbon::parse($storeRequest['end_date'])->format('Y-m-d') : null;
-        $storeRequest['user_id']    = $userId;
+        $storeRequest['user_id'] = $userId;
         return Education::updateOrCreate($storeRequest);
 
     }
 
     public function update(Request $request, string $educationId)
     {
-        $updateRequest               = $request->except('_token');
-        $updateRequest               = $request->except('_token');
+        $updateRequest = $request->except('_token');
+        $updateRequest = $request->except('_token');
         $updateRequest['start_date'] = Carbon::parse($updateRequest['start_date'])->format('Y-m-d');
-        $updateRequest['end_date']   = $request->get('end_date') ?
+        $updateRequest['end_date'] = $request->get('end_date') ?
             Carbon::parse($updateRequest['end_date'])->format('Y-m-d') : null;
 
         return Education::find(['id' => $educationId])->first()->update($updateRequest);
     }
 
-    public function delete(string $skillId)
+    public function delete(string $educationId, string $userId)
     {
-        return Education::where('id', $skillId)->delete();
+        return Education::where('id', $educationId)->where('user_id', $userId)->delete();
     }
 }

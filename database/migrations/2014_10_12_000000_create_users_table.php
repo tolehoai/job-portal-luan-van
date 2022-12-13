@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->integer('is_verify')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->longText('other_skill')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

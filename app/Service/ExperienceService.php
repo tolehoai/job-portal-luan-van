@@ -33,8 +33,10 @@ class ExperienceService
         return Experience::find(['id' => $experienceId])->first()->update($updateRequest);
     }
 
-    public function delete(string $skillId)
+   //delete experience with experience_id of user_id
+    public function delete(string $experienceId, string $userId)
     {
-        return Skill::where('id', $skillId)->delete();
+        return Experience::where('id', $experienceId)->where('user_id', $userId)->delete();
     }
+
 }
