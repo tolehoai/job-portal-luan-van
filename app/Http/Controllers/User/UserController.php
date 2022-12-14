@@ -214,13 +214,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if (!$user) {
-            return redirect()->route('home.index')
+            return redirect()->back()
                 ->with('error', 'Không tìm thấy thông tin người dùng')
                 ->withInput();
         }
         $user->delete();
 
-        return redirect()->route('home.index')
+        return redirect()->back()
             ->with('success', 'Xóa người dùng thành công')
             ->withInput();
     }

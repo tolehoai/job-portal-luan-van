@@ -47,4 +47,10 @@ Route::get('/jobs', [\App\Http\Controllers\Admin\JobController::class, 'showList
 Route::get('/job/{jobId}', [\App\Http\Controllers\Admin\JobController::class, 'showJobDetail'])->name('job.detail');
 
 Route::get('/companies', [\App\Http\Controllers\Admin\CompanyController::class, 'showCompanyList'])->name('companies');
+//user accept offer
+Route::get('/acceptOffer/{jobId}/{userId}/{access_token}', [\App\Http\Controllers\Company\JobController::class, 'acceptOffer'])
+    ->name('user.offer.accept');
+//user reject offer
+Route::get('/rejectOffer/{jobId}/{userId}/{access_token}', [\App\Http\Controllers\Company\JobController::class, 'rejectOffer'])
+    ->name('user.offer.reject');
 

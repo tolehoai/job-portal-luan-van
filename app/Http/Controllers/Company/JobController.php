@@ -51,10 +51,10 @@ class JobController extends Controller
 
     public function showJobList()
     {
-
         return view('pages/company/jobList', [
             'company' => Auth::user(),
-            'jobs' => Job::where('company_id', Auth::user()->id)->paginate(10)
+            //get job list of company with paginate and sort by id desc without service
+            'jobs' => Job::where('company_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(10),
         ]);
     }
 
@@ -360,7 +360,12 @@ class JobController extends Controller
         }
         //send offer mail if request status is Chờ phản hồi
         if ($request->status == 'Chờ phản hồi') {
-            $this->jobService->sendOfferMail($job, $user, $request->offer_salary, $request->offer_start_date);
+            //get access_token in pivot table user_job of this user with user_id and job_id
+            $accessToken = $jobUser->pivot->access_token;
+            //url encode access_token
+            $accessToken = urlencode($accessToken);
+
+            $this->jobService->sendOfferMail($job, $user, $request->offer_salary, $request->offer_start_date, $accessToken);
         }
         //send thank you mail if request status is Từ chối offer
         if ($request->status == 'Từ chối offer') {
@@ -448,4 +453,69 @@ class JobController extends Controller
         ]);
     }
 
+    public function acceptOffer(string $jobId, string $userId, string $access_token){
+        $job = Job::where('id', '=', $jobId)->first();
+        if (!$job) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy công việc'
+            ]);
+        }
+        $user = User::where('id', '=', $userId)->first();
+        if (!$user) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng'
+            ]);
+        }
+        $jobUser = User::find($userId)->job()->where('job_id', '=', $jobId)->first();
+        if (!$jobUser) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng trong công việc'
+            ]);
+        }
+        //check $access_token with access_token in pivot table user_job, if not match, return 404, else update status
+        //decode access_token
+        $accessToken = urldecode($access_token);
+        if($access_token != $jobUser->pivot->access_token){
+            return view('errors.404', [
+                'error' => 'Không tìm thấy trang'
+            ]);
+        }
+        $jobUser->pivot->status = 'Chấp nhận offer';
+        $jobUser->pivot->updated_at = Carbon::now();
+        $jobUser->pivot->save();
+        return redirect()->route('user.job', $jobId)->with('success', 'Thành công! Trạng thái đã được thay đổi')
+            ->withInput();
+    }
+
+    public function rejectOffer(string $jobId, string $userId, string $access_token){
+        $job = Job::where('id', '=', $jobId)->first();
+        if (!$job) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy công việc'
+            ]);
+        }
+        $user = User::where('id', '=', $userId)->first();
+        if (!$user) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng'
+            ]);
+        }
+        $jobUser = User::find($userId)->job()->where('job_id', '=', $jobId)->first();
+        if (!$jobUser) {
+            return view('errors.404', [
+                'error' => 'Không tìm thấy người dùng trong công việc'
+            ]);
+        }
+        //check $access_token with access_token in pivot table user_job, if not match, return 404, else update status
+        if($access_token != $jobUser->pivot->access_token){
+            return view('errors.404', [
+                'error' => 'Không tìm thấy trang'
+            ]);
+        }
+        $jobUser->pivot->status = 'Từ chối offer';
+        $jobUser->pivot->updated_at = Carbon::now();
+        $jobUser->pivot->save();
+        return redirect()->route('user.job', $jobId)->with('success', 'Thành công! Trạng thái đã được thay đổi')
+            ->withInput();
+    }
 }

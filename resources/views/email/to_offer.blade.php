@@ -12,6 +12,8 @@
 
 <p>Bạn vui lòng phản hồi lại quyết định của mình trước ngày {{$startDate}}. Nếu bạn không phản hồi lại, chúng tôi sẽ
     coi như bạn từ chối vị trí này.</p>
+<p>Để chấp nhận bạn có thể bấm vào đường link này <a href="{{$acceptOfferLink}}">Chấp nhận Offer</a></p>
+<p>Để từ chối bạn có thể bấm vào đường link này <a href="{{$rejectOfferLink}}">Từ chối Offer</a></p>
 
 <p>Trong thời gian từ nay đến khi bạn đưa ra quyết định của mình, nếu bạn có bất kỳ câu hỏi gì bạn có thể liên lạc tôi
     để được giải đáp.</p>

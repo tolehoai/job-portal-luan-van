@@ -17,7 +17,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 grid-margin stretch-card">
+                <div class="col-md-5 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="border-bottom text-center pb-4">
@@ -57,14 +57,30 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 grid-margin stretch-card">
+                <div class="col-md-7 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">
+                            <h4 class="card-title" id="jobChartTitle">
                                 Số lượng công việc mới trong tuần
                             </h4>
+                            <div class="row">
+                                <div class="col-md-12 d-flex flex-column">
+                                    <label>Chọn loại biểu đồ</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Chọn loại biểu đồ
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" id="jobByWeek" style="cursor: pointer">Theo ngày</a>
+                                            <a class="dropdown-item" id="jobByMonth" style="cursor: pointer">Theo tháng</a>
+                                            <a class="dropdown-item" id="jobByWeekAndMonth" style="cursor: pointer">Tất cả</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div>
                                 <canvas id="myJobChart"></canvas>
+                                <canvas id="myJobChartMonth"></canvas>
                             </div>
                         </div>
                     </div>
@@ -139,7 +155,7 @@
         var dataSkillConvert = JSON.parse(dataSkillConvert);
         const skillChart = document.getElementById('mySkillChart');
         new Chart(skillChart, {
-            type: 'bar',
+            type: 'pie',
             data: {
                 labels: labelSkillConvert,
                 datasets: [{
@@ -206,11 +222,11 @@
         console.log(labelJobConvert, dataJobConvert);
         const candidateStatusChart = document.getElementById('myCandidateStatusChart');
         new Chart(candidateStatusChart, {
-            type: 'polarArea',
+            type: 'bar',
             data: {
                 labels: labelCandidateStatusConvert,
                 datasets: [{
-                    label: 'Số lượng công việc mới trong tuần',
+                    label: 'Trạng Thái Của Ứng Cử Viên',
                     data: dataCandidateConvert,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -286,7 +302,7 @@
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
-                        'rgba(201, 203, 207, 0.2)'
+                        'rgba(61,196,255, 0.2)'
                     ],
                     borderColor: [
                         'rgb(255, 99, 132)',
@@ -295,7 +311,7 @@
                         'rgb(75, 192, 192)',
                         'rgb(54, 162, 235)',
                         'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
+                        'rgb(61,196,255)'
                     ],
                 }],
 
@@ -323,6 +339,92 @@
                 }
             }
 
+        });
+
+        //job chart
+        var labelJobMonthConvert = '{!! json_encode($jobChartDataInMonth['labels']) !!}';
+        var labelJobMonthConvert = JSON.parse(labelJobMonthConvert);
+        var dataJobMonthConvert = '{!! json_encode($jobChartDataInMonth['data']) !!}';
+        var dataJobMonthConvert = JSON.parse(dataJobMonthConvert);
+        console.log(labelJobConvert, dataJobConvert);
+        const jobChartMonth = document.getElementById('myJobChartMonth');
+        new Chart(jobChartMonth, {
+            type: 'bar',
+            data: {
+                labels: labelJobMonthConvert,
+                datasets: [{
+                    label: 'Số lượng công việc mới trong tháng',
+                    data: dataJobMonthConvert,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(61,196,255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(61,196,255)'
+                    ],
+                }],
+
+            },
+            //display label and number of each status at the top of this chart
+            options: {
+                plugins: {
+                    datalabels: {
+                        display: true,
+                        color: 'white',
+                        font: {
+                            weight: 'bold'
+                        },
+                        formatter: function (value, context) {
+                            return context.chart.data.labels[context.dataIndex] + ' ' + value;
+                        }
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+
+        });
+
+        //hide chart with id myJobChartMonth
+        $('#myJobChartMonth').hide();
+
+        //when click on element with id jobByWeek, it will show the chart with id myJobChart and hide the chart with id myJobChartMonth with animation
+
+        $('#jobByWeek').click(function () {
+            $('#myJobChart').show();
+            $('#myJobChartMonth').hide();
+            //change title of element with id jobChartTitle is 'Số lượng công việc mới trong tuần'
+            $('#jobChartTitle').text('Số lượng công việc mới trong tuần');
+        });
+        //when click on option with id jobByMonth, it will show the chart with id myJobChartMonth and hide the chart with id myJobChart
+        $('#jobByMonth').click(function () {
+            $('#myJobChartMonth').show();
+            $('#myJobChart').hide();
+            //change title of element with id jobChartTitle is 'Số lượng công việc mới trong tháng'
+            $('#jobChartTitle').text('Số lượng công việc mới trong tháng');
+        });
+        //when click on element with id jobByWeekAndMonth, it will show the chart with id myJobChart and the chart with id myJobChartMonth
+        $('#jobByWeekAndMonth').click(function () {
+            $('#myJobChartMonth').show();
+            $('#myJobChart').show();
+            //change title of element with id jobChartTitle is 'Số lượng công việc mới trong tuần và tháng'
+            $('#jobChartTitle').text('Số lượng công việc mới trong tuần và tháng');
         });
     </script>
 

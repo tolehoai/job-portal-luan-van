@@ -83,6 +83,8 @@ class JobService
                     Auth::id() => ['company_id' => $companyId]
                 ], false);
         }
+        //create access_token without dot and store in job_user table
+        $job->user()->updateExistingPivot(Auth::id(), ['access_token' => str_replace('.', '', Hash::make(Auth::id()))]);
 
         return $job;
     }
@@ -102,9 +104,9 @@ class JobService
     }
 
     //send offer mail to user with job infomation
-    public function sendOfferMail($job, $user, $salary, $startDate)
+    public function sendOfferMail($job, $user, $salary, $startDate, $access_token)
     {
-        Mail::to($user->email)->queue(new OfferMail($job, $user, $salary, $startDate));
+        Mail::to($user->email)->queue(new OfferMail($job, $user, $salary, $startDate, $access_token));
     }
 
     //send sendThankyouMailForRejectOffer to user
@@ -181,7 +183,17 @@ class JobService
         $jobSkill = array_merge($jobSkill, $otherSkill);
 
         $job->skill = $jobSkill;
-//        dd($user->skill);
+
         return $job;
+    }
+
+    public function getJobListOfCandidate($candidateId)
+    {
+        $jobUser = Job::whereHas('user', function ($query) use ($candidateId) {
+            $query->where('user_id', $candidateId);
+        })->with(['user' => function ($query) use ($candidateId) {
+            $query->where('user_id', $candidateId);
+        }])->get();
+        return $jobUser;
     }
 }

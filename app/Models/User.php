@@ -91,7 +91,7 @@ class User extends Authenticatable
 
     public function job()
     {
-        return $this->belongsToMany(Job::class)->withPivot('file_id')->withPivot('status')->withTimestamps();
+        return $this->belongsToMany(Job::class)->withPivot('file_id')->withPivot(['status', 'access_token'])->withTimestamps();
     }
 
     public function rating()

@@ -35,20 +35,21 @@ class CompanyController extends Controller
     public function index()
     {
         //get candidate statistic information: company. job, user, skill, technology, city
-        $jobStatistic = $this->statisticService->getJobStatisticByDate(Auth::id());
+        $jobStatistic = $this->statisticService->getJobStatistic(Auth::id());
+        $jobStatisticInMonth = $this->statisticService->getJobStatisticInMonth(Auth::id());
         $candidateStatistic = $this->statisticService->getCandidateStatisticByStatus(Auth::id());
         $skillStatistic = $this->statisticService->getSkillStatisticByCompany(Auth::id());
-
         $jobChartData = $this->statisticService->prepareDataForChart($jobStatistic);
+        $jobChartDataInMonth = $this->statisticService->prepareDataForChart($jobStatisticInMonth);
         $candidateChartData = $this->statisticService->prepareDataForChart($candidateStatistic);
         $skillChartData = $this->statisticService->prepareDataForChart($skillStatistic);
 
         //get company statistic information
         $companyStatistic = $this->statisticService->getCompanyStatistic(Auth::id());
-
         return view('company/dashboard/index', [
             'company' => Auth::user(),
             'jobChartData' => $jobChartData,
+            'jobChartDataInMonth' => $jobChartDataInMonth,
             'candidateChartData' => $candidateChartData,
             'skillChartData' => $skillChartData,
             'companyStatistic' => $companyStatistic,

@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     //user rating company
     Route::post('/ratingCompany/{companyId}', [\App\Http\Controllers\Company\CompanyController::class, 'ratingCompany'])
         ->name('user.rating');
+
 });
 
 

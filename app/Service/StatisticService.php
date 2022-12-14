@@ -9,6 +9,7 @@ use App\Models\Job;
 use App\Models\Skill;
 use App\Models\Technology;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class StatisticService
@@ -204,7 +205,7 @@ class StatisticService
         //get total job of this company
         $totalJob = Job::where('company_id', $companyId)->count();
         //get total candidate of this company
-        $totalCandidate =  $totalJobPending = DB::table('job_user')
+        $totalCandidate = $totalJobPending = DB::table('job_user')
             ->where('company_id', $companyId)
             ->get()
             ->count();
@@ -257,17 +258,86 @@ class StatisticService
         ];
     }
 
-    //get statistic of job in this company by 7 day around and return object of date and total
-    public function getJobStatisticByDate($id)
+    //get statistic of job in this company by 7 day around and return object of date and total if date is not exist, total = 0
+    public function getJobStatistic(string $companyId)
     {
-        $jobStatisticByDate = DB::table('job')
-            ->select(DB::raw('DATE(created_at) as status'), DB::raw('count(*) as total'))
-            ->where('company_id', $id)
+        $jobStatistic = DB::table('job_user')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->where('company_id', $companyId)
             ->where('created_at', '>=', now()->subDays(7))
-            ->groupBy('status')
+            ->groupBy('date')
             ->get()
             ->toArray();
-        return $jobStatisticByDate;
+
+        return $this->getJobStatisticByDate($jobStatistic);
+    }
+
+
+    //get statistic of job in this company by 7 day around and return object of date and total if date is not exist, total = 0
+    public function getJobStatisticByDate($jobStatistic)
+    {
+        $jobStatisticByDate = [];
+        $date = [];
+        $total = [];
+        foreach ($jobStatistic as $item) {
+            $date[] = $item->date;
+            $total[] = $item->total;
+        }
+        for ($i = 0; $i < 7; $i++) {
+            $date7day = now()->subDays($i)->format('Y-m-d');
+            if (in_array($date7day, $date)) {
+                $jobStatisticByDate[] = [
+                    'date' => $date7day,
+                    'total' => $total[array_search($date7day, $date)]
+                ];
+            } else {
+                $jobStatisticByDate[] = [
+                    'date' => $date7day,
+                    'total' => 0
+                ];
+            }
+        }
+        //convert date of $jobStatisticByDate to d-m-Y sort jobStatistic by date asc
+        foreach ($jobStatisticByDate as $key => $row) {
+            $date[$key] = $row['date'];
+        }
+        array_multisort($date, SORT_ASC, $jobStatisticByDate);
+
+        //convert date of $jobStatisticByDate to d-m-Y
+        foreach ($jobStatisticByDate as $key => $item) {
+            $jobStatisticByDate[$key]['status'] = Carbon::parse($item['date'])->format('d-m-Y');
+        }
+        return json_decode(json_encode($jobStatisticByDate));
+    }
+
+    public function getJobStatisticInMonth(string $companyId)
+
+    {
+        $jobStatistic = DB::table('job_user')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->where('company_id', $companyId)
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->get()
+            ->toArray();
+
+        $jobStatisticByMonth = [];
+        $date = now()->subDays(30);
+        for ($i = 0; $i < 30; $i++) {
+            $jobStatisticByMonth[$i]['status'] = $date->format('Y-m-d');
+            $jobStatisticByMonth[$i]['total'] = 0;
+            foreach ($jobStatistic as $item) {
+                if ($item->date == $date->format('Y-m-d')) {
+                    $jobStatisticByMonth[$i]['total'] = $item->total;
+                }
+            }
+            $date->addDay();
+        }
+        //format date of $jobStatisticByMonth to d-m-Y
+        foreach ($jobStatisticByMonth as $key => $item) {
+            $jobStatisticByMonth[$key]['status'] = Carbon::parse($item['status'])->format('d-m-Y');
+        }
+        return json_decode(json_encode($jobStatisticByMonth));
     }
 
 
@@ -298,7 +368,6 @@ class StatisticService
     }
 
 
-
     //get statistic of salary by experience year of each technology and return object technology, experience year and total, if null return null
 
     public function getSalaryStatisticByExperienceYear()
@@ -310,45 +379,50 @@ class StatisticService
             ->groupBy('technology', 'experience_year', 'name')
             ->get()
             ->toArray();
-
-//        //loop in salaryStatisticByExperienceYear and put all array with same technology in one group
-//        $salaryStatisticByExperienceYearGroup = [];
-//        foreach ($salaryStatisticByExperienceYear as $key => $value) {
-//            $salaryStatisticByExperienceYearGroup[$value->technology][] = $value;
-//        }
         //get all experience year and return array name of experience year
-           $experienceYear = ExperienceYear::all();
+        $experienceYear = ExperienceYear::all();
         $experienceYearName = [];
         foreach ($experienceYear as $key => $value) {
             $experienceYearName[] = $value->name;
         }
-        //loop in $salaryStatisticByExperienceYear and put all array with same technology in one group
-        $salaryStatisticByExperienceYearGroup = [];
-        foreach ($salaryStatisticByExperienceYear as $key => $value) {
-            //find value in experienceYearName not exit in $value.name
-            $notExit = array_diff($experienceYearName, [$value->name]);
-            //create object with name and total = 0 of $notExit and order by experience year
-            $notExitObject = [];
-            foreach ($notExit as $key => $valueNotExit) {
-                $notExitObject[] = (object) [
-                    'technology' => $value->technology,
-                    'experience_year' => $key,
-                    'name' => $valueNotExit,
-                    'total' => 0,
-                ];
-            }
-            //merge $notExitObject and $value
-            $salaryStatisticByExperienceYearGroup[$value->technology] = array_merge($notExitObject, [$value]);
-            //sort salaryStatisticByExperienceYearGroup by this name of object follow by order of $experienceYearName
-            usort($salaryStatisticByExperienceYearGroup[$value->technology], function ($a, $b) use ($experienceYearName) {
-                return array_search($a->name, $experienceYearName) - array_search($b->name, $experienceYearName);
-            });
 
+        //get all technology and return array name of technology
+        $technology = Technology::all();
+        $technologyName = [];
+        foreach ($technology as $key => $value) {
+            $technologyName[] = $value->name;
         }
-
-        return $salaryStatisticByExperienceYearGroup;
+        //each technologyName, create array with key is technology name and value is array of experience year name
+        $salaryStatisticByExperienceYearByTechnology = [];
+        foreach ($technologyName as $key => $value) {
+            $salaryStatisticByExperienceYearByTechnology[$value] = $experienceYearName;
+        }
+        //each technologyName, create array with key is technology name and value is array of experience year name and total = 0
+        $salaryStatisticByExperienceYearByTechnologyTotal = [];
+        //get average salary of each technology and experience year
+        foreach ($salaryStatisticByExperienceYear as $key => $value) {
+            $salaryStatisticByExperienceYearByTechnologyTotal[$value->technology][$value->experience_year] = $value->total;
+        }
+        //get average salary of each technology and experience year and if null return 0
+        foreach ($salaryStatisticByExperienceYearByTechnology as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                if (!isset($salaryStatisticByExperienceYearByTechnologyTotal[$key][$key1])) {
+                    $salaryStatisticByExperienceYearByTechnologyTotal[$key][$key1] = 0;
+                }
+            }
+        }
+       //map array of salaryStatisticByExperienceYearByTechnologyTotal with each value add key name is $experienceYearName
+        $salaryStatisticByExperienceYearByTechnologyTotal = array_map(function ($item) use ($experienceYearName) {
+            return array_combine($experienceYearName, $item);
+        }, $salaryStatisticByExperienceYearByTechnologyTotal);
+        //map array of value of salaryStatisticByExperienceYearByTechnologyTotal to object with name experience year total is total
+        $salaryStatisticByExperienceYearByTechnologyTotal = array_map(function ($item) {
+            return array_map(function ($value, $key) {
+                return (object)['experience_year' => $key, 'total' => $value];
+            }, $item, array_keys($item));
+        }, $salaryStatisticByExperienceYearByTechnologyTotal);
+        return $salaryStatisticByExperienceYearByTechnologyTotal;
     }
-
 
 
 }

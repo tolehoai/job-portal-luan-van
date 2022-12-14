@@ -19,14 +19,16 @@ class OfferMail extends Mailable
     private User $user;
     private string $salary;
     private string $startDate;
+    protected string $access_token;
 
 
-    public function __construct(Job $job, User $user, string $salary, string $startDate)
+    public function __construct(Job $job, User $user, string $salary, string $startDate, string $access_token)
     {
         $this->job = $job;
         $this->user = $user;
         $this->salary = $salary;
         $this->startDate = $startDate;
+        $this->access_token = $access_token;
     }
 
 
@@ -38,6 +40,10 @@ class OfferMail extends Mailable
     public function build()
     {
         $companyName = $this->job->company()->first()->name;
+        //genrate accept offer link
+        $acceptOfferLink = route('user.offer.accept', ['jobId' => $this->job->id, 'userId' => $this->user->id, 'access_token' => $this->access_token]);
+        //genrate reject offer link
+        $rejectOfferLink = route('user.offer.reject', ['jobId' => $this->job->id, 'userId' => $this->user->id, 'access_token' => $this->access_token]);
         return $this
             ->subject('CONGRATULATIONS from ' . $companyName . ' - ' . $this->user->name)
             ->view('email.to_offer')
@@ -47,7 +53,9 @@ class OfferMail extends Mailable
                     'user_name' => $this->user->name,
                     'salary' => $this->salary,
                     'startDate' => $this->startDate,
-                    'companyName' => $companyName
+                    'companyName' => $companyName,
+                    'acceptOfferLink' => $acceptOfferLink,
+                    'rejectOfferLink' => $rejectOfferLink,
                 ]
             );
     }
