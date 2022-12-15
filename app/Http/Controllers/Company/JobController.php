@@ -45,7 +45,7 @@ class JobController extends Controller
             'jobLevels' => JobLevel::get()->toArray(),
             'skills' => Skill::get()->toArray(),
             'technologies' => Technology::get(),
-            'experienceYear'=>ExperienceYear::get()
+            'experienceYear' => ExperienceYear::get()
         ]);
     }
 
@@ -77,7 +77,7 @@ class JobController extends Controller
             //get skill of user and get only name
             $skills = $user->skill->pluck('name')->toArray();
             //concat skill of user and other skill
-            if($user->other_skill){
+            if ($user->other_skill) {
                 $skills = array_merge($skills, json_decode($user->other_skill));
             }
             $result = [];
@@ -356,7 +356,7 @@ class JobController extends Controller
 
         //Send interview mail if request status is Đang phỏng vấn
         if ($request->status == 'Đang phỏng vấn') {
-            $this->jobService->sendInvitationMail($job, $user, $request->interview_datetime, $request->interview_address);
+            $this->jobService->sendInvitationMail($job, $user, $request->interview_datetime, $request->interview_address, $request->office_address);
         }
         //send offer mail if request status is Chờ phản hồi
         if ($request->status == 'Chờ phản hồi') {
@@ -453,7 +453,8 @@ class JobController extends Controller
         ]);
     }
 
-    public function acceptOffer(string $jobId, string $userId, string $access_token){
+    public function acceptOffer(string $jobId, string $userId, string $access_token)
+    {
         $job = Job::where('id', '=', $jobId)->first();
         if (!$job) {
             return view('errors.404', [
@@ -475,7 +476,7 @@ class JobController extends Controller
         //check $access_token with access_token in pivot table user_job, if not match, return 404, else update status
         //decode access_token
         $accessToken = urldecode($access_token);
-        if($access_token != $jobUser->pivot->access_token){
+        if ($access_token != $jobUser->pivot->access_token) {
             return view('errors.404', [
                 'error' => 'Không tìm thấy trang'
             ]);
@@ -483,11 +484,17 @@ class JobController extends Controller
         $jobUser->pivot->status = 'Chấp nhận offer';
         $jobUser->pivot->updated_at = Carbon::now();
         $jobUser->pivot->save();
-        return redirect()->route('user.job', $jobId)->with('success', 'Thành công! Trạng thái đã được thay đổi')
+        //check if user accept this before, if yes return with message
+        if ($jobUser->pivot->status == 'Chấp nhận offer') {
+            return redirect()->route('home.index')->with('success', 'Bạn đã chấp nhận offer trước đó')
+                ->withInput();
+        }
+        return redirect()->route('home.index')->with('success', 'Bạn đã chấp nhận offer')
             ->withInput();
     }
 
-    public function rejectOffer(string $jobId, string $userId, string $access_token){
+    public function rejectOffer(string $jobId, string $userId, string $access_token)
+    {
         $job = Job::where('id', '=', $jobId)->first();
         if (!$job) {
             return view('errors.404', [
@@ -506,8 +513,12 @@ class JobController extends Controller
                 'error' => 'Không tìm thấy người dùng trong công việc'
             ]);
         }
+        if ($jobUser->pivot->status == 'Chấp nhận offer') {
+            return redirect()->route('home.index')->with('error', 'Bạn đã chấp nhận offer trước đó, vui lòng liên hệ trực tiếp với công ty!')
+                ->withInput();
+        }
         //check $access_token with access_token in pivot table user_job, if not match, return 404, else update status
-        if($access_token != $jobUser->pivot->access_token){
+        if ($access_token != $jobUser->pivot->access_token) {
             return view('errors.404', [
                 'error' => 'Không tìm thấy trang'
             ]);
@@ -515,7 +526,9 @@ class JobController extends Controller
         $jobUser->pivot->status = 'Từ chối offer';
         $jobUser->pivot->updated_at = Carbon::now();
         $jobUser->pivot->save();
-        return redirect()->route('user.job', $jobId)->with('success', 'Thành công! Trạng thái đã được thay đổi')
+        $this->jobService->sendThankyouMailForRejectOffer($user);
+        //redirect to url http://127.0.0.1:8000/user/job/processed
+        return redirect()->route('home.index', 'processed')->with('error', 'Bạn đã từ chối offer cho công việc này')
             ->withInput();
     }
 }

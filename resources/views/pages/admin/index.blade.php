@@ -128,8 +128,12 @@
                                         <div class="card-header">
                                             <h4>Biểu đồ tổng quan ứng cử viên mới trong hệ thống</h4>
                                         </div>
+
                                         <div class="card-body">
                                             <canvas id="myChart"></canvas>
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="myChartMonth"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -354,6 +358,8 @@
     <script>
         $(function () {
             // your custom javascript
+
+
             var labelConvert = '{!! json_encode($statistic['jobUserStatusChart']['labels']) !!}';
             var labelConvert = JSON.parse(labelConvert);
             var dataConvert = '{!! json_encode($statistic['jobUserStatusChart']['data']) !!}';
@@ -362,6 +368,10 @@
             var labelConvertUser = JSON.parse(labelConvertUser);
             var dataConvertUser = '{!! json_encode($userChartData['data']) !!}';
             var dataConvertUser = JSON.parse(dataConvertUser);
+            var labelConvertUserMonth = '{!! json_encode($userChartDataInMonth['labels']) !!}';
+            var labelConvertUserMonth = JSON.parse(labelConvertUserMonth);
+            var dataConvertUserMonth = '{!! json_encode($userChartDataInMonth['data']) !!}';
+            var dataConvertUserMonth = JSON.parse(dataConvertUserMonth);
             var labelTechnogolyConvert = '{!! json_encode($technologyChartData['labels']) !!}';
             var labelTechnogolyConvert = JSON.parse(labelTechnogolyConvert);
             var dataTechnologyConvert = '{!! json_encode($technologyChartData['data']) !!}';
@@ -526,14 +536,70 @@
                 }
 
             });
+            //user chart
             const ctx = document.getElementById('myChart');
             new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labelConvertUser,
                     datasets: [{
-                        label: 'Số lượng ứng cử viên đăng ký tài khoản trên hệ thống',
+                        label: 'Số lượng ứng cử viên đăng ký tài khoản trên hệ thống trong tuần',
                         data: dataConvertUser,
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                    }],
+
+                },
+                //display label and number of each status at the top of this chart
+                options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex] + ' ' + value;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+
+            });
+            //user chart in month
+            const userChartMonth = document.getElementById('myChartMonth');
+            new Chart(userChartMonth, {
+                type: 'bar',
+                data: {
+                    labels: labelConvertUserMonth,
+                    datasets: [{
+                        label: 'Số lượng ứng cử viên đăng ký tài khoản trên hệ thống trong tháng',
+                        data: dataConvertUserMonth,
                         borderWidth: 1,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',

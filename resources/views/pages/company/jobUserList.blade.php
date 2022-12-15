@@ -213,12 +213,24 @@
                                                                                 <input type="text" class="form-control"
                                                                                        id="interview_datetime"
                                                                                        name="interview_datetime"
-
+required
                                                                                        placeholder="Nhập vào ngày phỏng vấn">
                                                                                 <input type="hidden" name="status"
                                                                                        value="Đang phỏng vấn">
                                                                             </div>
+                                                                            <!-- Default switch -->
                                                                             <div class="form-group">
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" value=""
+                                                                                           id="interviewType"
+                                                                                            checked
+                                                                                    >
+                                                                                    <label for="interviewType">
+                                                                                        Phỏng vấn online / offline
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group" id="interviewOnline">
                                                                                 <label
                                                                                     for="exampleInputPassword1">Link
                                                                                     phỏng
@@ -228,6 +240,16 @@
                                                                                        name="interview_address"
 
                                                                                        placeholder="Nhập vào đường link phỏng vấn online">
+                                                                            </div>
+                                                                            <div class="form-group" id="interviewOffline">
+                                                                                <label
+                                                                                    for="exampleInputPassword1">Địa điểm
+                                                                                    phỏng vấn</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       id="office_address"
+                                                                                       name="office_address"
+                                                                                       value="{{$company->address}}"
+                                                                                       placeholder="Nhập vào địa chỉ công ty">
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
@@ -294,6 +316,16 @@
     <script>
         //your js code here
         $(document).ready(function () {
+            $('#interviewOffline').hide();
+            $('#interviewType').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#interviewOnline').show();
+                    $('#interviewOffline').hide();
+                } else {
+                    $('#interviewOnline').hide();
+                    $('#interviewOffline').show();
+                }
+            });
         });
     </script>
 

@@ -42,8 +42,11 @@ class DashboardController extends Controller
         $salaryExperienceYearColor = ['#ee6b6e', '#f94449','#f01e2c','#de0a26','#c30010'];
         //get total user by created_at
         $userStatistic = $this->statisticService->getTotalUser7DayAround();
+        //get userStatistic by created_at in month
+        $userStatisticMonth = $this->statisticService->getTotalUserMonthAround();
         //map $userStatistic to chart data
         $userChartData = $this->statisticService->prepareDataForChart($userStatistic);
+        $userChartDataInMonth = $this->statisticService->prepareDataForChart($userStatisticMonth);
         $technologyChartData = $this->statisticService->prepareDataForChart($topTechnologies);
         $skillChartData = $this->statisticService->prepareDataForChart($topSkills);
         $cityChartData = $this->statisticService->prepareDataForChart($topCities);
@@ -58,6 +61,7 @@ class DashboardController extends Controller
             'topCompanyRating' => $topCompanyRating,
             'userStatistic' => $userStatistic,
             'userChartData' => $userChartData,
+            'userChartDataInMonth' => $userChartDataInMonth,
             'technologyChartData' => $technologyChartData,
             'skillChartData' => $skillChartData,
             'cityChartData' => $cityChartData,

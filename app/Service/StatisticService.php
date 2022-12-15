@@ -199,6 +199,37 @@ class StatisticService
         return $user7day;
     }
 
+    public function getTotalUserMonthAround()
+    {
+        $userMonth = DB::table('users')
+            ->select(DB::raw('DATE(created_at) as status'), DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupBy('status')
+            ->get()
+            ->toArray();
+
+        //map $userMonth data with 30 day ago
+        return $this->mapDataWith30DayAgo($userMonth);
+    }
+
+    public function mapDataWith30DayAgo($data)
+    {
+        $dataMap = [];
+        $date = now()->subDays(30);
+        for ($i = 0; $i < 30; $i++) {
+            $dataMap[$i]['status'] = $date->format('Y-m-d');
+            $dataMap[$i]['total'] = 0;
+            foreach ($data as $item) {
+                if ($item->status == $date->format('Y-m-d')) {
+                    $dataMap[$i]['total'] = $item->total;
+                }
+            }
+            $date->addDay();
+        }
+        //convert array to object and return
+        return json_decode(json_encode($dataMap));
+    }
+
 
     public function getCompanyStatistic(string $companyId)
     {
@@ -411,7 +442,7 @@ class StatisticService
                 }
             }
         }
-       //map array of salaryStatisticByExperienceYearByTechnologyTotal with each value add key name is $experienceYearName
+        //map array of salaryStatisticByExperienceYearByTechnologyTotal with each value add key name is $experienceYearName
         $salaryStatisticByExperienceYearByTechnologyTotal = array_map(function ($item) use ($experienceYearName) {
             return array_combine($experienceYearName, $item);
         }, $salaryStatisticByExperienceYearByTechnologyTotal);

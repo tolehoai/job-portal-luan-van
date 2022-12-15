@@ -18,15 +18,17 @@ class InterviewMail extends Mailable
     private Job $job;
     private User $user;
     private string $interviewDateTime;
-    private string $interviewAddress;
+    private $interviewAddress;
+    private $officeAddress;
 
 
-    public function __construct(Job $job, User $user, string $interviewDateTime, string $interviewAddress)
+    public function __construct(Job $job, User $user, string $interviewDateTime, $interviewAddress, $officeAddress)
     {
         $this->job = $job;
         $this->user = $user;
         $this->interviewDateTime = $interviewDateTime;
         $this->interviewAddress = $interviewAddress;
+        $this->officeAddress = $officeAddress;
     }
 
     /**
@@ -45,7 +47,8 @@ class InterviewMail extends Mailable
                     "job_title" => $this->job->title,
                     "company_name" => $this->job->company()->first()->name,
                     "interview_date_time" => $this->interviewDateTime,
-                    "interview_address" => $this->interviewAddress
+                    "interview_address" => $this->interviewAddress,
+                    "office_address" => $this->officeAddress,
                 ]
             );
     }

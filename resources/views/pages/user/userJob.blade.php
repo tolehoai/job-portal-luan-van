@@ -197,8 +197,7 @@
                                                                     </div>
                                                                     <div class="right-info">
                                                                         <p class="name-job">{{$job->company->name}}</p>
-                                                                        <span
-                                                                            class="location-small">{{$job->company->country->country_name}}</span>
+                                                                        <span>{{$job->company->country->country_name}}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>

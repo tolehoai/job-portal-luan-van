@@ -98,9 +98,9 @@ class JobService
     }
 
     //send invitation mail to user with job information
-    public function sendInvitationMail($job, $user, $interviewDateTime, $interviewAddress)
+    public function sendInvitationMail($job, $user, $interviewDateTime, $interviewAddress, $officeAddress)
     {
-        Mail::to($user->email)->queue(new InterviewMail($job, $user, $interviewDateTime, $interviewAddress));
+        Mail::to($user->email)->send(new InterviewMail($job, $user, $interviewDateTime, $interviewAddress, $officeAddress));
     }
 
     //send offer mail to user with job infomation
