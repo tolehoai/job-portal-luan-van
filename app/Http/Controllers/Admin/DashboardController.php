@@ -39,7 +39,8 @@ class DashboardController extends Controller
         $topCompanyRating = $this->statisticService->getTopCompanyRating();
         //find salary average of each technology by experience year
         $salaryStatistic = $this->statisticService->getSalaryStatisticByExperienceYear();
-        $salaryExperienceYearColor = ['#ee6b6e', '#f94449','#f01e2c','#de0a26','#c30010'];
+//        dd($salaryStatistic);
+        $salaryExperienceYearColor = ['#ee6b6e', '#f94449','#f01e2c','#de0a26','#c30010', '#c30010'];
         //get total user by created_at
         $userStatistic = $this->statisticService->getTotalUser7DayAround();
         //get userStatistic by created_at in month
@@ -50,6 +51,9 @@ class DashboardController extends Controller
         $technologyChartData = $this->statisticService->prepareDataForChart($topTechnologies);
         $skillChartData = $this->statisticService->prepareDataForChart($topSkills);
         $cityChartData = $this->statisticService->prepareDataForChart($topCities);
+
+        //get all technology have job, it don't have job, don't return this technology
+
 
         $technologyChartData = $this->statisticService->prepareDataForChart($topTechnologies);
         return view('pages/admin/index', [

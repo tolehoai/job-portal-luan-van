@@ -417,43 +417,80 @@ class StatisticService
             $experienceYearName[] = $value->name;
         }
 
-        //get all technology and return array name of technology
-        $technology = Technology::all();
-        $technologyName = [];
-        foreach ($technology as $key => $value) {
-            $technologyName[] = $value->name;
-        }
+        //get all technology have job and return array name of technology
+        $technologyName= $this->getTechnologyHaveJob();
         //each technologyName, create array with key is technology name and value is array of experience year name
         $salaryStatisticByExperienceYearByTechnology = [];
         foreach ($technologyName as $key => $value) {
             $salaryStatisticByExperienceYearByTechnology[$value] = $experienceYearName;
         }
-        //each technologyName, create array with key is technology name and value is array of experience year name and total = 0
-        $salaryStatisticByExperienceYearByTechnologyTotal = [];
-        //get average salary of each technology and experience year
-        foreach ($salaryStatisticByExperienceYear as $key => $value) {
-            $salaryStatisticByExperienceYearByTechnologyTotal[$value->technology][$value->experience_year] = $value->total;
-        }
-        //get average salary of each technology and experience year and if null return 0
+        //loop through $salaryStatisticByExperienceYearByTechnology, at value of each key, create array with key is experience year name and value salary average
         foreach ($salaryStatisticByExperienceYearByTechnology as $key => $value) {
             foreach ($value as $key1 => $value1) {
-                if (!isset($salaryStatisticByExperienceYearByTechnologyTotal[$key][$key1])) {
-                    $salaryStatisticByExperienceYearByTechnologyTotal[$key][$key1] = 0;
+                $salaryStatisticByExperienceYearByTechnology[$key][$value1] = 0;
+            }
+        }
+        //loop through $salaryStatisticByExperienceYear, at value of each key, create array with key is experience year name and value salary average
+        foreach ($salaryStatisticByExperienceYear as $key => $value) {
+            $salaryStatisticByExperienceYearByTechnology[$value->technology][$value->name] = $value->total;
+        }
+        //in $salaryStatisticByExperienceYearByTechnology, remove element with key is numberic
+        foreach ($salaryStatisticByExperienceYearByTechnology as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                if (is_numeric($key1)) {
+                    unset($salaryStatisticByExperienceYearByTechnology[$key][$key1]);
                 }
             }
         }
-        //map array of salaryStatisticByExperienceYearByTechnologyTotal with each value add key name is $experienceYearName
-        $salaryStatisticByExperienceYearByTechnologyTotal = array_map(function ($item) use ($experienceYearName) {
-            return array_combine($experienceYearName, $item);
-        }, $salaryStatisticByExperienceYearByTechnologyTotal);
-        //map array of value of salaryStatisticByExperienceYearByTechnologyTotal to object with name experience year total is total
-        $salaryStatisticByExperienceYearByTechnologyTotal = array_map(function ($item) {
-            return array_map(function ($value, $key) {
-                return (object)['experience_year' => $key, 'total' => $value];
-            }, $item, array_keys($item));
-        }, $salaryStatisticByExperienceYearByTechnologyTotal);
-        return $salaryStatisticByExperienceYearByTechnologyTotal;
+
+
+        //each $salaryStatisticByExperienceYearByTechnologyTotal value, create object with name is experience year name and total is value
+        foreach ($salaryStatisticByExperienceYearByTechnology as $key => $value) {
+            $salaryStatisticByExperienceYearByTechnology[$key] = array_map(function ($key, $value) {
+                return (object)['name' => $key, 'total' => $value];
+            }, array_keys($value), $value);
+        }
+//        dd($salaryStatisticByExperienceYearByTechnology);
+        return $salaryStatisticByExperienceYearByTechnology;
+
+
+//        //get average salary of each technology and experience year and if null return 0
+//        foreach ($salaryStatisticByExperienceYearByTechnology as $key => $value) {
+//            foreach ($value as $key1 => $value1) {
+//                if (!isset($salaryStatisticByExperienceYearByTechnologyTotal[$key][$key1])) {
+//                    $salaryStatisticByExperienceYearByTechnologyTotal[$key][$key1] = 0;
+//                }
+//            }
+//        }
+//        //map array of salaryStatisticByExperienceYearByTechnologyTotal with each value add key name is $experienceYearName
+//        $salaryStatisticByExperienceYearByTechnologyTotal = array_map(function ($item) use ($experienceYearName) {
+//            return array_combine($experienceYearName, $item);
+//        }, $salaryStatisticByExperienceYearByTechnologyTotal);
+//        //map array of value of salaryStatisticByExperienceYearByTechnologyTotal to object with name experience year total is total
+//        $salaryStatisticByExperienceYearByTechnologyTotal = array_map(function ($item) {
+//            return array_map(function ($value, $key) {
+//                return (object)['experience_year' => $key, 'total' => $value];
+//            }, $item, array_keys($item));
+//        }, $salaryStatisticByExperienceYearByTechnologyTotal);
+//        return $salaryStatisticByExperienceYearByTechnologyTotal;
     }
+
+    //get all technology have job, it don't have job, don't return this technology, and return name of technology
+    public function getTechnologyHaveJob()
+    {
+        $technologyHaveJob = DB::table('job')
+            ->join('technology', 'technology.id', '=', 'job.technology_id')
+            ->select('technology.name as technology')
+            ->groupBy('technology')
+            ->get()
+            ->toArray();
+        $technologyName = [];
+        foreach ($technologyHaveJob as $key => $value) {
+            $technologyName[] = $value->technology;
+        }
+        return $technologyName;
+    }
+
 
 
 }
