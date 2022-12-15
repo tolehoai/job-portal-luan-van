@@ -72,7 +72,7 @@
                                     @if(count($histories) == 0)
                                         <p  class="text-center"><em>Ứng cử viên chưa có lịch sử ứng tuyển</em></p>
                                     @endif
-                                    <div class="col-6" id="cv">
+                                    <div class="col-12">
                                         <div class="row">
                                             <div class="col-12">
                                                 <ul class="timeline-3">
@@ -144,9 +144,9 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <h5 class="text-center">CV Ứng cử viên</h5>
-                                    <div class="col-6" id="cv">
+                                    <div class="col-12" id="cv">
                                         <div class="row">
-                                            <div class="col-4 m-0 p-0" style="background: #28bb9c">
+                                            <div class="col-3 m-0 p-0" style="background: #28bb9c">
                                                 <div id="info">
                                                     <div id="info1" class="d-flex flex-column">
                                                         <div class="d-flex justify-content-center pt-5">
@@ -186,7 +186,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-8">
+                                            <div class="col-9">
                                                 <div id="work">
                                                     <div id="hocvan" class="pb-4 pt-5">
                                                         <div class="d-flex align-items-center pb-4">

@@ -286,6 +286,42 @@
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
+
+
+        $('#addCompanyForm').on('submit', function (e) {
+            //element with id  companyPhone is Vietnam phone number
+            let phone = $('#companyPhone').val();
+            let phoneRegex = /^0[0-9]{9,10}$/;
+            if (!phoneRegex.test(phone)) {
+                e.preventDefault();
+                alert('Số điện thoại không hợp lệ');
+            }
+
+            //element with id  companyEmail is email
+            let companyEmail = document.getElementById('companyEmail');
+            let companyEmailValue = companyEmail.value;
+            let regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+            if (!regexEmail.test(companyEmailValue)) {
+                alert('Email không đúng định dạng, vui lòng nhập lại');
+                e.preventDefault();
+            }
+
+            //validation file with id imgLogo is image and size less than 2MB
+            let imgLogo = document.getElementById('imgLogo');
+            let imgLogoSize = imgLogo.files[0].size;
+            let imgLogoType = imgLogo.files[0].type;
+            if (imgLogoSize > 2097152) {
+                alert('Kích thước file ảnh logo quá lớn, vui lòng chọn ảnh có kích thước nhỏ hơn 2MB');
+                e.preventDefault();
+            } else (imgLogoType !== 'image/jpeg' && imgLogoType !== 'image/png') {
+                alert('File ảnh logo không đúng định dạng, vui lòng chọn ảnh có định dạng .jpg hoặc .png');
+                e.preventDefault();
+            }
+
+
+        });
+
+
     </script>
     <script src="{{ asset('admin_resource/js/pages/addCompany.js') }}"></script>
 @stop

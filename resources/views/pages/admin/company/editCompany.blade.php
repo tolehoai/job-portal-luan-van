@@ -288,6 +288,40 @@
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
+        //when form with id submit, validation Vietnam phone number for element with id companyPhone
+        $('#editCompanyForm').on('submit', function () {
+            let phone = $('#companyPhone').val();
+            let regex = /(03|07|08|09|01[2|6|8|9])+([0-9]{8})\b/g;
+            if (!regex.test(phone)) {
+                alert('Số điện thoại không hợp lệ');
+                return false;
+            }
+            //validation image with id imgLogo is image and size less than 2MB
+            let img = $('#imgLogo').val();
+            let imgRegex = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            if (img !== '') {
+                if (!imgRegex.test(img)) {
+                    alert('Hình ảnh không hợp lệ (jpg, jpeg, png, gif)');
+                    return false;
+                }
+                let imgSize = $('#imgLogo')[0].files[0].size;
+                if (imgSize > 2097152) {
+                    alert('Hình ảnh quá lớn (2MB)');
+                    return false;
+                }
+            }
+            //validation email with id companyEmail
+            let email = $('#companyEmail').val();
+            let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+            if (!emailRegex.test(email)) {
+                alert('Email không hợp lệ');
+                return false;
+            }
+            return true;
+
+
+
+        });
     </script>
     <script src="{{ asset('admin_resource/js/pages/addCompany.js') }}"></script>
 @stop

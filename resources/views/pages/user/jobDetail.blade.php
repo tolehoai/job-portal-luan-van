@@ -407,7 +407,7 @@
                                             <span class="text-description industry-icon mb-10">Kỹ năng: </span>
                                             <strong class="small-heading">
                                                 @foreach($job->skill as $skill)
-                                                    {{$skill->name}}/
+                                                    {{ $skill->name }}@if (!$loop->last)/@endif
                                                 @endforeach
                                             </strong>
                                         </div>
@@ -564,8 +564,7 @@
                                         >
                                     </figure>
                                     <div class="sidebar-info d-inline-block" style="padding-left: 0 !important;"><span
-                                            class="sidebar-company">{{$job->company->name}}</span><span
-                                            class="card-location">{{$job->company->country->country_name}}</span><a
+                                            class="sidebar-company">{{$job->company->name}}</span><span>{{$job->company->country->country_name}}</span><a
                                             class="link-underline mt-15"
                                             href="{{route('jobs', ['filter[name]' => $job->company->name])}}">{{$jobOfCompany}}
                                             công

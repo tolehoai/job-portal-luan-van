@@ -326,7 +326,7 @@
                                                     @foreach($salary as $index=>$item)
                                                         <td>
                                                             @if($item->total==0)
-                                                                <span style="color: {{$salaryExperienceYearColor[$index]}}">Chưa có số liệu</span>
+                                                                <span style="color: #ecbaba">Chưa có số liệu</span>
                                                             @else
                                                                 <span style="color: {{$salaryExperienceYearColor[$index]}}">{{number_format($item->total, 0, ',', '.')}} VNĐ</span>
                                                             @endif
@@ -390,7 +390,7 @@
                 data: {
                     labels: labelCityConvert,
                     datasets: [{
-                        label: 'Số lượng ứng cử viên với công nghệ',
+                        label: 'Số lượng việc làm tương ứng của thành phố',
                         data: dataCityConvert,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -443,7 +443,7 @@
                 data: {
                     labels: labelSkillConvert,
                     datasets: [{
-                        label: 'Số lượng ứng cử viên với công nghệ',
+                        label: 'Số lượng ứng cử viên với kỹ năng',
                         data: dataSkillConvert,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
